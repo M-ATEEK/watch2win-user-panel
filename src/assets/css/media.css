@@ -1,0 +1,61 @@
+@charset "utf-8";
+@media screen and (max-width: 1280px)
+{
+	.loginArea {
+    	width: 56%;
+	}
+}
+@media screen and (max-width: 1150px)
+{
+	.loginArea {
+    	width: 60%;
+	}
+}
+@media screen and (max-width: 1024px)
+{
+	.loginArea {
+    	width: 60%;
+	}
+	.loginArea {
+    width: 75%;
+}
+}
+@media screen and (max-width: 650px)
+{
+	.form-control {
+    padding: 12px 20px;
+}
+	
+.loginArea h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+	.btnLogin {
+    font-size: 18px;
+	}
+	.orTxt span {
+    padding: 4px 10px;
+}
+	.formArea .form-group {
+    margin-bottom: 15px;
+}
+	.formArea p {
+    color: #FEE6CC;
+    font-size: 12px;
+}
+.orTxtMain {
+    margin-top: 30px;
+}
+}
+@media screen and (max-width: 450px)
+{
+.loginArea {
+    width: 85%;
+}	
+}
+@media screen and (max-width: 375px)
+{
+.loginArea {
+    width: 95%;
+}	
+}
