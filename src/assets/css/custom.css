@@ -1,0 +1,203 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+}
+body {
+	font-family: "Raleway", sans-serif;
+}
+
+.navbar {
+	margin: 0;
+	border-radius: 0;
+	outline: 0;
+	border: 0;
+	background: rgba(27, 29, 50, 0.86);
+	padding: 25px 0;
+}
+.navbar-brand {
+	height: auto;
+	padding: 0;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+	color: #fff;
+	background-color: transparent;
+}
+.loginBg {
+	width: 100%;
+	background: url("../images/loginBg.png") no-repeat;
+	background-size: cover;
+	background-position: top center;
+	padding: 70px 0;
+}
+.loginArea {
+	width: 46%;
+	margin: 0 auto;
+	background: url("../images/loginPopup.png") no-repeat;
+	background-size: cover;
+	background-position: top center;
+	padding: 30px 20px;
+	box-sizing: border-box;
+	text-align: center;
+}
+.loginArea h2 {
+	font-weight: 600;
+	font-size: 40px;
+	color: #fee6cc;
+	margin: 0;
+	margin-bottom: 30px;
+	text-transform: uppercase;
+}
+.formArea .form-group {
+	margin-bottom: 20px;
+}
+.form-control {
+	background: #181a1f;
+	border-radius: 0;
+	border: 0;
+	color: #fee6cc;
+	font-size: 16px;
+	padding: 20px 20px;
+	height: auto;
+}
+.formArea .forgotPass {
+	float: left;
+	padding-left: 20px;
+	color: #fee6cc;
+	display: block;
+}
+.btnLogin {
+	background: #fee6cc;
+	width: 60%;
+	font-size: 28px;
+	color: #1b1d32;
+	text-transform: uppercase;
+	font-weight: 600;
+	border-radius: 0;
+}
+.orTxtMain {
+	margin-top: 40px;
+}
+.orTxt {
+	position: relative;
+	color: #fff;
+}
+.orTxt::before {
+	content: "";
+	width: 100%;
+	height: 2px;
+	background: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.orTxt span {
+	background: #1b1d32;
+	position: relative;
+	top: -10px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	left: 00;
+	right: 0;
+}
+.fbBtn {
+	background: linear-gradient(#4380d4, #194cb3);
+	border-radius: 30px;
+	padding: 13px 20px;
+	box-sizing: border-box;
+	display: block;
+	color: #fff !important;
+	font-size: 14px;
+	font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial, " sans-serif";
+}
+.fbBtn:hover,
+.gBtn:hover {
+	text-decoration: none;
+}
+.fbBtn img {
+	float: left;
+}
+.gBtn {
+	background: #fff;
+	border-radius: 30px;
+	padding: 13px 20px;
+	box-sizing: border-box;
+	display: block;
+	color: #000000 !important;
+	font-size: 14px;
+	font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial, " sans-serif";
+}
+.gBtn img {
+	float: left;
+}
+.formArea p {
+	color: #fee6cc;
+	font-size: 16px;
+}
+.formArea p a {
+	font-weight: 500;
+	color: #fee6cc;
+}
+.nav > li > a {
+	padding: 10px 25px;
+}
+.signinHeader {
+	position: relative;
+}
+.signinHeader::before {
+	content: "";
+	width: 1px;
+	height: 230%;
+	background: #ccc;
+	position: absolute;
+	top: -25px;
+	bottom: 0;
+	left: 0;
+}
+.signinHeader::after {
+	content: "";
+	width: 1px;
+	height: 230%;
+	background: #ccc;
+	position: absolute;
+	top: -25px;
+	bottom: 0;
+	right: 0;
+}
+.signinHeader a {
+	padding-top: 2px !important;
+	padding-bottom: 0 !important;
+}
+.signinHeaderTxt {
+	display: block;
+	color: #fee6cc;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+	color: #fff;
+	background-color: transparent;
+}
+.forgotBg {
+	width: 40%;
+	margin: 0 auto;
+	background: url("../images/loginPopupSm.png") no-repeat;
+	background-size: cover;
+	background-position: top center;
+	padding: 30px 20px;
+	box-sizing: border-box;
+	text-align: center;
+}
+.forgotScreen {
+	padding: 150px 0;
+}
