@@ -37,7 +37,7 @@ class InnerContent extends Component {
 			.then((response) => {
 				const data = response.data.data.user[0];
 				const dataActivity = response.data.data.activity;
-		
+
 
 
 				if (data.favouriteDrillVideos.length > 0) {
@@ -53,12 +53,12 @@ class InnerContent extends Component {
 						myWorksOut: [...data.watchedVideos],
 					});
 				}
-				if(dataActivity && dataActivity != null && dataActivity.length > 0){
+				if (dataActivity && dataActivity != null && dataActivity.length > 0) {
 					this.setState({
 						myActivity: [...dataActivity],
 
-					},function(){
-						console.log("My Activiy "  + JSON.stringify(this.state.myActivity));
+					}, function () {
+						console.log("My Activiy " + JSON.stringify(this.state.myActivity));
 					});
 				}
 			})
@@ -135,7 +135,28 @@ class InnerContent extends Component {
 
 
 	}
+	durations = (videos) => {
+		const length = videos.length;
+		var sum = 0;
+		if (length > 0) {
+			videos.map((video, index) => {
 
+				sum = sum + video.duration;
+
+			})
+
+		}
+		if (sum >= 0) {
+			return (
+
+				<li style={{ color: "white" }}>
+					<img src={durationIcon} alt='' /> {sum}
+				</li>
+
+
+			);
+		}
+	}
 
 
 	render() {
@@ -193,7 +214,13 @@ class InnerContent extends Component {
 											if (drills.drill_id && drills.drill_id[0].videos != null && drills.drill_id[0].videos.length > 0) {
 
 												videos = drills.drill_id[0].videos.filter((video, ith) => video._id === drills.video_id)
-												videoImage = `${config.IMG_URL}/image/drills/${videos[0].thumbnail}`
+												if (videos.length > 0) {
+													videoImage = `${config.IMG_URL}/image/drills/${videos[0].thumbnail}`
+
+												} else {
+
+													videoImage = videoThumbnail;
+												}
 
 
 
@@ -246,10 +273,19 @@ class InnerContent extends Component {
 
 																</div>
 																<div className="videoName">
-														
+
 																	<ul class="list-unstyled">
-																		
-																		<li><img src={durationIcon} alt="" /> 12:41</li>
+
+																		{
+																			drills.drill_id[0].videos.length > 0
+																				?
+																				(
+																					this.durations(drills.drill_id[0].videos)
+																				)
+																				: (
+																					""
+																				)
+																		}
 																	</ul>
 																</div>
 																<div className='videoSettings'>
@@ -311,7 +347,12 @@ class InnerContent extends Component {
 											if (favourties.drill_id && favourties.drill_id[0].videos != null && favourties.drill_id[0].videos.length > 0) {
 
 												videos = favourties.drill_id[0].videos.filter((video, ith) => video._id === favourties.video_id)
-												videoImage = `${config.IMG_URL}/image/drills/${videos[0].thumbnail}`
+												if (videos.length > 0) {
+													videoImage = `${config.IMG_URL}/image/drills/${videos[0].thumbnail}`
+												} else {
+													videoImage = videoThumbnail;
+												}
+
 
 											} else {
 
@@ -368,6 +409,22 @@ class InnerContent extends Component {
 
 																			)
 																	}
+																</div>
+																<div className="videoName">
+
+																	<ul class="list-unstyled">
+
+																		{
+																			favourties.drill_id[0].videos.length > 0
+																				?
+																				(
+																					this.durations(favourties.drill_id[0].videos)
+																				)
+																				: (
+																					""
+																				)
+																		}
+																	</ul>
 																</div>
 
 																<div className='videoSettings'>
