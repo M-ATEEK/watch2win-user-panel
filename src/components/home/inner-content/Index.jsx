@@ -8,8 +8,6 @@ import config from "../../../config";
 import axios from "axios";
 import Auth from "../../Services/Auth";
 import durationIcon from "../../../assets/images/durationIcon.png";
-import heartIcon from "../../../assets/images/heart.png";
-import ReactFacebookLogin from "react-facebook-login";
 
 
 class InnerContent extends Component {
@@ -18,7 +16,6 @@ class InnerContent extends Component {
 		page: 1,
 		totalItems: 0,
 		visible: 3,
-
 	};
 
 	loadMore = this.loadMore.bind(this);
@@ -51,7 +48,7 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='new' style={{ color: 'white' }}>New</span>
+					<span className='new' style={{color:'white'}}>New</span>
 				</li>
 			);
 		}
@@ -80,29 +77,8 @@ class InnerContent extends Component {
 					Authorization: Auth.getToken(),
 				},
 			})
-			.then((response) => { });
+			.then((response) => {});
 	};
-
-	totalLikes = (videos) => {
-		const length = videos.length;
-		var sum = 0;
-		if (length > 0) {
-			videos.map((video, index) => {
-
-				sum = sum + video.totalLikes;
-
-			})
-
-		}
-		if (sum >= 0) {
-			return (
-				<div>
-					<img src={heartIcon} alt='' /> <span>{sum}</span>
-				</div>
-
-			);
-		}
-	}
 	render() {
 		const data = this.state.data;
 		if (data.length > 0) {
@@ -119,7 +95,7 @@ class InnerContent extends Component {
 													<div className='row'>
 														<div className='col-md-1 col-sm-2 col-xs-2'>
 															<img
-																style={{ width: "55px", borderRadius: "50%", height: "55px" }}
+																style={{ width: "55px",borderRadius:"50%",height:"55px" }}
 																src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon}
 																alt=''
 															/>
@@ -136,13 +112,13 @@ class InnerContent extends Component {
 															<img src={playIcon} alt='' />
 														</Link>
 													</div>
-													<div className='durationSettings'>
-														<ul className='list-unstyled'>
-															<li style={{ color: "white" }}>
-																<img src={durationIcon} alt='' /> 12:41
-															</li>
-														</ul>
-													</div>
+								                            {/*<div className='durationSettings'>
+																<ul className='list-unstyled'>
+																	<li style={{color:"white"}}>
+																		<img src={durationIcon} alt='' /> 12:41
+																	</li>
+																</ul>
+									                             </div> */}
 													{/* <div className='videoName'>
 														<img src={videoNameIcon} alt='' />
 														<span>Video name will show here </span>
@@ -221,39 +197,23 @@ class InnerContent extends Component {
 																	</ul>
 																</div>
 															</Link>
-															<div className='col-md-6 col-sm-6 col-xs-6'>
+															{/* <div className='col-md-6 col-sm-6 col-xs-6'>
 																<ul className='videoRightSettings favourite list-unstyled'>
-
-																	{
-
-																	}
 																	<li>
-
-																		{
-																			(drills.videos)
-																				? (
-																					this.totalLikes(drills.videos)
-																				)
-																				:
-
-																				(
-																					""
-																				)
-																		}
-																		{/* <a href='#' onClick={() => this.addToFavourite(drills._id)}> */}
-
-																		{/* </a> */}
+																		<a href='#' onClick={() => this.addToFavourite(drills._id)}>
+																			<img src={heartIcon} alt='' /> <span>222</span>
+																		</a>
 																	</li>
 																</ul>
-															</div>
+															</div> */}
 														</div>
 
 														<div className='durationSettings'>
 															<ul className='list-unstyled'>
 																<li>{drills.videos ? drills.videos.length : 0} Drills</li>
-																<li>
+																{/* <li>
 																	<img src={durationIcon} alt='' /> 12:41
-																</li>
+																</li> */}
 															</ul>
 														</div>
 													</div>
