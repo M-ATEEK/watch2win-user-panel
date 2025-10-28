@@ -58,12 +58,6 @@ class HomeNavbar extends Component {
 		}
 	};
 
-	logout(e) {
-		e.preventDefault();
-		Auth.clearToken();
-		this.props.history.push("/login");
-	}
-
 
 	render() {
 		const { isVisible, searchVisible } = this.state;
@@ -104,8 +98,8 @@ class HomeNavbar extends Component {
 								<li>
 									<Link to='/activites'>Activity</Link>
 								</li>
-								<li className={"dropdown "} >
-									<a
+								<li className={"dropdown " + show} ref={this.container}>
+									<Link
 										to='#'
 										className='dropdown-toggle innerDropdown'
 										data-toggle='dropdown'
@@ -115,13 +109,13 @@ class HomeNavbar extends Component {
 									>
 										<img src={UserImage} alt='' />
 										<span className='caret'></span>
-									</a>
+									</Link>
 									<ul className={"dropdown-menu " + show} role='menu'>
 										<li>
-											<Link to='/profile'>Profile</Link>
+											<Link to='/activites'>Profile</Link>
 										</li>
 										<li>
-											<a onClick={(e) =>this.logout}>Logout</a>
+											<Link to='/logout'>Logout</Link>
 										</li>
 									</ul>
 								</li>
@@ -154,7 +148,7 @@ class HomeNavbar extends Component {
 					</div>
 					<div className='col-xs-3 mobMenuItems'>
 						<ul className='list-unstyled list-inline'>
-							<li style={{ display: searchVisible ? "none" : "" }}>
+							<li style={{ display: searchVisible ? "none" : "block" }}>
 								<Link onClick={this.handleSearchToggle} id='mobSearchBtn'>
 									<img src={SearchIcon} alt='' />
 								</Link>
@@ -166,10 +160,10 @@ class HomeNavbar extends Component {
 								</Link>
 								<ul className={"dropdown-menu " + show} role='menu'>
 									<li>
-										<Link to='/profile'>Profile</Link>
+										<Link to='/activites'>Profile</Link>
 									</li>
 									<li>
-										<a onClick={(e) => this.logout}>Logout</a>
+										<Link to='/logout'>Logout</Link>
 
 									</li>
 								</ul>

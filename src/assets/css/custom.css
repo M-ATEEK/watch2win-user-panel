@@ -218,20 +218,6 @@ body {
 .bannerContent img {
 	width: 95%;
 	min-height: 185px;
-	border-radius: 10px;
-	position: relative;
-}
-.bannerContent::after
-{
-	content: '';
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.2);
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
 }
 .bannerContent {
 	position: relative;
@@ -245,7 +231,6 @@ body {
 	bottom: 0;
 	font-size: 18px;
 	font-weight: 500;
-	z-index: 11;
 }
 .mainInnerContent {
 	background: #1b1d32;
@@ -566,7 +551,7 @@ body {
 	display: inline-block;
 }
 .drillSearchSection img {
-	margin-top: -6px;
+	margin-top: -32px;
 }
 .drillAtheleteName {
 	display: block;
@@ -1004,34 +989,4 @@ body {
 }
 .vidFavWishOptions li a {
 	cursor: pointer;
-}
-
-.slick-prev, .slick-next {
-	z-index: 1;
-}
-
-.slick-list {
-	min-height: 403px !important;
-}
-
-.slick-dotted {
-	max-height: 150px;
-}
-.videoOpacity{
-	position: relative;
-}
-.videoOpacity::after
-{
-	content: '';
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-}
-.videoOpacityUpperLayer{
-	z-index: 111;
 }
