@@ -1,31 +1,32 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
+import axios from "axios";
 import config from "../../../config";
 import Auth from "../../Services/Auth";
 import Axios from "axios";
-import userIcon from "../../../assets/images/user.png";
 
+import userIcon from "../../../assets/images/user.png";
+import userSmallIcon from "../../../assets/images/userSm.png";
 import playIcon from "../../../assets/images/play.png";
 import videoThumbnail from "../../../assets/images/video.png";
 import videoNameIcon from "../../../assets/images/videoNameIcon.png";
+import drillImage from "../../../assets/images/drillsImg.png";
+import heartIcon from "../../../assets/images/heart.png";
+import durationIcon from "../../../assets/images/durationIcon.png";
 import FavouiteIcon from "../../../assets/images/favChecked.png";
 import userImage from "../../../assets/images/userImage.png";
-import workoutIcon from "../../../assets/images/workoutImg.png";
-import favtIcon from "../../../assets/images/favouriteImg.png";
-import activityIcon from "../../../assets/images/activityIcon.png";
-import { func } from "joi";
 
 class InnerContent extends Component {
 	state = {
 		myActivity: [],
-		followData: [],
+		myFavoutires: [],
+		myWorksOut: [],
 		activityTab: false,
-		followTab: true,
-		atheletes: []
+		favouriteTab: false,
+		workoutTab: true,
 	};
 	componentDidMount() {
 
-		this.getAtheltes();
 		Axios.get(`${config.API_URL}/user/detail`, {
 			headers: {
 				Authorization: Auth.getToken(),
@@ -33,20 +34,15 @@ class InnerContent extends Component {
 		})
 			.then((response) => {
 				const data = response.data.data.user[0];
-				const dataActivity = response.data.data.activity;
 
-				if (data.following && data.following != null && data.following.length > 0) {
-					this.setState({
+				console.log(data);
+				this.setState({
+					myActivity: [...data.watchLaterDrillVideos],
+					myFavoutires: [...data.favouriteDrillVideos],
+					myWorksOut: [...data.watchedVideos],
+				});
 
-						followData: data.following,
-					});
-				}
-				if (dataActivity && dataActivity != null && dataActivity.length > 0) {
-					this.setState({
-						myActivity: [...dataActivity],
-
-					});
-				}
+				console.log(this.state.myFavoutires);
 			})
 			.catch((error) => console.log(error));
 	}
@@ -58,18 +54,23 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='new'>New</span>
+					<a href='#' className='new'>
+						New
+					</a>
 				</li>
 			);
 		}
 	}
 	isPremimum(status) {
+		console.log(status);
 		if (status == false) {
 			return "";
 		} else {
 			return (
 				<li>
-					<span className='premium'>Premium</span>
+					<a href='#' className='premium'>
+						Premium
+					</a>
 				</li>
 			);
 		}
@@ -79,131 +80,201 @@ class InnerContent extends Component {
 		if (tab === "myActivity") {
 			this.setState({
 				activityTab: true,
-				followTab: false,
+				favouriteTab: false,
+				workoutTab: false,
 			});
 		}
 
-		if (tab === "following") {
+		if (tab === "myFavourites") {
 			this.setState({
 				activityTab: false,
-				followTab: true,
+				favouriteTab: true,
+				workoutTab: false,
+			});
+		}
+
+		if (tab === "myWorkOut") {
+			this.setState({
+				activityTab: false,
+				favouriteTab: false,
+				workoutTab: true,
 			});
 		}
 	};
 
-	getAtheltes() {
-		let athelte = [];
-
-		Axios.get(`${config.API_URL}/admin/athlete`, {
-			headers: {
-				Authorization: Auth.getToken(),
-			},
-		}).then((response) => {
-			if (response.status === 200 && response.data.data.athlete.length > 0) {
-				this.setState({
-					atheletes: [...response.data.data.athlete]
-				})
-
-
-			}
-		}).catch((error) => console.log(error));
-
-
-
-	}
-
-
-
 	render() {
-		const { activityTab, followTab, myActivity, followData } = this.state;
-
-
-
+		const { activityTab, favouriteTab, workoutTab, myActivity, myFavoutires, myWorksOut } = this.state;
 		return (
-			<div className='mainInnerContent innerMainProfileContent'>
-				<div className='container'>
-					<ul className='nav nav-tabs'>
-						<li className={followTab ? "active" : ""} onClick={() => this.handleTabs("following")}>
-							<Link data-toggle='tab' to='#following'>
-								<img src={workoutIcon} alt='' /> <span>Following</span>
-							</Link>
-						</li>
-						<li className={activityTab ? "active" : ""} onClick={() => this.handleTabs("myActivity")}>
-							<Link data-toggle='tab' to='#act'>
-								<img src={activityIcon} alt='' /> <span>My Activity</span>
-							</Link>
-						</li>
+
+
+			<div className="mainInnerContent innerMainProfileContent">
+				<div className="container">
+					<ul className="nav nav-tabs">
+						<li className={workoutTab ? "active" : ""} onClick={() => this.handleTabs("myWorkOut")}><a data-toggle="tab" href="#workout"><img src="images/workoutImg.png" alt="" /> <span>My Workout</span></a></li>
+						<li className={favouriteTab ? "active" : ""} onClick={() => this.handleTabs("myFavourites")}><a data-toggle="tab" href="#fav"><img src="images/favouriteImg.png" alt="" /> <span>Favourities</span></a></li>
+						<li className={activityTab ? "active" : ""} onClick={() => this.handleTabs("myActivity")}><a data-toggle="tab" href="#act"><img src="images/activityIcon.png" alt="" /> <span>My Activity</span></a></li>
 					</ul>
 
-					<div className='tab-content'>
-						<div id='following'
-							style={{ display: followTab ? "block" : "none" }}
-							className={followTab ? "tab-pane fade in active" : "tab-pane fade"}
-						>	<div className='searchResultsParent'>
-								<div className='searchResultsMain'>
+					<div className="tab-content">
+						<div id="workout" style={{ display: workoutTab ? "block" : "none" }} className={workoutTab ? "tab-pane fade in active" : "tab-pane fade"}>
+							<div className="row">
 
+								{
+
+									myWorksOut.length > 0 ? (
+										myWorksOut.map((drills, index) => {
+											return (
+												<div key={index} className="col-md-6 col-sm-6 col-xs-12">
+													<div className="drillsArea drillsMain2">
+														<div className="drillsMain">
+															<div key={index} className='videoMain form-group'>
+																<div className='videoHeader'>
+																	<div className='row'>
+																		<div className='col-md-1 col-sm-2 col-xs-2'>
+																			<img src={userIcon} alt='' />
+																		</div>
+																		<div className='col-md-11 col-sm-10 col-xs-9'>
+																			<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
+																		</div>
+																	</div>
+																</div>
+																<div className='videoMainArea'>
+																	<img src={videoThumbnail} alt='' />
+																	<div className='videoPlay'>
+																		<a href='#'>
+																			<img src={playIcon} alt='' />
+																		</a>
+																	</div>
+																	<div className='videoName'>
+																		<img src={videoNameIcon} alt='' />
+																		<span>Video name will show here </span>
+																	</div>
+																	<div className='videoSettings'>
+																		<div className='col-md-6 col-sm-6 col-xs-6'>
+																			<ul className='videoLeftSettings list-unstyled'>
+																				<li>
+																					<a href='#' className='easy'>
+																						{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
+																					</a>
+																				</li>
+																			</ul>
+																		</div>
+																		<div className='col-md-6 col-sm-6 col-xs-6'>
+																			<ul className='videoRightSettings list-unstyled'>
+																				{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
+																				{this.isPremimum(drills.isPremium)}
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											);
+										}
+										)) : (
+											<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
+										)
+
+								}
+							</div>
+						</div>
+						<div id="fav" style={{ display: favouriteTab ? "block" : "none" }} className={favouriteTab ? "tab-pane fade in active" : "tab-pane fade"}>
+							<div className="row">
+								{
+
+									myFavoutires.length > 0 ? (
+										myFavoutires.map((favourties, index) => {
+											return (
+												<div key={index} className="col-md-6 col-sm-6 col-xs-12">
+													<div className="drillsArea drillsMain2">
+														<div className="drillsMain">
+															<div key={index} className='videoMain form-group'>
+																<div className='videoHeader'>
+																	<div className='row'>
+																		<div className='col-md-1 col-sm-2 col-xs-2'>
+																			<img src={userIcon} alt='' />
+																		</div>
+																		<div className='col-md-11 col-sm-10 col-xs-9'>
+																			<h4>{favourties.athlete ? favourties.athlete.name : "Name Not Found"}</h4>
+																		</div>
+																	</div>
+																</div>
+																<div className='videoMainArea'>
+																	<img src={videoThumbnail} alt='' />
+																	<div className='videoPlay'>
+																		<a href='#'>
+																			<img src={playIcon} alt='' />
+																		</a>
+																	</div>
+																	<div className='videoName'>
+																		<img src={videoNameIcon} alt='' />
+																		<span>Video name will show here </span>
+																	</div>
+																	<div className='videoSettings'>
+																		<div className='col-md-6 col-sm-6 col-xs-6'>
+																			<ul className='videoLeftSettings list-unstyled'>
+																				<li>
+																					<a href='#' className='easy'>
+																						{favourties.difficultyLevel ? favourties.difficultyLevel.name : "Name Not Found"}
+																					</a>
+																				</li>
+																			</ul>
+																		</div>
+																		<div className="favChecked">
+																			<img src={FavouiteIcon} alt="" />
+																		</div>
+																		<div className='col-md-6 col-sm-6 col-xs-6'>
+																			<ul className='videoRightSettings list-unstyled'>
+																				{this.dateDifferenceInDays(new Date(), new Date(favourties.createdAt))}
+																				{this.isPremimum(favourties.isPremium)}
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											);
+										}
+										)) : (
+											<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
+										)
+
+								}
+							</div>
+						</div>
+						<div id="act" style={{ display: activityTab ? "block" : "none" }} className={activityTab ? "tab-pane fade in active" : "tab-pane fade"}>
+							<div className="searchResultsParent">
+								<div className="searchResultsMain">
 									{
-										followData.length > 0 ? (
-											followData.map((follow, index) => {
-
-
+										myActivity.length > 0 ? (
+											myActivity.map((activity, index) => {
 												return (
-													<div key={index} className='searchResults form-group drillSearchSection'>
-														<div className='col-md-6 col-sm-8 col-xs-9'>
-															<img src={userImage} alt='' />{" "}
-															<span className='drillSearchName'>
-																{follow[0].firstName}{" "}{follow[0].lastName}
 
-															</span>
+													<div className="searchResults form-group drillSearchSection">
+														<div className="col-md-6 col-sm-8 col-xs-9">
+															<img src={userImage} alt="" /> <span className="drillSearchName">John Ross  <span className="drillAtheleteName">COMPLETE  <strong>DRILL 8</strong></span></span>
 														</div>
-														<div className='col-md-6 col-sm-4 col-xs-3 searchResultsFollowBtn'>
-															<Link href='#' className='btn btnFilled'>
-																Detail
-														</Link>
+														<div className="col-md-6 col-sm-4 col-xs-3 searchResultsFollowBtn">
+															<p>5 Min ago</p>
 														</div>
-														<div className='clearfix'></div>
+														<div className="clearfix"></div>
 													</div>
 												);
-											})
-
-										) : (
+											})) : (
 												<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
-											)}
-								</div>
-							</div>
-
-
-						</div>
-						<div id='act' style={{ display: activityTab ? "block" : "none" }} className={activityTab ? "tab-pane fade in active" : "tab-pane fade"}>
-							<div className='searchResultsParent'>
-								<div className='searchResultsMain'>
-									{myActivity.length > 0 ? (
-										myActivity.map((activity, index) => {
-											return (
-												<div key={index} className='searchResults form-group drillSearchSection'>
-													<div className='col-md-6 col-sm-8 col-xs-9'>
-														<img src={userImage} alt='' />{" "}
-														<span className='drillSearchName'>
-															John Ross{" "}
-															<span className='drillAtheleteName'>
-																COMPLETE <strong>DRILL 8</strong>
-															</span>
-														</span>
-													</div>
-													<div className='col-md-6 col-sm-4 col-xs-3 searchResultsFollowBtn'>
-														<p>5 Min ago</p>
-													</div>
-													<div className='clearfix'></div>
-												</div>
-											);
-										})
-									) : (
-											<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
-										)}
+											)
+									}
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		);
