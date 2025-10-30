@@ -1,0 +1,7 @@
+<svg id="Component_14_10" data-name="Component 14 – 10" xmlns="http://www.w3.org/2000/svg" width="65" height="65" viewBox="0 0 65 65">
+  <g id="Ellipse_134" data-name="Ellipse 134" fill="rgba(255,255,255,0)" stroke="#fee6cc" stroke-width="3">
+    <circle cx="32.5" cy="32.5" r="32.5" stroke="none"/>
+    <circle cx="32.5" cy="32.5" r="31" fill="none"/>
+  </g>
+  <path id="Icon_material-playlist-add" data-name="Icon material-playlist-add" d="M21,15H3v3H21Zm0-6H3v3H21Zm6,12V15H24v6H18v3h6v6h3V24h6V21ZM3,24H15V21H3Z" transform="translate(15 13)" fill="#fee6cc"/>
+</svg>
