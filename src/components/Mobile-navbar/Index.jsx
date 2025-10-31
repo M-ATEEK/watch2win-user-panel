@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import menuLogo1 from "../../assets/images/menu1.png";
 import menuLogo2 from "../../assets/images/menu2.png";
 import menuLogo3 from "../../assets/images/menu3.png";
@@ -12,40 +11,28 @@ class MobileNavbar extends Component {
 			<div className='mobileFixedBottomMenu navbar-fixed-bottom'>
 				<ul className='list-inline list-unstyled text-center'>
 					<li className='mobMenuActive'>
-
-
-						<Link to="/home">
+						<a href='#'>
 							<img src={menuLogo1} alt='' />
-								Home
-
-						</Link>
-
+							Home
+						</a>
 					</li>
 					<li>
-
-
-						<Link to="/drills">
+						<a href='#'>
 							<img src={menuLogo2} alt='' />
-								Drills
-						</Link>
-
-
+							Drills
+						</a>
 					</li>
 					<li>
-
-						<Link to="/activites">
-							<img src={menuLogo3} alt='' />Activity
-						</Link>
-
-
+						<a href='#'>
+							<img src={menuLogo3} alt='' />
+							Activity
+						</a>
 					</li>
 					<li>
-						<Link to="/activites">
+						<a href='#'>
 							<img src={menuLogo4} alt='' />
 							Find Friends
-						</Link>
-
-
+						</a>
 					</li>
 				</ul>
 			</div>
