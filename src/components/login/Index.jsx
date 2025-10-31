@@ -121,9 +121,9 @@ class Login extends Component {
 									{this.state.errors.password && <span className='text-danger'>{this.state.errors.password}</span>}
 								</div>
 								<div className='form-group'>
-									<Link to="forgot-password" className='forgotPass'>
+									<a href='#' className='forgotPass'>
 										Forgot Password?
-									</Link>
+									</a>
 									<div className='clearfix'></div>
 								</div>
 								<div className='form-group'>
@@ -164,7 +164,7 @@ class Login extends Component {
 								</div>
 								<div>
 									<p>
-										Not have an account ? <Link to='/register'>Sign up</Link>
+										Not have an account ? <a href='/register'>Sign up</a>
 									</p>
 								</div>
 							</form>
