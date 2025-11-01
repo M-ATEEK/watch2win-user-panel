@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import config from "../../../config";
 import Auth from "../../Services/Auth";
 import Axios from "axios";
-
 import userIcon from "../../../assets/images/user.png";
-import userSmallIcon from "../../../assets/images/userSm.png";
+
 import playIcon from "../../../assets/images/play.png";
 import videoThumbnail from "../../../assets/images/video.png";
 import videoNameIcon from "../../../assets/images/videoNameIcon.png";
-import drillImage from "../../../assets/images/drillsImg.png";
-import heartIcon from "../../../assets/images/heart.png";
-import durationIcon from "../../../assets/images/durationIcon.png";
 import FavouiteIcon from "../../../assets/images/favChecked.png";
 import userImage from "../../../assets/images/userImage.png";
 
@@ -35,14 +30,23 @@ class InnerContent extends Component {
 			.then((response) => {
 				const data = response.data.data.user[0];
 
-				console.log(data);
-				this.setState({
-					myActivity: [...data.watchLaterDrillVideos],
-					myFavoutires: [...data.favouriteDrillVideos],
-					myWorksOut: [...data.watchedVideos],
-				});
+				if (data.favouriteDrillVideos.length > 0) {
+					this.setState({
 
-				console.log(this.state.myFavoutires);
+						myFavoutires: [...data.favouriteDrillVideo],
+
+					});
+
+				}
+				if (data.watchLaterDrillVideos.length > 0) {
+					this.setState({
+						myActivity: [...data.watchLaterDrillVideos],
+
+						// myWorksOut: [...data.watchedVideos],
+					});
+				}
+
+
 			})
 			.catch((error) => console.log(error));
 	}
@@ -54,23 +58,23 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<a href='#' className='new'>
+					<span className='new'>
 						New
-					</a>
+					</span>
 				</li>
 			);
 		}
 	}
 	isPremimum(status) {
-		console.log(status);
+
 		if (status == false) {
 			return "";
 		} else {
 			return (
 				<li>
-					<a href='#' className='premium'>
+					<span className='premium'>
 						Premium
-					</a>
+					</span>
 				</li>
 			);
 		}
@@ -131,7 +135,8 @@ class InnerContent extends Component {
 																<div className='videoHeader'>
 																	<div className='row'>
 																		<div className='col-md-1 col-sm-2 col-xs-2'>
-																			<img src={userIcon} alt='' />
+																			<img style={{ width: "55px" }} src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon} alt='' />
+
 																		</div>
 																		<div className='col-md-11 col-sm-10 col-xs-9'>
 																			<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
@@ -141,9 +146,9 @@ class InnerContent extends Component {
 																<div className='videoMainArea'>
 																	<img src={videoThumbnail} alt='' />
 																	<div className='videoPlay'>
-																		<a href='#'>
+																		<Link to={`/single/video/${drills._id}`}>
 																			<img src={playIcon} alt='' />
-																		</a>
+																		</Link>
 																	</div>
 																	<div className='videoName'>
 																		<img src={videoNameIcon} alt='' />
@@ -153,9 +158,9 @@ class InnerContent extends Component {
 																		<div className='col-md-6 col-sm-6 col-xs-6'>
 																			<ul className='videoLeftSettings list-unstyled'>
 																				<li>
-																					<a href='#' className='easy'>
+																					<span className='easy'>
 																						{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
-																					</a>
+																					</span>
 																				</li>
 																			</ul>
 																		</div>
@@ -195,7 +200,8 @@ class InnerContent extends Component {
 																<div className='videoHeader'>
 																	<div className='row'>
 																		<div className='col-md-1 col-sm-2 col-xs-2'>
-																			<img src={userIcon} alt='' />
+																			<img style={{ width: "55px" }} src={favourties.athlete ? `${config.IMG_URL}/image/drills${favourties.athlete.image}` : userIcon} alt='' />
+
 																		</div>
 																		<div className='col-md-11 col-sm-10 col-xs-9'>
 																			<h4>{favourties.athlete ? favourties.athlete.name : "Name Not Found"}</h4>
@@ -203,11 +209,12 @@ class InnerContent extends Component {
 																	</div>
 																</div>
 																<div className='videoMainArea'>
-																	<img src={videoThumbnail} alt='' />
+																	<img src={(favourties != null) ? `${config.IMG_URL}/image/drills/${favourties.thumbnail}` : videoThumbnail} alt='' />
+
 																	<div className='videoPlay'>
-																		<a href='#'>
+																		<Link to={`/single/video/${favourties._id}`}>
 																			<img src={playIcon} alt='' />
-																		</a>
+																		</Link>
 																	</div>
 																	<div className='videoName'>
 																		<img src={videoNameIcon} alt='' />
@@ -217,14 +224,11 @@ class InnerContent extends Component {
 																		<div className='col-md-6 col-sm-6 col-xs-6'>
 																			<ul className='videoLeftSettings list-unstyled'>
 																				<li>
-																					<a href='#' className='easy'>
+																					<span className='easy'>
 																						{favourties.difficultyLevel ? favourties.difficultyLevel.name : "Name Not Found"}
-																					</a>
+																					</span>
 																				</li>
 																			</ul>
-																		</div>
-																		<div className="favChecked">
-																			<img src={FavouiteIcon} alt="" />
 																		</div>
 																		<div className='col-md-6 col-sm-6 col-xs-6'>
 																			<ul className='videoRightSettings list-unstyled'>
@@ -233,6 +237,10 @@ class InnerContent extends Component {
 																			</ul>
 																		</div>
 																	</div>
+																	<div className="favChecked">
+																		<img src={FavouiteIcon} alt="" />
+																	</div>
+
 																</div>
 															</div>
 														</div>

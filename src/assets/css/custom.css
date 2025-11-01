@@ -110,7 +110,6 @@ body {
 	right: 0;
 }
 .fbBtn {
-	width: 100%;
 	background: linear-gradient(#4380d4, #194cb3);
 	border-radius: 30px;
 	padding: 13px 20px;
@@ -124,13 +123,10 @@ body {
 .gBtn:hover {
 	text-decoration: none;
 }
-.fbBtn i {
-	margin: 2px 0 0 0;
+.fbBtn img {
 	float: left;
 }
 .gBtn {
-	margin-top: 20px;
-	width: 100%;
 	background: #fff;
 	border-radius: 30px;
 	padding: 13px 20px;
@@ -971,7 +967,4 @@ body {
 	font-size: 18px;
 	font-weight: 500;
 	text-align: left;
-}
-.disbaledBtn{
-	pointer-events: none;
 }

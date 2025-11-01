@@ -15,17 +15,6 @@ function App() {
 			<Route path='/register' component={AuthLayout} />
 			<Route path='/forgot-password' component={AuthLayout} />
 			<Route path='/home' component={HomeLayout} />
-			<Route path='/drills' exact component={HomeLayout} />
-			<Route path='/drills/category/:id' exact component={HomeLayout} />
-			<Route path='/drills/detail/:id' exact component={HomeLayout} />
-			<Route path='/search/:name' exact component={HomeLayout} />
-			<Route path='/activites' exact component={HomeLayout} />
-
-
-			<Route path='/single/video' exact component={HomeLayout} />
-			<Route path='/single/activity' exact component={HomeLayout} />
-			<Route path='/payment' exact component={HomeLayout} />
-			<Route path='/subscription' exact component={HomeLayout} />
 		</>
 	);
 }
