@@ -2,19 +2,22 @@ import React, { Component } from "react";
 import MobileNavbar from "../Mobile-navbar/Index";
 import InnerBanner from "./inner-banner/Index";
 import InnerContent from "./inner-content/Index";
-class Home extends Component {
+import { Redirect, Link } from "react-router-dom";
+import Auth from "../Services/Auth";
+
+class DrillsCategory extends Component {
 	state = {};
 	render() {
 	
+		const categoryId = this.props.match.params.id;
 		return (
 			<>
-
 				<InnerBanner />
-				<InnerContent />
+				<InnerContent id={categoryId} />
 				<MobileNavbar />
 			</>
 		);
 	}
 }
 
-export default Home;
+export default DrillsCategory;

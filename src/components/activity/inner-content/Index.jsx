@@ -30,23 +30,13 @@ class InnerContent extends Component {
 			.then((response) => {
 				const data = response.data.data.user[0];
 
-				if (data.favouriteDrillVideos.length > 0) {
-					this.setState({
+				this.setState({
+					myActivity: [...data.watchLaterDrillVideos],
+					myFavoutires: [...data.favouriteDrillVideos],
+					myWorksOut: [...data.watchedVideos],
+				});
 
-						myFavoutires: [...data.favouriteDrillVideo],
-
-					});
-
-				}
-				if (data.watchLaterDrillVideos.length > 0) {
-					this.setState({
-						myActivity: [...data.watchLaterDrillVideos],
-
-						// myWorksOut: [...data.watchedVideos],
-					});
-				}
-
-
+		
 			})
 			.catch((error) => console.log(error));
 	}
@@ -200,7 +190,7 @@ class InnerContent extends Component {
 																<div className='videoHeader'>
 																	<div className='row'>
 																		<div className='col-md-1 col-sm-2 col-xs-2'>
-																			<img style={{ width: "55px" }} src={favourties.athlete ? `${config.IMG_URL}/image/drills${favourties.athlete.image}` : userIcon} alt='' />
+																			<img style={{ width: "55px" }} src={favourties.athlete ? `${config.IMG_URL}/image/${favourties.athlete.image}` : userIcon} alt='' />
 
 																		</div>
 																		<div className='col-md-11 col-sm-10 col-xs-9'>
@@ -209,8 +199,7 @@ class InnerContent extends Component {
 																	</div>
 																</div>
 																<div className='videoMainArea'>
-																	<img src={(favourties != null) ? `${config.IMG_URL}/image/drills/${favourties.thumbnail}` : videoThumbnail} alt='' />
-
+																	<img src={videoThumbnail} alt='' />
 																	<div className='videoPlay'>
 																		<Link to={`/single/video/${favourties._id}`}>
 																			<img src={playIcon} alt='' />
