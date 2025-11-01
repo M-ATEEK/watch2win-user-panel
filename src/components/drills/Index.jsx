@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import MobileNavbar from "../Mobile-navbar/Index";
 import InnerBanner from "./inner-banner/Index";
 import InnerContent from "./inner-content/Index";
-class Home extends Component {
+
+class Drill extends Component {
 	state = {};
 	render() {
-	
 		return (
 			<>
 
@@ -17,4 +17,4 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default Drill;

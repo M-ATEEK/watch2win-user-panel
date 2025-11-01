@@ -2,19 +2,20 @@ import React, { Component } from "react";
 import MobileNavbar from "../Mobile-navbar/Index";
 import InnerBanner from "./inner-banner/Index";
 import InnerContent from "./inner-content/Index";
-class Home extends Component {
+
+class SingleDrillDetail extends Component {
 	state = {};
 	render() {
-	
+		
+		const drillId = this.props.match.params.id;
 		return (
 			<>
-
-				<InnerBanner />
-				<InnerContent />
+				<InnerBanner id={drillId} />
+				<InnerContent id={drillId} />
 				<MobileNavbar />
 			</>
 		);
 	}
 }
 
-export default Home;
+export default SingleDrillDetail;
