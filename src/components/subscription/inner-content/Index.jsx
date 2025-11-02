@@ -14,9 +14,9 @@ import Dumbel from "../../../assets/images/dumbel.png";
 class InnerContent extends Component {
 	state = {
 		data: [],
-
-
+		loggedinUser:[]
 	};
+
 	async componentDidMount() {
 		const token = localStorage.getItem("token");
 		await axios.get(`${config.API_URL}/loginUser`, {
@@ -32,11 +32,28 @@ class InnerContent extends Component {
 		var start = moment(subscribeDetail.subscribeDate);
 		var current = moment().startOf('minute');
 		const duration = moment.duration(current.diff(start)).asDays()
-		console.log(duration)
+		if(subscribeDetail.subscribe){
 		if (duration <= "30") {
 			alert("You already subscribed")
+			window.location.href="/home"
 		}
-		axios
+			else{
+				axios
+				.get(`${config.API_URL}/admin/subscription`, {
+					headers: {
+						Authorization: token,
+					},
+				})
+				.then((response) => {
+					this.setState({
+						data: response.data.data.subscriptions
+					})
+				})
+			
+		}
+	}
+		else{
+			axios
 			.get(`${config.API_URL}/admin/subscription`, {
 				headers: {
 					Authorization: token,
@@ -47,6 +64,8 @@ class InnerContent extends Component {
 					data: response.data.data.subscriptions
 				})
 			})
+		}
+	
 	}
 
 	sliders = () => {
@@ -74,8 +93,9 @@ class InnerContent extends Component {
 			infinite: false,
 			speed: 500,
 			slidesToShow: 3,
-			slidesToScroll: 1,
+			speed: 500
 		};
+		console.log(data)
 
 		return (
 			<div className="mainInnerContent">

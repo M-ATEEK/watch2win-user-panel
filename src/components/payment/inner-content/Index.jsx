@@ -37,11 +37,10 @@ class InnerContent extends Component {
 		var start = moment(subscribeDetail.subscribeDate);
 		var current = moment().startOf('minute');
 		const duration = moment.duration(current.diff(start)).asDays()
-		console.log(duration)
-		if (duration <= "30") {
-			alert("subscribed")
+	if(subscribeDetail.subscribe && duration<=30){
+			alert("subscribed");
 			window.location.href = "/subscription";
-		}
+		}else{	
 		axios.get(`${config.API_URL}/admin/subscription/${id}`, {
 			headers: {
 				Authorization: token,
@@ -60,6 +59,7 @@ class InnerContent extends Component {
 					clientToken: response.data.token,
 				});
 			})
+		}
 	}
 	async buy() {
 		// Send the nonce to your server
@@ -74,8 +74,10 @@ class InnerContent extends Component {
 					Authorization: Auth.getToken(),
 				},
 			}).then((response)=>{
+				console.log(response)
 				if(response.data.result.success){
 					alert('you subscribe successfully')
+					window.location.href="/home"
 				}
 				else{
 					alert('Error')
