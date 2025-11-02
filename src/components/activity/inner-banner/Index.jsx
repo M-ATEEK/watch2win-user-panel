@@ -35,11 +35,20 @@ class InnerBanner extends Component {
 					{data.map((user, index) => {
 						return (
 							<div key={index} className="container">
-								<div className="innerProfileTop">
-									<img src={userIcon} alt="" />
-									<h5>{user.firstName} {user.lastName} &nbsp; | &nbsp;  {user.userName}</h5>
-									<h6><strong>{user.favouriteDrillVideos ? user.favouriteDrillVideos.length : 0}</strong> Following &nbsp;&nbsp; <strong>{user.points} </strong>Points Earned</h6>
-								</div>
+								{
+									(user != null) ? (
+										<div className="innerProfileTop">
+											<img src={userIcon} alt="" />
+											<h5>{user.firstName} {user.lastName} &nbsp; | &nbsp;  {user.userName}</h5>
+											<h6><strong>{user.favouriteDrillVideos ? user.favouriteDrillVideos.length : 0}</strong> Following &nbsp;&nbsp; <strong>{user.points} </strong>Points Earned</h6>
+										</div>
+									) : (
+											<div className="innerProfileTop">
+												<h6><strong>User Not Found</strong></h6>
+											</div>
+										)
+								}
+
 							</div>
 						);
 
