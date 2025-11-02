@@ -6,6 +6,8 @@ import axios from "axios";
 import { Redirect } from "react-router";
 import { data } from "jquery";
 import Auth from "../../Services/Auth";
+import { Link } from "react-router-dom";
+
 
 class InnerBanner extends Component {
 	state = {
@@ -27,6 +29,9 @@ class InnerBanner extends Component {
 	};
 	componentDidMount() {
 		this.getAllData();
+	}
+	drillsCategory(id) {
+		this.props.history.push(`/home:${this.state.userID}`)
 	}
 
 	render() {
@@ -52,12 +57,17 @@ class InnerBanner extends Component {
 								{data.map((category, i) => {
 									return (
 										<div key={i} className='bannerContent'>
-											{category.image === undefined ? (
-												<img src={BasketBallImage} />
-											) : (
-													<img src={`${config.IMG_URL}/image/${category.image}`} />
-												)}
-											<h3>{category.name}</h3>
+											<Link to={`/drills/category/${category._id}`}>
+
+
+												{category.image === undefined ? (
+													<img src={BasketBallImage} />
+												) : (
+														<img src={`${config.IMG_URL}/image/${category.image}`} />
+													)}
+												<h3>{category.name}</h3>
+
+											</Link>
 										</div>
 									)
 
