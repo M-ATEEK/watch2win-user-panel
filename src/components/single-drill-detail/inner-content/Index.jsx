@@ -7,6 +7,7 @@ import config from "../../../config";
 import axios from "axios";
 import Auth from "../../Services/Auth";
 import { Link } from "react-router-dom";
+import durationIcon from "../../../assets/images/durationIcon.png";
 
 class InnerContent extends Component {
 	state = {
@@ -19,13 +20,13 @@ class InnerContent extends Component {
 	loadMore = this.loadMore.bind(this);
 	getDrillsData = () => {
 		const drillId = this.props.id;
-		axios.get(`${config.API_URL}/admin/drills/${drillId}`, {
-			headers: {
-				Authorization: Auth.getToken(),
-			},
-		})
+		axios
+			.get(`${config.API_URL}/admin/drills/${drillId}`, {
+				headers: {
+					Authorization: Auth.getToken(),
+				},
+			})
 			.then((response) => {
-				console.log("response " + JSON.stringify(response.data.data.drills));
 				this.setState({
 					data: [...this.state.data, ...response.data.data.drills],
 					page: this.state.page + 1,
@@ -47,103 +48,131 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<a href='#' className='new'>
-						New
-					</a>
+					<span className='new'>New</span>
 				</li>
 			);
 		}
 	}
 	isPremimum(status) {
-		console.log(status);
 		if (status == false) {
 			return "";
 		} else {
 			return (
 				<li>
-					<a href='#' className='premium'>
-						Premium
-					</a>
+					<span className='premium'>Premium</span>
 				</li>
 			);
 		}
 	}
 	render() {
-		const data = this.state.data;
-		if (data.length > 0) {
+		const { data } = this.state;
+
+
+		if (data != null && data.length > 0) {
+			const videos = data[0] != null ? data[0].videos : null;
+			if (videos.length > 0) {
+				return (
+					<div className='mainInnerContent'>
+						<div className='container'>
+							<div className='row'>
+								{videos.map((video, index) => {
+									return (
+										<div key={index} className='col-md-6 col-sm-12 col-xs-12'>
+											<Link to={`/single/video/${data[0]._id}/${video._id}`}>
+												<div className='videoMain form-group'>
+													<div className='videoHeader'>
+														<div className='row'>
+															<div className='col-md-1 col-sm-2 col-xs-2'>
+																<img
+																	style={{ width: "55px" }}
+																	src={data[0].athlete ? `${config.IMG_URL}/image/${data[0].athlete.image}` : userIcon}
+																	alt=''
+																/>
+															</div>
+															<div className='col-md-11 col-sm-10 col-xs-9'>
+																<h4>{data[0].athlete ? data[0].athlete.name : "Name Not Found"}</h4>
+															</div>
+														</div>
+													</div>
+													<div className='videoMainArea'>
+														<img src={video ? `${config.IMG_URL}/image/drills/${video.thumbnail}` : videoThumbnail} alt='' />
+
+														<div className='videoPlay'>
+															<Link to='#'>
+																<img src={playIcon} alt='' />
+															</Link>
+														</div>
+														{/* <div className='videoName'>
+															<img src={videoNameIcon} alt='' />
+															<span>Video name will show here </span>
+														</div> */}
+														<div className='durationSettings'>
+															<ul className='list-unstyled'>
+																<li style={{ color: "white" }}>
+																	<img src={durationIcon} alt='' /> {video.duration}
+																</li>
+															</ul>
+														</div>
+														<div className='videoSettings'>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
+																<ul className='videoLeftSettings list-unstyled'>
+																	<li>
+																		<span className='easy'>
+																			{data[0].difficultyLevel ? data[0].difficultyLevel.name : "Name Not Found"}
+																		</span>
+																	</li>
+																</ul>
+															</div>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
+																<ul className='videoRightSettings list-unstyled'>
+																	{this.dateDifferenceInDays(new Date(), new Date(data[0].createdAt))}
+																	{this.isPremimum(video.isPremium)}
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</Link>
+										</div>
+									);
+								})}
+							</div>
+							{/* {this.state.totalItems < videos.length && (
+								<div className='row'>
+									<hr />
+									<div className='col-md-12 col-sm-12 col-xs-12 hidden-xs text-center'>
+										<button type='button' onClick={this.loadMore} className={"btn btn-sm btn-primary"}>
+											Load More
+										</button>
+									</div>
+								</div>
+							)} */}
+						</div>
+					</div>
+				);
+			} else {
+				return (
+					<div className='mainInnerContent'>
+						<div className='container'>
+							<div className='row'>
+								<h2 style={{ color: "#fee6cc", textAlign: "center" }}>Videos Not Found</h2>
+							</div>
+						</div>
+					</div>
+				);
+			}
+
+
+		} else {
 			return (
 				<div className='mainInnerContent'>
 					<div className='container'>
 						<div className='row'>
-
-							{data.map((drills, index) => {
-								return (
-									<div key={index} className="col-md-6 col-sm-12 col-xs-12">
-										<Link to={`/single/video/${drills._id}`}>
-											<div className="videoMain form-group">
-												<div className="videoHeader">
-													<div className="row">
-														<div className="col-md-1 col-sm-2 col-xs-2">
-															<img style={{ width: "55px" }} src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon} alt='' />
-
-														</div>
-														<div className="col-md-11 col-sm-10 col-xs-9">
-															<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
-														</div>
-													</div>
-												</div>
-												<div className="videoMainArea">
-													<img src={videoThumbnail} alt="" />
-													<div className="videoPlay">
-														<a href="#"><img src={playIcon} alt="" /></a>
-													</div>
-													<div className="videoName">
-														<img src={videoNameIcon} alt="" />
-														<span>Video name will show here </span>
-													</div>
-													<div className="videoSettings">
-														<div className="col-md-6 col-sm-6 col-xs-6">
-															<ul className="videoLeftSettings list-unstyled">
-																<li>
-																	{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
-																</li>
-															</ul>
-														</div>
-														<div className="col-md-6 col-sm-6 col-xs-6">
-															<ul className="videoRightSettings list-unstyled">
-																{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
-																{this.isPremimum(drills.isPremium)}
-															</ul>
-														</div>
-													</div>
-
-												</div>
-											</div>
-										</Link>
-									</div>
-
-								);
-							})}
-
-
+							<h2 style={{ color: "#fee6cc", textAlign: "center" }}>Videos Not Found</h2>
 						</div>
-						{this.state.totalItems < data.length && (
-							<div className="row">
-								<hr />
-								<div className='col-md-12 col-sm-12 col-xs-12 hidden-xs text-center'>
-
-									<button type='button' onClick={this.loadMore} className={"btn btn-sm btn-primary"}>
-										Load More
-									</button>
-
-								</div>
-							</div>
-						)}
 					</div>
-				</div >
+				</div>
 			);
-		} else {
-			return "";
 		}
 	}
 }

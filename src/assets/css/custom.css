@@ -1054,3 +1054,20 @@ body {
     height: 52px;
 }
 
+.videoName {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.uploader {
+    background: rgba(0, 0, 0, 0.4);
+	padding: 5px 10px;
+
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+

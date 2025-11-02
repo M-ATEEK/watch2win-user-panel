@@ -13,9 +13,9 @@ class NotFound extends Component {
 	
 	render() {
 		return (
-			<div>
-			<h1>404 error Page Not Found</h1>
-			 <h1><Link to="/home">Go Back to Home Page</Link></h1>
+			<div className="main_notfound">
+			 <h1 className="heading_notfound">404 error Page Not Found</h1>
+			 <h1 className="heading_notfound"><Link className="anchor_notfound" to="/home">Go Back to Home Page</Link></h1>
 			</div>
 		);
 	}

@@ -13,16 +13,11 @@ class InnerBanner extends Component {
 	};
 
 	render() {
-
-		const token = Auth.getToken();
-		if (!token) {
-			return <Redirect to='/login' />;
-		}
-
+		
 		return (
 			<div className="innerBanner innerPagesBanner">
 				<div className="container">
-					<div className="innerBannerArea"style={{  backgroundImage: "url(" + BasketBallImage + ")",backgroundRepeat: 'no-repeat'}} >
+					<div className="innerBannerArea" style={{ backgroundImage: "url(" + BasketBallImage + ")", backgroundRepeat: 'no-repeat' }} >
 						<h3>Basketball</h3>
 					</div>
 				</div>

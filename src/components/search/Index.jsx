@@ -8,16 +8,11 @@ import Auth from "../Services/Auth";
 class Search extends Component {
 	state = {};
 
-
-	componentDidMount() {
-		console.log(this.props.match.params.name);
-	}
-	
 	render() {
 		const searchName = this.props.match.params.name;
 		return (
 			<>
-				<InnerContent name={searchName}/>
+				<InnerContent search={searchName} />
 				<MobileNavbar />
 			</>
 		);

@@ -7,23 +7,11 @@ import Auth from "../Services/Auth";
 
 class DrillsCategory extends Component {
 	state = {};
-
-
-	renderRedirect = () => {
-
-		const token = Auth.getToken();
-		if (token) {
-			return <Redirect to='/home' />;
-		}
-	}
-
 	render() {
-		{ this.renderRedirect() }
+		const categoryId = this.props.match.params.id;
 		return (
 			<>
-
-				<InnerBanner />
-				<InnerContent />
+				<InnerContent id={categoryId} />
 				<MobileNavbar />
 			</>
 		);

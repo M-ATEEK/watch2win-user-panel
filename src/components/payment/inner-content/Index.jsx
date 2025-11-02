@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import config from "../../../config";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Auth from "../../Services/Auth";
 import moment from 'moment';
@@ -37,11 +38,10 @@ class InnerContent extends Component {
 		var start = moment(subscribeDetail.subscribeDate);
 		var current = moment().startOf('minute');
 		const duration = moment.duration(current.diff(start)).asDays()
-		console.log(duration)
-		if (duration <= "30") {
+	if(subscribeDetail.subscribe && duration<=30){
 			alert("subscribed");
 			window.location.href = "/subscription";
-		}
+		}else{	
 		axios.get(`${config.API_URL}/admin/subscription/${id}`, {
 			headers: {
 				Authorization: token,
@@ -60,6 +60,7 @@ class InnerContent extends Component {
 					clientToken: response.data.token,
 				});
 			})
+		}
 	}
 	async buy() {
 		// Send the nonce to your server
@@ -74,8 +75,10 @@ class InnerContent extends Component {
 					Authorization: Auth.getToken(),
 				},
 			}).then((response)=>{
+				console.log(response)
 				if(response.data.result.success){
 					alert('you subscribe successfully')
+					window.location.href="/home"
 				}
 				else{
 					alert('Error')
@@ -96,7 +99,7 @@ class InnerContent extends Component {
 					<div className="container">
 						<div className="paymentScreen">
 							<div className="paymentBack">
-								<a href="#"><img src={BackArrow} alt="" /> Back</a>
+								<Link to="#"><img src={BackArrow} alt="" /> Back</Link>
 							</div>
 							<div className="paymentTop">
 								<div className="row">
@@ -129,7 +132,7 @@ class InnerContent extends Component {
 									options={{ authorization: this.state.clientToken }}
 									onInstance={(instance) => (this.instance = instance)}
 								/>
-								<a href="#" onClick={this.buy.bind(this)} className="btn btnFilled">Pay Now</a>
+								<Link to="#" onClick={this.buy.bind(this)} className="btn btnFilled">Pay Now</Link>
 							</div>
 							{/*	<div className="paymentTop">
 						<div className="row">
