@@ -45,23 +45,4 @@ $(document).ready(function () {
 	$('.testimonailCarousel').slick({
 		dots: true
 	});
-
-	var swiper = new Swiper('.swiper-container', {
-		effect: 'coverflow',
-		centeredSlides: true,
-		spaceBetween: 100,
-		slidesPerView: 'auto',
-	  loop:true,
-		coverflowEffect: {
-		  rotate: 0,
-		  stretch: 5,
-		  depth: 75,
-		  modifier: 2,
-		  slideShadows: true
-		},
-	  navigation: {
-		  nextEl: '.swiper-button-next',
-		  prevEl: '.swiper-button-prev',
-		},
-	  });
 });
