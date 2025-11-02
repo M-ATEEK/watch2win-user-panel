@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import config from "../../../config";
 import Auth from "../../Services/Auth";
 import Axios from "axios";
+import momentJs from "moment";
 import userIcon from "../../../assets/images/user.png";
 
 import playIcon from "../../../assets/images/play.png";
@@ -277,14 +278,15 @@ class InnerContent extends Component {
 																	<ul class="list-unstyled">
 
 																		{
-																			drills.drill_id[0].videos.length > 0
-																				?
-																				(
-																					this.durations(drills.drill_id[0].videos)
-																				)
-																				: (
-																					""
-																				)
+																			videos.length > 0 ? videos[0].duration : 0
+																			// drills.drill_id[0].videos.length > 0
+																			// 	?
+																			// 	(
+																			// 		this.durations(drills.drill_id[0].videos)
+																			// 	)
+																			// 	: (
+																			// 		""
+																			// 	)
 																		}
 																	</ul>
 																</div>
@@ -415,14 +417,17 @@ class InnerContent extends Component {
 																	<ul class="list-unstyled">
 
 																		{
-																			favourties.drill_id[0].videos.length > 0
-																				?
-																				(
-																					this.durations(favourties.drill_id[0].videos)
-																				)
-																				: (
-																					""
-																				)
+
+																			videos.length > 0 ? videos[0].duration : 0
+
+																			// favourties.drill_id[0].videos.length > 0
+																			// 	?
+																			// 	(
+																			// 		this.durations(favourties.drill_id[0].videos)
+																			// 	)
+																			// 	: (
+																			// 		""
+																			// 	)
 																		}
 																	</ul>
 																</div>
@@ -468,18 +473,26 @@ class InnerContent extends Component {
 									{myActivity.length > 0 ? (
 										myActivity.map((activity, index) => {
 											return (
-												<div className='searchResults form-group drillSearchSection'>
+												<div key={index} className='searchResults form-group drillSearchSection'>
 													<div className='col-md-6 col-sm-8 col-xs-9'>
-														<img src={userImage} alt='' />{" "}
+
+														{
+															activity.user_id.image ?
+																<img src={`${config.IMG_URL}/image/${activity.user_id.image}`} alt='' className="imageClass"/>
+																:
+																<img src={userImage} alt='' />
+														}
+												
+
 														<span className='drillSearchName'>
-															John Ross{" "}
+															{activity.user_id ? activity.user_id.firstName + " " + activity.user_id.lastName : 'Name Not Found'}
 															<span className='drillAtheleteName'>
-																COMPLETE <strong>DRILL 8</strong>
+																COMPLETE <strong>{activity.drill_id ? activity.drill_id.name : 'Name Not Found'}  {activity.user_id.watchedVideos ? activity.user_id.watchedVideos.length : 0}</strong>
 															</span>
 														</span>
 													</div>
 													<div className='col-md-6 col-sm-4 col-xs-3 searchResultsFollowBtn'>
-														<p>5 Min ago</p>
+														<p>{momentJs(activity.createdAt).fromNow()}</p>
 													</div>
 													<div className='clearfix'></div>
 												</div>
