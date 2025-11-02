@@ -64,7 +64,7 @@ class InnerContent extends Component {
 		}
 	}
 	render() {
-		const { data } = this.state;
+		const { data } = this.state.data;
 		
 
 		if (data != null && data.length > 0) {

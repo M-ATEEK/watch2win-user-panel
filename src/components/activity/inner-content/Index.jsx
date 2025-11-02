@@ -37,11 +37,10 @@ class InnerContent extends Component {
 
 				if (data.favouriteDrillVideos.length > 0) {
 					this.setState({
-						myFavoutires: [...data.favouriteDrillVideos],
+						myFavoutires: [...data.favouriteDrillVideo],
 					});
 				}
-			
-				if (data.watchedVideos && data.watchedVideos != null && data.watchedVideos.length > 0) {
+				if (data.watchLaterDrillVideos.length > 0) {
 					this.setState({
 						// myActivity: [...data.watchLaterDrillVideos],
 
@@ -160,26 +159,11 @@ class InnerContent extends Component {
 									myWorksOut.map((drills, index) => {
 										let atheleteName = '';
 										let atheleteImage = '';
-										let videoImage = '';
-										let videos = {};
 										let athelte = {};
 										if (drills.drill_id) {
-											
 											athelte = this.state.atheletes.filter((athelete, ith) => athelete._id === drills.drill_id[0].athlete)
 											atheleteName = athelte[0].name;
-											atheleteImage = `${config.IMG_URL}/image/${athelte[0].image}`;
-
-											if (drills.drill_id && drills.drill_id[0].videos != null && drills.drill_id[0].videos.length > 0) {
-												
-												videos = drills.drill_id[0].videos.filter((video, ith) => video._id === drills.video_id)
-												videoImage = `${config.IMG_URL}/image/drills/${videos[0].thumbnail}`
-											
-											} else {
-
-											
-												videoImage = videoThumbnail;
-											}
-
+											atheleteImage = `${config.IMG_URL}/image/${athelte[0].image}`
 										} else {
 											atheleteName = 'Name Not Found';
 											atheleteImage = userIcon;
@@ -211,7 +195,7 @@ class InnerContent extends Component {
 																</div>
 															</div>
 															<div className='videoMainArea'>
-																<img src={videoImage} alt='' />
+																<img src={videoThumbnail} alt='' />
 																<div className='videoPlay'>
 																	{
 																		drills.drill_id ? (
@@ -227,7 +211,10 @@ class InnerContent extends Component {
 																	}
 
 																</div>
-																
+																{/* <div className='videoName'>
+																	<img src={videoNameIcon} alt='' />
+																	<span>Video name will show here </span>
+																</div> */}
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
@@ -304,7 +291,10 @@ class InnerContent extends Component {
 																		<img src={playIcon} alt='' />
 																	</Link>
 																</div>
-															
+																{/* <div className='videoName'>
+																	<img src={videoNameIcon} alt='' />
+																	<span>Video name will show here </span>
+																</div> */}
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
