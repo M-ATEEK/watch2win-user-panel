@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import BasketBallImage from "../../../assets/images/b1.png";
 import Slider from "react-slick";
 import config from "../../../config";
@@ -6,7 +7,7 @@ import axios from "axios";
 import { Redirect } from "react-router";
 import { data } from "jquery";
 import Auth from "../../Services/Auth";
-import { Link } from "react-router-dom";
+
 
 
 class InnerBanner extends Component {
