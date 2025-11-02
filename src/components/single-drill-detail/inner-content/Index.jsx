@@ -26,7 +26,7 @@ class InnerContent extends Component {
 				},
 			})
 			.then((response) => {
-		
+				console.log("response " + JSON.stringify(response.data.data.drills));
 				this.setState({
 					data: [...this.state.data, ...response.data.data.drills],
 					page: this.state.page + 1,
@@ -48,9 +48,9 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='new'>
+					<a href='#' className='new'>
 						New
-					</span>
+					</a>
 				</li>
 			);
 		}
@@ -61,47 +61,45 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='premium'>
+					<a href='#' className='premium'>
 						Premium
-					</span>
+					</a>
 				</li>
 			);
 		}
 	}
 	render() {
 		const data = this.state.data;
-		const videos = (data[0] != null) ? data[0].videos : null;
-		if (data.length > 0 && videos.length > 0) {
+		if (data.length > 0) {
 			return (
 				<div className='mainInnerContent'>
 					<div className='container'>
 						<div className='row'>
-							{videos.map((video, index) => {
+							{data.map((drills, index) => {
 								return (
 									<div key={index} className='col-md-6 col-sm-12 col-xs-12'>
-										<Link to={`/single/video/${data[0]._id}`}>
+										<Link to={`/single/video/${drills._id}`}>
 											<div className='videoMain form-group'>
 												<div className='videoHeader'>
 													<div className='row'>
 														<div className='col-md-1 col-sm-2 col-xs-2'>
 															<img
 																style={{ width: "55px" }}
-																src={data[0].athlete ? `${config.IMG_URL}/image/${data[0].athlete.image}` : userIcon}
+																src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon}
 																alt=''
 															/>
 														</div>
 														<div className='col-md-11 col-sm-10 col-xs-9'>
-															<h4>{data[0].athlete ? data[0].athlete.name : "Name Not Found"}</h4>
+															<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
 														</div>
 													</div>
 												</div>
 												<div className='videoMainArea'>
-													<img src={video ? `${config.IMG_URL}/image/drills/${video.thumbnail}` : videoThumbnail} alt='' />
-
+													<img src={videoThumbnail} alt='' />
 													<div className='videoPlay'>
-														<Link to={`/single/video/${data[0]._id}`}>
+														<a href='#'>
 															<img src={playIcon} alt='' />
-														</Link>
+														</a>
 													</div>
 													<div className='videoName'>
 														<img src={videoNameIcon} alt='' />
@@ -110,13 +108,13 @@ class InnerContent extends Component {
 													<div className='videoSettings'>
 														<div className='col-md-6 col-sm-6 col-xs-6'>
 															<ul className='videoLeftSettings list-unstyled'>
-																<li>{data[0].difficultyLevel ? data[0].difficultyLevel.name : "Name Not Found"}</li>
+																<li>{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}</li>
 															</ul>
 														</div>
 														<div className='col-md-6 col-sm-6 col-xs-6'>
 															<ul className='videoRightSettings list-unstyled'>
-																{this.dateDifferenceInDays(new Date(), new Date(data[0].createdAt))}
-																{this.isPremimum(data[0].isPremium)}
+																{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
+																{this.isPremimum(drills.isPremium)}
 															</ul>
 														</div>
 													</div>
@@ -127,7 +125,7 @@ class InnerContent extends Component {
 								);
 							})}
 						</div>
-						{/* {this.state.totalItems < videos.length && (
+						{this.state.totalItems < data.length && (
 							<div className='row'>
 								<hr />
 								<div className='col-md-12 col-sm-12 col-xs-12 hidden-xs text-center'>
@@ -136,20 +134,12 @@ class InnerContent extends Component {
 									</button>
 								</div>
 							</div>
-						)} */}
+						)}
 					</div>
 				</div>
 			);
 		} else {
-			return (
-				<div className='mainInnerContent'>
-					<div className='container'>
-						<div className='row'>
-							<h2 style={{ color: "#fee6cc", textAlign: "center" }}>Videos Not Found</h2>
-						</div>
-					</div>
-				</div>
-			);
+			return "";
 		}
 	}
 }
