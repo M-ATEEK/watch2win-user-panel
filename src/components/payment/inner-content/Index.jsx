@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import config from "../../../config";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Auth from "../../Services/Auth";
 import moment from 'moment';
@@ -97,7 +96,7 @@ class InnerContent extends Component {
 					<div className="container">
 						<div className="paymentScreen">
 							<div className="paymentBack">
-								<Link to="#"><img src={BackArrow} alt="" /> Back</Link>
+								<a href="#"><img src={BackArrow} alt="" /> Back</a>
 							</div>
 							<div className="paymentTop">
 								<div className="row">
@@ -130,7 +129,7 @@ class InnerContent extends Component {
 									options={{ authorization: this.state.clientToken }}
 									onInstance={(instance) => (this.instance = instance)}
 								/>
-								<Link to="#" onClick={this.buy.bind(this)} className="btn btnFilled">Pay Now</Link>
+								<a href="#" onClick={this.buy.bind(this)} className="btn btnFilled">Pay Now</a>
 							</div>
 							{/*	<div className="paymentTop">
 						<div className="row">

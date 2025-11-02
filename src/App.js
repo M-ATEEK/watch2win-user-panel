@@ -24,8 +24,9 @@ function App() {
 
 			<Route path='/single/video/:id' exact component={HomeLayout} />
 			<Route path='/single/activity' exact component={HomeLayout} />
-			<Route path='/payment' exact component={HomeLayout} />
+			<Route path='/payment/:id' exact component={HomeLayout} />
 			<Route path='/subscription' exact component={HomeLayout} />
+
 		</>
 	);
 }
