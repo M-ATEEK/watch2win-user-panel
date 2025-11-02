@@ -64,8 +64,8 @@ class Login extends Component {
 					<div className='loginArea'>
 						<h2>LOGIN</h2>
 						<div className='formArea'>
-						<form onSubmit={this.submitHandler} method='post'>
-									<p className='text-danger'>{this.state.message}</p>
+							<form onSubmit={this.submitHandler} method='post'>
+								<p className='text-danger'>{this.state.message}</p>
 								<div className='form-group'>
 									<input
 										type='email'
@@ -86,7 +86,7 @@ class Login extends Component {
 										value={this.state.password}
 									/>
 									{this.state.errors.password && <span className='text-danger'>{this.state.errors.password}</span>}
-											
+
 								</div>
 								<div className='form-group'>
 									<a href='#' className='forgotPass'>

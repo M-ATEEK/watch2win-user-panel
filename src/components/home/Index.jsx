@@ -9,16 +9,16 @@ class Home extends Component {
 	state = {};
 
 
-	renderRedirect=()=>{
-      
+	renderRedirect = () => {
+
 		const token = Auth.getToken();
 		if (token) {
 			return <Redirect to='/home' />;
 		}
 	}
-		
+
 	render() {
-		{this.renderRedirect()}
+		{ this.renderRedirect() }
 		return (
 			<>
 

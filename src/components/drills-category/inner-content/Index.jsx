@@ -106,7 +106,7 @@ class InnerContent extends Component {
 						<div className='row'>
 							{data.length > 0 ? (
 								<>
-									<div className='col-md-7 col-sm-8 col-xs-12 customLeftResponsive hidden-xs'>
+									<div className='col-md-7 col-sm-8 col-xs-12 hidden-xs'>
 										{data.map((drills, index) => {
 											return (
 												<>
@@ -170,14 +170,14 @@ class InnerContent extends Component {
 											);
 										})}
 									</div>
-									<div className='col-md-5 col-sm-4 col-xs-12 customRightResponsive'>
+									<div className='col-md-5 col-sm-4 col-xs-12'>
 										<div className='drillsArea'>
 											<div className='row'>
 												<div className='col-md-6 col-sm-6 col-xs-6'>
 													<h3>Drills</h3>
 												</div>
 												<div className='col-md-6 col-sm-6 col-xs-6 text-right'>
-													<Link to={`/drill/category/${this.props.id}`}>See All </Link>
+													<Link to='/drills'>See All </Link>
 												</div>
 											</div>
 											<div className='drillsMain'>

@@ -29,8 +29,8 @@ class InnerBanner extends Component {
 	}
 
 	render() {
-		const data = this.state.data;
-		if (data.length > 0) {
+		const { data } = this.state.data;
+		if (data != null && data.length > 0) {
 			{
 				return (
 					<div className='innerBanner innerPagesBanner innerBannerOptions'>
@@ -87,7 +87,15 @@ class InnerBanner extends Component {
 				);
 			}
 		} else {
-			return "";
+			return (
+				<div className='innerBanner innerPagesBanner innerBannerOptions'>
+					<div className='container'>
+					<div className='row'>
+								<h2 style={{ color: "#fee6cc", textAlign: "center" }}>Drill Not Found</h2>
+							</div>
+					</div>
+				</div>
+			);
 		}
 	}
 }
