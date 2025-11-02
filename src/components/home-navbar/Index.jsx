@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Redirect } from "react-router";
 import Logo from "../../assets/images/logo.png";
 import UserImage from "../../assets/images/user.png";
 import MobileLogo from "../../assets/images/mobLogo.png";
@@ -8,26 +8,23 @@ import MobileUser from "../../assets/images/mobUser.png";
 
 class HomeNavbar extends Component {
 	state = {
-		search: "",
+		search: ''
 	};
 
-	componentDidMount() {
-		console.log(this.props.history);
-	}
 
-	handleChange = (e) => {
+	handleChange  = (e) => {
 		this.setState({
 			search: e.currentTarget.value,
 		});
-	};
+	}
+	handleSubmit =(e) => {
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		const { history } = this.props;
-		const { search } = this.state;
-		history.push(`/search/${search}`);
-	};
-
+		// this.props.history.push(`/search/${this.state.search}`);
+		// window.location.href =`/search/${this.state.search}`;
+		
+		return <Redirect to={`/search/${this.state.search}`} />;
+		// this.props.history.push(`/search/${this.state.search}`);
+	}
 	render() {
 		return (
 			<>
@@ -47,13 +44,7 @@ class HomeNavbar extends Component {
 						<div className='col-md-8 col-sm-7 headerSearch'>
 							<form className='navbar-form navbar-left' role='search' onSubmit={this.handleSubmit.bind(this)}>
 								<div className='form-group'>
-									<input
-										type='text'
-										className='form-control'
-										name='search'
-										onChange={this.handleChange}
-										placeholder='SEARCH BY CATEGORY, ATHLETE NAME'
-									/>
+									<input type='text' className='form-control' name="search" onChange={this.handleChange} placeholder='SEARCH BY CATEGORY, ATHLETE NAME' />
 								</div>
 							</form>
 						</div>
@@ -111,4 +102,4 @@ class HomeNavbar extends Component {
 	}
 }
 
-export default withRouter(HomeNavbar);
+export default HomeNavbar;
