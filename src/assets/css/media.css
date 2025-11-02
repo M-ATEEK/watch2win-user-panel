@@ -121,6 +121,12 @@
 	.followBtn {
 		width: 25%;
 	}
+	.customLeftResponsive{
+		width: 100%;
+	}
+	.customRightResponsive{
+		width: 100%;
+	}
 }
 @media screen and (max-width: 767px) {
 	.mobileFixedBottomMenu {
@@ -368,7 +374,7 @@
 		font-size: 10px;
 	}
 	.videoRightSettings li {
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
 	.videoName {
 		left: 15px;
@@ -505,6 +511,13 @@
 	.innerBannerContent .slick-slider {
 		height: 85px !important;
 	}
+	.bannerContent img {
+		min-height: 70px;
+	}
+	.mobMenuItems .show {
+		display: inline-block !important;
+		left: -60px;
+	}
 }
 @media screen and (max-width: 450px) {
 	.loginArea {
@@ -623,10 +636,44 @@
 	.innerBannerContent .slick-slider {
 		height: 85px !important;
 	}
+	.loginBg {
+		padding: 18vh 0;
+		height: 100vh;
+	}
+	.signinBg {
+		height: auto;
+	}
+	.forgotScreen {
+		padding: 35vh 0 !important;
+	}
+	.drill-images {
+		min-height: auto;
+	}
+	.mainInnerContent {
+		padding: 20px 0 100px;
+	}
+	.videoPageBtmSettings .vidFavWishOptions li {
+		width: 47%;
+		padding: 0 5px;
+	}
+	.vidFavWishOptions img
+	{
+		width: 100%;
+	}
 }
 @media screen and (max-width: 415px) {
 	.innerBannerContent .slick-slider {
 		height: 95px !important;
+	}
+	.loginBg {
+		padding: 15vh 0;
+		height: 100vh;
+	}
+	.signinBg {
+		height: auto;
+	}
+	.mobMenuItems .show {
+		left: -80px;
 	}
 }
 @media screen and (max-width: 375px) {
@@ -704,4 +751,46 @@
 	.innerBannerContent .slick-slider {
 		height: 70px !important;
 	}
+	.mobMenuItems .caret {
+		display: none;
+	}
+	.mobMenuItems .show {
+		left: -90px;
+	}
+	.bannerContent img {
+		min-height: 70px;
+		object-fit: cover;
+	}
+	.loginBg {
+		padding: 10vh 0;
+		height: 100vh;
+	}
+	.signinBg {
+		height: auto;
+	}
+	.forgotScreen {
+		padding: 25vh 0 !important;
+	}
 }
+@media screen and (max-width: 355px) {
+	.loginBg {
+		padding: 5vh 0;
+		height: 100vh;
+	}
+	.signinBg {
+		height: auto;
+	}
+	.forgotScreen {
+		padding: 25vh 0 !important;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	.logoClass{
+		margin: 48px;
+		padding-top: 125px;
+		width: 255px;
+	}
+}
+  

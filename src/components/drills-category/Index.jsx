@@ -8,11 +8,9 @@ import Auth from "../Services/Auth";
 class DrillsCategory extends Component {
 	state = {};
 	render() {
-	
 		const categoryId = this.props.match.params.id;
 		return (
 			<>
-				<InnerBanner />
 				<InnerContent id={categoryId} />
 				<MobileNavbar />
 			</>
