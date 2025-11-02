@@ -29,8 +29,6 @@ class ForgotPassword extends Component {
 		e.preventDefault();
 		switch (tab) {
 			case "showSecondTab":
-
-				console.log("azeem");
 				this.setState({
 					firstTab: true
 				});
@@ -74,17 +72,18 @@ class ForgotPassword extends Component {
 				axios.post(`${config.API_URL}/forgetpassword`, data).then((response) => {
 					if (response.data.success) {
 						console.log("resposne is" + JSON.stringify(response));
+						console.log(response.data.data.user.code)
 						this.setState({
 							showFirstTab: false,
 							showSecondTab: true,
 							showThirdTab: false,
 							code: response.data.data.user.code,
-							data: {
+							/*data: {
 								reset_token: response.data.data.user.resetPasswordKey,
 								new_password: "",
 								confirm_password: "",
 
-							}
+							}*/
 
 
 						});
@@ -114,12 +113,17 @@ class ForgotPassword extends Component {
 
 
 	submitResetPassowrd = (e) => {
-		console.log("sdsdsdsd " + this.state.secondTab);
 		if (this.state.data.new_password === "" && this.state.data.confirm_password == "") {
 			this.setState({
 				message: "Enter password and confirm password",
 			});
-		} else {
+		}
+		else if(this.state.data.new_password != this.state.data.confirm_password){
+            this.setState({
+				message: "password and confirm password not match",
+			});
+		}
+		else {
 			if (this.state.secondTab == true) {
 
 				console.log("data" + JSON.stringify(this.state.data));
@@ -141,6 +145,7 @@ class ForgotPassword extends Component {
 
 
 	render() {
+
 		const { showFirstTab, showSecondTab, showThirdTab } = this.state;
 		return (
 			<div className='loginBg forgotScreen'>
@@ -165,7 +170,7 @@ class ForgotPassword extends Component {
 						<div className='formArea' style={{ display: showSecondTab ? "block" : "none" }}>
 							<form action='#' method='post'>
 								<div className='form-group'>
-									<input type='text' className='form-control' name="code" value={this.state.code} onChange={this.handleInput} placeholder='Enter verification code' />
+									<input type='text' className='form-control' name="reset_token" value={this.state.data.reset_token} onChange={this.handleOnChange} placeholder='Enter verification code' />
 								</div>
 								<div className='form-group'>
 									<p>Please enter a code that sent</p>
