@@ -29,7 +29,7 @@ class SearchBarLayout extends Component {
 					<ProtectedRoute path='/activites' exact component={Activity} />
 					<ProtectedRoute path='/single/video/:id' exact component={SingleVideo} />
 					<ProtectedRoute path='/single/activity' exact component={SingleActivity} />
-					<ProtectedRoute path='/payment' exact component={Payment} />
+					<ProtectedRoute path='/payment/:id' exact component={Payment} />
 					<ProtectedRoute path='/subscription' exact component={Subscription} />
 				</Switch>
 			</>

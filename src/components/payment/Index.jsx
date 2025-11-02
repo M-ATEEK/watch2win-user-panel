@@ -6,11 +6,11 @@ class Payment extends Component {
 	state = {};
 
 	render() {
-		
+		const subid = this.props.match.params.id;
 		return (
 			<>
-				<InnerContent  />
-				<MobileNavbar />
+				<InnerContent id={subid} />
+				<MobileNavbar id={subid}/>
 			</>
 		);
 	}
