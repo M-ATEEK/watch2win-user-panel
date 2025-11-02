@@ -7,12 +7,6 @@ import DrillsCategory from "../drills-category/Index";
 import DrillsDetail from "../single-drill-detail/Index";
 import HomeNavbar from "../home-navbar/Index";
 import Search from "../search/Index";
-import Activity from "../activity/Index";
-import SingleVideo from "../single-video/Index";
-import SingleActivity from "../single-activity/Index";
-import Payment from "../payment/Index";
-import Subscription from "../subscription/Index";
-import Logout from "../logout/Index";
 
 class SearchBarLayout extends Component {
 	state = {};
@@ -27,12 +21,6 @@ class SearchBarLayout extends Component {
 					<ProtectedRoute path='/drills/category/:id' exact component={DrillsCategory} />
 					<ProtectedRoute path='/drills/detail/:id' exact component={DrillsDetail} />
 					<ProtectedRoute path='/search/:name' exact component={Search} />
-					<ProtectedRoute path='/activites' exact component={Activity} />
-					<ProtectedRoute path='/single/video/:id/:videoId' exact component={SingleVideo} />
-					<ProtectedRoute path='/single/activity' exact component={SingleActivity} />
-					<ProtectedRoute path='/payment/:id' exact component={Payment} />
-					<ProtectedRoute path='/subscription' exact component={Subscription} />
-					<ProtectedRoute path='/logout' exact component={Logout} />
 				</Switch>
 			</>
 		);

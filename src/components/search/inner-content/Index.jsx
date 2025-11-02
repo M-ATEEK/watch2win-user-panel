@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
+import axios from "axios";
 import config from "../../../config";
 import Auth from "../../Services/Auth";
 import Axios from "axios";
@@ -91,7 +92,7 @@ class InnerContent extends Component {
 									peoples.map((people, index) => {
 										return (
 											<>
-												<div key={index} className='searchResults form-group'>
+												<div className='searchResults form-group'>
 													<div className='col-md-6 col-sm-6 col-xs-6'>
 														<img src={`${config.IMG_URL}/images/${people.image}`} alt='' />{" "}
 														<span>{people.firstName + " " + people.lastName}</span>
@@ -107,8 +108,8 @@ class InnerContent extends Component {
 										);
 									})
 								) : (
-										<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No People found against {this.props.search}</h2>
-									)}
+									<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No People found against {this.props.search}</h2>
+								)}
 							</div>
 						</div>
 
@@ -118,15 +119,15 @@ class InnerContent extends Component {
 								categories.map((category, index) => {
 									return (
 										<>
-											<div key={index} className='searchResults form-group'>
+											<div className='searchResults form-group'>
 												<div className='col-md-6 col-sm-6 col-xs-6'>
 													<img src={`${config.IMG_URL}/image/${category.image}`} alt='' width='150px' height='150px' />{" "}
 													<span>{category.name}</span>
 												</div>
 												<div className='col-md-6 col-sm-6 col-xs-6 searchResultsFollowBtn'>
-													<Link to="/drills" className='btn btnFilled'>
+													<a href='#' className='btn btnFilled'>
 														See Drills
-													</Link>
+													</a>
 												</div>
 												<div className='clearfix'></div>
 											</div>
@@ -134,8 +135,8 @@ class InnerContent extends Component {
 									);
 								})
 							) : (
-									<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Category found against {this.props.search}</h2>
-								)}
+								<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Category found against {this.props.search}</h2>
+							)}
 						</div>
 
 						<div className='searchResultsParent' style={{ display: athleteTab ? "block" : "none" }}>
@@ -144,15 +145,15 @@ class InnerContent extends Component {
 								athletes.map((athlete, index) => {
 									return (
 										<>
-											<div key={index} className='searchResults form-group'>
+											<div className='searchResults form-group'>
 												<div className='col-md-6 col-sm-6 col-xs-6'>
 													<img src={`${config.IMG_URL}/image/${athlete.image}`} alt='' width='150px' height='150px' />{" "}
 													<span>{athlete.name}</span>
 												</div>
 												<div className='col-md-6 col-sm-6 col-xs-6 searchResultsFollowBtn'>
-													<Link to="/drills" className='btn btnFilled'>
+													<a href='#' className='btn btnFilled'>
 														See Drills
-													</Link>
+													</a>
 												</div>
 												<div className='clearfix'></div>
 											</div>
@@ -160,8 +161,8 @@ class InnerContent extends Component {
 									);
 								})
 							) : (
-									<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No athlete found against {this.props.search}</h2>
-								)}
+								<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No athlete found against {this.props.search}</h2>
+							)}
 						</div>
 					</div>
 				</div>
