@@ -1,16 +1,11 @@
-.main_notfound {
+body{
     background-color: white;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-    right: 0;
-    left: 0;
 }
-.heading_notfound {
+h1{
     text-align: center;
     padding-top: 167px; 
 }
-.anchor_notfound {
+a{
     text-align: center;
     padding-top: 167px; 
     color:black;
