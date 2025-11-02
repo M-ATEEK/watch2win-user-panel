@@ -66,7 +66,7 @@ class InnerContent extends Component {
                                                 <div className="drillsMain">
                                                     <div className="videoMain form-group">
                                                         <div className="videoMainArea">
-                                                            <img src={drills && drills.thumbnail ? `${config.IMG_URL}/image/drills/${drills.thumbnail}` : drillImage} alt='' />
+                                                            <img src={drills ? `${config.IMG_URL}/image/drills/${drills.thumbnail}` : drillImage} alt='' />
                                                             <div className="videoName">
                                                                 <img src={videoNameIcon} alt="" />
                                                                 <span>{drills.name}   </span>
@@ -94,7 +94,7 @@ class InnerContent extends Component {
                                                             </div>
                                                             <div className="durationSettings">
                                                                 <ul className="list-unstyled">
-                                                                    <li>{drills.videos ? drills.videos.length : 0} Drills</li>
+                                                                    <li>{drills.videos.length} Drills</li>
                                                                     <li><img src={durationIcon} alt="" /> 12:41</li>
                                                                 </ul>
                                                             </div>
