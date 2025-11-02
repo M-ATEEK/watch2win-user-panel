@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import userIcon from "../../../assets/images/user.png";
 import userSmallIcon from "../../../assets/images/userSm.png";
 import playIcon from "../../../assets/images/play.png";
 import videoThumbnail from "../../../assets/images/video.png";
 import videoNameIcon from "../../../assets/images/videoNameIcon.png";
 import drillImage from "../../../assets/images/drillsImg.png";
+import heartIcon from "../../../assets/images/heart.png";
 import durationIcon from "../../../assets/images/durationIcon.png";
 import config from "../../../config";
 import axios from "axios";
+import { Redirect } from "react-router";
 import Auth from "../../Services/Auth";
 
 class InnerContent extends Component {
@@ -30,7 +31,7 @@ class InnerContent extends Component {
 				},
 			})
 			.then((response) => {
-
+				console.log("response " + JSON.stringify(response.data.data.drills));
 				this.setState({
 					data: [...this.state.data, ...response.data.data.drills],
 					page: this.state.page + 1,
@@ -52,9 +53,9 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='new'>
+					<a href='#' className='new'>
 						New
-					</span>
+					</a>
 				</li>
 			);
 		}
@@ -66,17 +67,20 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='premium'>
+					<a href='#' className='premium'>
 						Premium
-					</span>
+					</a>
 				</li>
 			);
 		}
 	}
 	render() {
-
+		const token = Auth.getToken();
+		if (!token) {
+			return <Redirect to='/login' />;
+		}
 		const data = this.state.data;
-
+		console.log("length" + data.length);
 		if (data.length > 0) {
 			return (
 				<div className='mainInnerContent'>
@@ -86,48 +90,45 @@ class InnerContent extends Component {
 								{data.map((drills, index) => {
 									return (
 										<div key={index} className='videoMain form-group'>
-
-											<Link to={`/drills/detail/${drills._id}`}>
-												<div className='videoHeader'>
-													<div className='row'>
-														<div className='col-md-1 col-sm-2 col-xs-2'>
-															<img style={{ width: "55px" }} src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon} alt='' />
-														</div>
-														<div className='col-md-11 col-sm-10 col-xs-9'>
-															<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
-														</div>
+											<div className='videoHeader'>
+												<div className='row'>
+													<div className='col-md-1 col-sm-2 col-xs-2'>
+														<img src={userIcon} alt='' />
+													</div>
+													<div className='col-md-11 col-sm-10 col-xs-9'>
+														<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
 													</div>
 												</div>
-												<div className='videoMainArea'>
-													<img src={videoThumbnail} alt='' />
-													<div className='videoPlay'>
-														<Link to={`/single/video/${data[0]._id}`}>
-															<img src={playIcon} alt='' />
-														</Link>
+											</div>
+											<div className='videoMainArea'>
+												<img src={videoThumbnail} alt='' />
+												<div className='videoPlay'>
+													<a href='#'>
+														<img src={playIcon} alt='' />
+													</a>
+												</div>
+												<div className='videoName'>
+													<img src={videoNameIcon} alt='' />
+													<span>Video name will show here </span>
+												</div>
+												<div className='videoSettings'>
+													<div className='col-md-6 col-sm-6 col-xs-6'>
+														<ul className='videoLeftSettings list-unstyled'>
+															<li>
+																<a href='#' className='easy'>
+																	{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
+																</a>
+															</li>
+														</ul>
 													</div>
-													<div className='videoName'>
-														<img src={videoNameIcon} alt='' />
-														<span>Video name will show here </span>
-													</div>
-													<div className='videoSettings'>
-														<div className='col-md-6 col-sm-6 col-xs-6'>
-															<ul className='videoLeftSettings list-unstyled'>
-																<li>
-																	<span className='easy'>
-																		{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
-																	</span>
-																</li>
-															</ul>
-														</div>
-														<div className='col-md-6 col-sm-6 col-xs-6'>
-															<ul className='videoRightSettings list-unstyled'>
-																{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
-																{this.isPremimum(drills.isPremium)}
-															</ul>
-														</div>
+													<div className='col-md-6 col-sm-6 col-xs-6'>
+														<ul className='videoRightSettings list-unstyled'>
+															{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
+															{this.isPremimum(drills.isPremium)}
+														</ul>
 													</div>
 												</div>
-											</Link>
+											</div>
 										</div>
 									);
 								})}
@@ -147,53 +148,49 @@ class InnerContent extends Component {
 											<h3>Drills</h3>
 										</div>
 										<div className='col-md-6 col-sm-6 col-xs-6 text-right'>
-											<Link to='/drills'>See All </Link>
+											<a href='/drills'>See All </a>
 										</div>
 									</div>
 									<div className='drillsMain'>
 										{data.slice(0, this.state.visible).map((drills, index) => {
 											return (
 												<div key={index} className='videoMain form-group'>
-
-													<Link to={`/drills/detail/${drills._id}`}>
-														<div className='videoMainArea'>
-														<img src={drills ? `${config.IMG_URL}/image/drills/${drills.thumbnail}` : drillImage} alt='' />
-															<div className='videoName'>
-																<img src={videoNameIcon} alt='' />
-																<span>{drills.name} </span>
-															</div>
-															<div className='videoSettings'>
-																<div className='col-md-6 col-sm-6 col-xs-6'>
-																	<ul className='videoLeftSettings uploader list-unstyled'>
-																		<li>
-																			<span>
-																				<img style={{ width: "27px" }} src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userSmallIcon} alt='' />
-
-																				{drills.athlete ? drills.athlete.name : "Name Not Found"}
-																			</span>
-																		</li>
-																	</ul>
-																</div>
-																{/* <div className='col-md-6 col-sm-6 col-xs-6'>
-																	<ul className='videoRightSettings favourite list-unstyled'>
-																		<li>
-																			<a href='#'>
-																				<img src={heartIcon} alt='' /> <span>222</span>
-																			</a>
-																		</li>
-																	</ul>
-																</div> */}
-															</div>
-															<div className='durationSettings'>
-																<ul className='list-unstyled'>
-																	<li>{drills.videos ? drills.videos.length : 0} Drills</li>
+													<div className='videoMainArea'>
+														<img src={drillImage} alt='' />
+														<div className='videoName'>
+															<img src={videoNameIcon} alt='' />
+															<span>{drills.name} </span>
+														</div>
+														<div className='videoSettings'>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
+																<ul className='videoLeftSettings uploader list-unstyled'>
 																	<li>
-																		<img src={durationIcon} alt='' /> 12:41
-																</li>
+																		<a href='#'>
+																			<img src={userSmallIcon} alt='' /> &nbsp;{" "}
+																			{drills.athlete ? drills.athlete.name : "Name Not Found"}
+																		</a>
+																	</li>
+																</ul>
+															</div>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
+																<ul className='videoRightSettings favourite list-unstyled'>
+																	<li>
+																		<a href='#'>
+																			<img src={heartIcon} alt='' /> <span>222</span>
+																		</a>
+																	</li>
 																</ul>
 															</div>
 														</div>
-													</Link>
+														<div className='durationSettings'>
+															<ul className='list-unstyled'>
+																<li>{drills.videos ? drills.videos.length : 0} Drills</li>
+																<li>
+																	<img src={durationIcon} alt='' /> 12:41
+																</li>
+															</ul>
+														</div>
+													</div>
 												</div>
 											);
 										})}

@@ -1,27 +1,26 @@
 import React, { Component } from "react";
-
 import config from "../../config";
 import axios from "axios";
+import Form from "../common/Form";
 import Auth from "../Services/Auth";
 import { Redirect, Link } from "react-router-dom";
 import Joi from "joi";
 
-class Register extends Component {
+class Register extends Form {
 	state = {
-		
 		login: false,
 		errors: {},
 		message: "",
 		emptyfield: "",
 		auth: false,
-		data:{
+		data: {
 			firstName: "",
 			lastName: "",
 			userName: "",
 			email: "",
 			password: "",
 			confirm_password: "",
-			role: 'user',
+			role: "user",
 		},
 	};
 
@@ -31,15 +30,9 @@ class Register extends Component {
 			.required()
 			.label("Email"),
 		password: Joi.string().required().min(6).label("Password"),
-		firstName: Joi.string()
-			.required()
-			.label("First Name"),
-		lastName: Joi.string()
-			.required()
-			.label("Last Name"),
-		userName: Joi.string()
-			.required()
-			.label("User Name"),
+		firstName: Joi.string().required().label("First Name"),
+		lastName: Joi.string().required().label("Last Name"),
+		userName: Joi.string().required().label("User Name"),
 	});
 
 	submitHandler = (e) => {
@@ -80,19 +73,20 @@ class Register extends Component {
 					<div className='loginArea'>
 						<h2>SIGNUP</h2>
 						<div className='formArea'>
-						<form onSubmit={this.submitHandler} method='post'>
-							<p className='text-danger'>{this.state.message}</p>
+							<form onSubmit={this.submitHandler} method='post'>
+								<p className='text-danger'>{this.state.message}</p>
 								<div className='form-group'>
-									<input 
+									<input
 										type='text'
 										className='form-control'
 										placeholder='First Name'
 										name='firstName'
 										value={this.state.data.firstName}
-										onChange={this.handleInput} />
+										onChange={this.handleInput}
+									/>
 								</div>
 								<div className='form-group'>
-									<input 
+									<input
 										type='text'
 										className='form-control'
 										placeholder='Last Name'
@@ -133,14 +127,14 @@ class Register extends Component {
 									{this.state.errors.password && <span className='text-danger'>{this.state.errors.password}</span>}
 								</div>
 								<div className='form-group'>
-									<input 	
+									<input
 										type='password'
 										className='form-control'
 										placeholder='Confirm Password'
 										name='confirm_password'
 										onChange={this.handleInput}
 										value={this.state.data.confirm_password}
-									 />
+									/>
 								</div>
 								<div className='form-group'>
 									<button type='submit' className='btn btnLogin'>
