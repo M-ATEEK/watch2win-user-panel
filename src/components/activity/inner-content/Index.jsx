@@ -37,10 +37,11 @@ class InnerContent extends Component {
 
 				if (data.favouriteDrillVideos.length > 0) {
 					this.setState({
-						myFavoutires: [...data.favouriteDrillVideo],
+						myFavoutires: [...data.favouriteDrillVideos],
 					});
 				}
-				if (data.watchLaterDrillVideos.length > 0) {
+			
+				if (data.watchedVideos && data.watchedVideos != null && data.watchedVideos.length > 0) {
 					this.setState({
 						// myActivity: [...data.watchLaterDrillVideos],
 
@@ -132,19 +133,19 @@ class InnerContent extends Component {
 				<div className='container'>
 					<ul className='nav nav-tabs'>
 						<li className={workoutTab ? "active" : ""} onClick={() => this.handleTabs("myWorkOut")}>
-							<a data-toggle='tab' href='#workout'>
+							<Link data-toggle='tab' to='#workout'>
 								<img src={workoutIcon} alt='' /> <span>My Workout</span>
-							</a>
+							</Link>
 						</li>
 						<li className={favouriteTab ? "active" : ""} onClick={() => this.handleTabs("myFavourites")}>
-							<a data-toggle='tab' href='#fav'>
+							<Link data-toggle='tab' to='#fav'>
 								<img src={favtIcon} alt='' /> <span>Favourities</span>
-							</a>
+							</Link>
 						</li>
 						<li className={activityTab ? "active" : ""} onClick={() => this.handleTabs("myActivity")}>
-							<a data-toggle='tab' href='#act'>
+							<Link data-toggle='tab' to='#act'>
 								<img src={activityIcon} alt='' /> <span>My Activity</span>
-							</a>
+							</Link>
 						</li>
 					</ul>
 
@@ -159,11 +160,26 @@ class InnerContent extends Component {
 									myWorksOut.map((drills, index) => {
 										let atheleteName = '';
 										let atheleteImage = '';
+										let videoImage = '';
+										let videos = {};
 										let athelte = {};
 										if (drills.drill_id) {
+											
 											athelte = this.state.atheletes.filter((athelete, ith) => athelete._id === drills.drill_id[0].athlete)
 											atheleteName = athelte[0].name;
-											atheleteImage = `${config.IMG_URL}/image/${athelte[0].image}`
+											atheleteImage = `${config.IMG_URL}/image/${athelte[0].image}`;
+
+											if (drills.drill_id && drills.drill_id[0].videos != null && drills.drill_id[0].videos.length > 0) {
+												
+												videos = drills.drill_id[0].videos.filter((video, ith) => video._id === drills.video_id)
+												videoImage = `${config.IMG_URL}/image/drills/${videos[0].thumbnail}`
+											
+											} else {
+
+											
+												videoImage = videoThumbnail;
+											}
+
 										} else {
 											atheleteName = 'Name Not Found';
 											atheleteImage = userIcon;
@@ -195,7 +211,7 @@ class InnerContent extends Component {
 																</div>
 															</div>
 															<div className='videoMainArea'>
-																<img src={videoThumbnail} alt='' />
+																<img src={videoImage} alt='' />
 																<div className='videoPlay'>
 																	{
 																		drills.drill_id ? (
@@ -211,10 +227,7 @@ class InnerContent extends Component {
 																	}
 
 																</div>
-																{/* <div className='videoName'>
-																	<img src={videoNameIcon} alt='' />
-																	<span>Video name will show here </span>
-																</div> */}
+																
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
@@ -291,10 +304,7 @@ class InnerContent extends Component {
 																		<img src={playIcon} alt='' />
 																	</Link>
 																</div>
-																{/* <div className='videoName'>
-																	<img src={videoNameIcon} alt='' />
-																	<span>Video name will show here </span>
-																</div> */}
+															
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
