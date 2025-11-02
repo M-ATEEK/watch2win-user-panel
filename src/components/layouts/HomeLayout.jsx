@@ -14,7 +14,7 @@ class SearchBarLayout extends Component {
 	render() {
 		return (
 			<>
-				<HomeNavbar history={this.props} />
+				<HomeNavbar />
 				<Switch>
 					<ProtectedRoute path='/home' component={Home} />
 					<ProtectedRoute path='/drills' exact component={Drill} />
