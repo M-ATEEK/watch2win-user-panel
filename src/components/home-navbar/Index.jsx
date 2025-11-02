@@ -7,17 +7,15 @@ import SearchIcon from "../../assets/images/searchIcon.png";
 import MobileUser from "../../assets/images/mobUser.png";
 import BackBtn from "../../assets/images/backArrow.png";
 
-
 class HomeNavbar extends Component {
 	state = {
 		search: "",
 		isVisible: false,
-		searchVisible: false
+		searchVisible: false,
 	};
 	container = React.createRef();
 	componentDidMount() {
 		document.addEventListener("mousedown", this.handleClickOutside);
-		console.log(this.props.history);
 	}
 
 	handleChange = (e) => {
@@ -35,21 +33,21 @@ class HomeNavbar extends Component {
 	handleToggle = () => {
 		const { isVisible } = this.state;
 		this.setState({
-			isVisible: !isVisible
-		})
+			isVisible: !isVisible,
+		});
 	};
 
 	handleSearchToggle = () => {
 		const { searchVisible } = this.state;
 		this.setState({
-			searchVisible: !searchVisible
-		})
+			searchVisible: !searchVisible,
+		});
 	};
 	componentWillUnmount() {
 		document.removeEventListener("mousedown", this.handleClickOutside);
 	}
 
-	handleClickOutside = event => {
+	handleClickOutside = (event) => {
 		if (this.container.current && !this.container.current.contains(event.target)) {
 			this.setState({
 				isVisible: false,
@@ -59,7 +57,7 @@ class HomeNavbar extends Component {
 
 	render() {
 		const { isVisible, searchVisible } = this.state;
-		const show = (isVisible) ? 'show' : '';
+		const show = isVisible ? "show" : "";
 
 		return (
 			<>
@@ -72,12 +70,11 @@ class HomeNavbar extends Component {
 								<span className='icon-bar'></span>
 								<span className='icon-bar'></span>
 							</button>
-							<Link to="/home">
-								<p className='navbar-brand' >
+							<Link to='/home'>
+								<p className='navbar-brand'>
 									<img src={Logo} alt='' />
 								</p>
 							</Link>
-
 						</div>
 						<div className='col-md-8 col-sm-7 headerSearch'>
 							<form className='navbar-form navbar-left' role='search' onSubmit={this.handleSubmit.bind(this)}>
@@ -93,19 +90,25 @@ class HomeNavbar extends Component {
 							</form>
 						</div>
 						<div className='collapse navbar-collapse' id='defaultNavbar1'>
-							<ul className='nav navbar-nav navbar-right' >
+							<ul className='nav navbar-nav navbar-right'>
 								<li>
-									<Link to="/activites">Activity</Link>
-
+									<Link to='/activites'>Activity</Link>
 								</li>
 								<li className={"dropdown " + show} ref={this.container}>
-									<a href='#' className='dropdown-toggle innerDropdown' data-toggle='dropdown' onClick={this.handleToggle} role='button' aria-expanded='false'>
+									<a
+										href='#'
+										className='dropdown-toggle innerDropdown'
+										data-toggle='dropdown'
+										onClick={this.handleToggle}
+										role='button'
+										aria-expanded='false'
+									>
 										<img src={UserImage} alt='' />
 										<span className='caret'></span>
 									</a>
 									<ul className={"dropdown-menu " + show} role='menu'>
 										<li>
-											<Link to="/activites">Profile</Link>
+											<Link to='/activites'>Profile</Link>
 										</li>
 										<li>
 											<a href='#'>Logout</a>
@@ -117,15 +120,15 @@ class HomeNavbar extends Component {
 					</div>
 				</nav>
 				<nav className='mobileNavbar'>
-					<div className={(searchVisible) ? "col-xs-3 " : "col-xs-8 " + "mobLogo"} >
-						<p className="backLink" onClick={this.props.history.goBack}>
-							<img src={BackBtn} alt="" /> Back
+					<div className={searchVisible ? "col-xs-3 " : "col-xs-8 " + "mobLogo"}>
+						<p className='backLink' onClick={this.props.history.goBack}>
+							<img src={BackBtn} alt='' /> Back
 						</p>
-						<Link to="/home" style={{ display: (searchVisible) ? "none" : "block" }}>
+						<Link to='/home' style={{ display: searchVisible ? "none" : "block" }}>
 							<img src={MobileLogo} alt='' />
 						</Link>
 					</div>
-					<div className={'mobSearch col-xs-6'} style={{ display: (searchVisible) ? "block" : "none" }}>
+					<div className={"mobSearch col-xs-6"} style={{ display: searchVisible ? "block" : "none" }}>
 						<form className='navbar-form navbar-left' role='search'>
 							<div className='form-group'>
 								<input type='text' className='form-control' onChange={this.handleChange} placeholder='SEARCH BY CATEGORY, ATHLETE NAME' />
@@ -139,14 +142,14 @@ class HomeNavbar extends Component {
 									<img src={SearchIcon} alt='' />
 								</a>
 							</li>
-							<li className={"dropdown " + show} ref={this.container}>
-									<a href='#' className='dropdown-toggle' data-toggle='dropdown' onClick={this.handleToggle} role='button' aria-expanded='false'>
-										<img src={MobileUser} alt='' />
-										<span className='caret'></span>
-									</a>
+							<li className='dropdown' ref={this.container}>
+								<a href='#' className='dropdown-toggle' data-toggle='dropdown' onClick={this.handleToggle} role='button' aria-expanded='false'>
+									<img src={MobileUser} alt='' />
+									<span className='caret'></span>
+								</a>
 								<ul className={"dropdown-menu " + show} role='menu'>
 									<li>
-										<Link to="/activites">Profile</Link>
+										<Link to='/activites'>Profile</Link>
 									</li>
 									<li>
 										<a href='#'>Logout</a>
