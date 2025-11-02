@@ -3,6 +3,7 @@ import config from "../../../config";
 import Auth from "../../Services/Auth";
 import Axios from "axios";
 import userIcon from "../../../assets/images/profileLg.png";
+import { Link } from "react-router-dom";
 
 class InnerBanner extends Component {
 	state = {
@@ -39,7 +40,7 @@ class InnerBanner extends Component {
 									<img src={userIcon} alt="" />
 									<h5>{user.firstName} {user.lastName} &nbsp; | &nbsp;  {user.userName}</h5>
 									<h6><strong>{user.favouriteDrillVideos ? user.favouriteDrillVideos.length : 0}</strong> Following &nbsp;&nbsp; <strong>{user.points} </strong>Points Earned</h6>
-									<a href="#" class="followBtn btnUnFilled">Following</a>
+									<Link to="#" class="followBtn btnUnFilled">Following</Link>
 
 								</div>
 							</div>

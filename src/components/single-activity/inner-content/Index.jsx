@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import config from "../../../config";
 import axios from "axios";
 import Auth from "../../Services/Auth";
@@ -18,7 +19,7 @@ class InnerContent extends Component {
 			<div className="mainInnerContent innerMainProfileContent">
 				<div className="container">
 					<ul className="nav nav-tabs">
-						<li className="active"><a data-toggle="tab" href="#act"><img src={WorkoutImg} alt="" /> <span>Activity</span></a></li>
+						<li className="active"><Link data-toggle="tab" to="#act"><img src={WorkoutImg} alt="" /> <span>Activity</span></Link></li>
 					</ul>
 					<div className="tab-content">
 						<div id="act" className="tab-pane fade in active">

@@ -2,13 +2,12 @@ import React, { Component } from "react";
 
 import config from "../../config";
 import axios from "axios";
+import Form from "../common/Form";
 import Auth from "../Services/Auth";
 import { Redirect, Link } from "react-router-dom";
 import Joi from "joi";
-
-class Register extends Component {
+class Register extends Form {
 	state = {
-
 		login: false,
 		errors: {},
 		message: "",
@@ -21,66 +20,48 @@ class Register extends Component {
 			email: "",
 			password: "",
 			confirm_password: "",
-			role: 'user',
+			roles: "user",
+			image: null,
 		},
 	};
 
 	schema = Joi.object({
+		firstName: Joi.string().required().label("First Name"),
+		lastName: Joi.string().required().label("Last Name"),
+		userName: Joi.string().required().label("User Name"),
 		email: Joi.string()
 			.email({ tlds: { allow: false } })
 			.required()
 			.label("Email"),
 		password: Joi.string().required().min(6).label("Password"),
-		firstName: Joi.string()
-			.required()
-			.label("First Name"),
-		lastName: Joi.string()
-			.required()
-			.label("Last Name"),
-		userName: Joi.string()
-			.required()
-			.label("User Name"),
+		confirm_password: Joi.any().valid(Joi.ref("password")).label("Confirm Password"),
+		roles: Joi.string().required(),
+		image: Joi.allow(""),
 	});
 
-	submitHandler = (e) => {
-		e.preventDefault();
-		if (this.state.data.email === "" && this.state.data.password === "") {
-			this.setState({
-				message: "Enter email and password",
-			});
-		} else {
-			axios.post(`${config.API_URL}/signup`, this.state.data).then((response) => {
-				if (response.data.success) {
-					if (response.data.data.token !== undefined) {
-						Auth.setToken(response.data.data.token);
-						this.props.history.push("/home");
-					}
-				} else if (response.data.success === false) {
-					this.setState({
-						message: response.data.errors.email.message,
-					});
+	doSubmit = () => {
+		axios.post(`${config.API_URL}/signup`, this.state.data).then((response) => {
+			if (response.data.success) {
+				if (response.data.data.token !== undefined) {
+					Auth.setToken(response.data.data.token);
+					this.props.history.push("/home");
 				}
-			});
-		}
-	};
-
-	handleInput = (e) => {
-		this.setState({
-			[e.target.name]: e.target.value,
+			} else if (response.data.success === false) {
+				this.setState({
+					message: response.data.errors.email.message,
+				});
+			}
 		});
 	};
 	render() {
-		const token = Auth.getToken();
-		if (token) {
-			return <Redirect to='/home' />;
-		}
+		const { errors } = this.state;
 		return (
-			<div className='loginBg'>
+			<div className='loginBg signinBg'>
 				<div className='container'>
 					<div className='loginArea'>
 						<h2>SIGNUP</h2>
 						<div className='formArea'>
-							<form onSubmit={this.submitHandler} method='post'>
+							<form onSubmit={this.handleSubmit} method='post'>
 								<p className='text-danger'>{this.state.message}</p>
 								<div className='form-group'>
 									<input
@@ -89,7 +70,9 @@ class Register extends Component {
 										placeholder='First Name'
 										name='firstName'
 										value={this.state.data.firstName}
-										onChange={this.handleInput} />
+										onChange={this.handleOnChange}
+									/>
+									{errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -98,8 +81,9 @@ class Register extends Component {
 										placeholder='Last Name'
 										name='lastName'
 										value={this.state.data.lastName}
-										onChange={this.handleInput}
+										onChange={this.handleOnChange}
 									/>
+									{errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -108,8 +92,9 @@ class Register extends Component {
 										placeholder='Unique Username'
 										name='userName'
 										value={this.state.data.userName}
-										onChange={this.handleInput}
+										onChange={this.handleOnChange}
 									/>
+									{errors.userName && <span className='text-danger'>{errors.userName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -118,8 +103,9 @@ class Register extends Component {
 										placeholder='Email'
 										name='email'
 										value={this.state.data.email}
-										onChange={this.handleInput}
+										onChange={this.handleOnChange}
 									/>
+									{errors.email && <span className='text-danger'>{errors.email}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -127,10 +113,10 @@ class Register extends Component {
 										className='form-control'
 										placeholder='Password'
 										name='password'
-										onChange={this.handleInput}
+										onChange={this.handleOnChange}
 										value={this.state.data.password}
 									/>
-									{this.state.errors.password && <span className='text-danger'>{this.state.errors.password}</span>}
+									{errors.password && <span className='text-danger'>{errors.password}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -138,9 +124,10 @@ class Register extends Component {
 										className='form-control'
 										placeholder='Confirm Password'
 										name='confirm_password'
-										onChange={this.handleInput}
+										onChange={this.handleOnChange}
 										value={this.state.data.confirm_password}
 									/>
+									{errors.confirm_password && <span className='text-danger'>{errors.confirm_password}</span>}
 								</div>
 								<div className='form-group'>
 									<button type='submit' className='btn btnLogin'>
@@ -153,19 +140,19 @@ class Register extends Component {
 									</p>
 								</div>
 								<div className='form-group'>
-									<a href='#' className='fbBtn'>
+									<Link to='#' className='fbBtn'>
 										<img src='images/fbBtn.png' alt='' /> Register with Facebook <div className='clearfix'></div>
-									</a>
+									</Link>
 								</div>
 								<div className='form-group'>
-									<a href='#' className='gBtn'>
+									<Link to='#' className='gBtn'>
 										<img src='images/gBtn.png' alt='' />
 										Register with Google <div className='clearfix'></div>
-									</a>
+									</Link>
 								</div>
 								<div>
 									<p>
-										Already have an account ? <a href='/login'>Sign in</a>
+										Already have an account ? <Link to='/login'>Sign in</Link>
 									</p>
 								</div>
 							</form>
