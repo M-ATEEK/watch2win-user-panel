@@ -26,7 +26,6 @@ class InnerContent extends Component {
 				},
 			})
 			.then((response) => {
-		
 				this.setState({
 					data: [...this.state.data, ...response.data.data.drills],
 					page: this.state.page + 1,
@@ -48,9 +47,7 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='new'>
-						New
-					</span>
+					<span className='new'>New</span>
 				</li>
 			);
 		}
@@ -61,16 +58,14 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='premium'>
-						Premium
-					</span>
+					<span className='premium'>Premium</span>
 				</li>
 			);
 		}
 	}
 	render() {
 		const data = this.state.data;
-		const videos = (data[0] != null) ? data[0].videos : null;
+		const videos = data[0] != null ? data[0].videos : null;
 		if (data.length > 0 && videos.length > 0) {
 			return (
 				<div className='mainInnerContent'>
@@ -110,7 +105,11 @@ class InnerContent extends Component {
 													<div className='videoSettings'>
 														<div className='col-md-6 col-sm-6 col-xs-6'>
 															<ul className='videoLeftSettings list-unstyled'>
-																<li>{data[0].difficultyLevel ? data[0].difficultyLevel.name : "Name Not Found"}</li>
+																<li>
+																	<span className='easy'>
+																		{data[0].difficultyLevel ? data[0].difficultyLevel.name : "Name Not Found"}
+																	</span>
+																</li>
 															</ul>
 														</div>
 														<div className='col-md-6 col-sm-6 col-xs-6'>
