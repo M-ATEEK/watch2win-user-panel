@@ -32,28 +32,10 @@ class InnerContent extends Component {
 		var start = moment(subscribeDetail.subscribeDate);
 		var current = moment().startOf('minute');
 		const duration = moment.duration(current.diff(start)).asDays()
-		if(subscribeDetail.subscribe){
 		if (duration <= "30") {
 			alert("You already subscribed")
-			window.location.href="/home"
-		}
-			else{
-				axios
-				.get(`${config.API_URL}/admin/subscription`, {
-					headers: {
-						Authorization: token,
-					},
-				})
-				.then((response) => {
-					this.setState({
-						data: response.data.data.subscriptions
-					})
-				})
-			
-		}
-	}
-		else{
-			axios
+		
+		axios
 			.get(`${config.API_URL}/admin/subscription`, {
 				headers: {
 					Authorization: token,
@@ -65,7 +47,7 @@ class InnerContent extends Component {
 				})
 			})
 		}
-	
+
 	}
 
 	sliders = () => {
