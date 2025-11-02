@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+
 import config from "../../config";
 import axios from "axios";
-import Form from "../common/Form";
 import Auth from "../Services/Auth";
 import { Redirect, Link } from "react-router-dom";
 import Joi from "joi";
-class Register extends Form {
+
+class Register extends Component {
 	state = {
+
 		login: false,
 		errors: {},
 		message: "",
@@ -19,48 +21,66 @@ class Register extends Form {
 			email: "",
 			password: "",
 			confirm_password: "",
-			roles: "user",
-			image: null,
+			role: 'user',
 		},
 	};
 
 	schema = Joi.object({
-		firstName: Joi.string().required().label("First Name"),
-		lastName: Joi.string().required().label("Last Name"),
-		userName: Joi.string().required().label("User Name"),
 		email: Joi.string()
 			.email({ tlds: { allow: false } })
 			.required()
 			.label("Email"),
 		password: Joi.string().required().min(6).label("Password"),
-		confirm_password: Joi.any().valid(Joi.ref("password")).label("Confirm Password"),
-		roles: Joi.string().required(),
-		image: Joi.allow(""),
+		firstName: Joi.string()
+			.required()
+			.label("First Name"),
+		lastName: Joi.string()
+			.required()
+			.label("Last Name"),
+		userName: Joi.string()
+			.required()
+			.label("User Name"),
 	});
 
-	doSubmit = () => {
-		axios.post(`${config.API_URL}/signup`, this.state.data).then((response) => {
-			if (response.data.success) {
-				if (response.data.data.token !== undefined) {
-					Auth.setToken(response.data.data.token);
-					this.props.history.push("/home");
+	submitHandler = (e) => {
+		e.preventDefault();
+		if (this.state.data.email === "" && this.state.data.password === "") {
+			this.setState({
+				message: "Enter email and password",
+			});
+		} else {
+			axios.post(`${config.API_URL}/signup`, this.state.data).then((response) => {
+				if (response.data.success) {
+					if (response.data.data.token !== undefined) {
+						Auth.setToken(response.data.data.token);
+						this.props.history.push("/home");
+					}
+				} else if (response.data.success === false) {
+					this.setState({
+						message: response.data.errors.email.message,
+					});
 				}
-			} else if (response.data.success === false) {
-				this.setState({
-					message: response.data.errors.email.message,
-				});
-			}
+			});
+		}
+	};
+
+	handleInput = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value,
 		});
 	};
 	render() {
-		const { errors } = this.state;
+		const token = Auth.getToken();
+		if (token) {
+			return <Redirect to='/home' />;
+		}
 		return (
-			<div className='loginBg signinBg'>
+			<div className='loginBg'>
 				<div className='container'>
 					<div className='loginArea'>
 						<h2>SIGNUP</h2>
 						<div className='formArea'>
-							<form onSubmit={this.handleSubmit} method='post'>
+							<form onSubmit={this.submitHandler} method='post'>
 								<p className='text-danger'>{this.state.message}</p>
 								<div className='form-group'>
 									<input
@@ -69,9 +89,7 @@ class Register extends Form {
 										placeholder='First Name'
 										name='firstName'
 										value={this.state.data.firstName}
-										onChange={this.handleOnChange}
-									/>
-									{errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
+										onChange={this.handleInput} />
 								</div>
 								<div className='form-group'>
 									<input
@@ -80,9 +98,8 @@ class Register extends Form {
 										placeholder='Last Name'
 										name='lastName'
 										value={this.state.data.lastName}
-										onChange={this.handleOnChange}
+										onChange={this.handleInput}
 									/>
-									{errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -91,9 +108,8 @@ class Register extends Form {
 										placeholder='Unique Username'
 										name='userName'
 										value={this.state.data.userName}
-										onChange={this.handleOnChange}
+										onChange={this.handleInput}
 									/>
-									{errors.userName && <span className='text-danger'>{errors.userName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -102,9 +118,8 @@ class Register extends Form {
 										placeholder='Email'
 										name='email'
 										value={this.state.data.email}
-										onChange={this.handleOnChange}
+										onChange={this.handleInput}
 									/>
-									{errors.email && <span className='text-danger'>{errors.email}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -112,10 +127,10 @@ class Register extends Form {
 										className='form-control'
 										placeholder='Password'
 										name='password'
-										onChange={this.handleOnChange}
+										onChange={this.handleInput}
 										value={this.state.data.password}
 									/>
-									{errors.password && <span className='text-danger'>{errors.password}</span>}
+									{this.state.errors.password && <span className='text-danger'>{this.state.errors.password}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -123,10 +138,9 @@ class Register extends Form {
 										className='form-control'
 										placeholder='Confirm Password'
 										name='confirm_password'
-										onChange={this.handleOnChange}
+										onChange={this.handleInput}
 										value={this.state.data.confirm_password}
 									/>
-									{errors.confirm_password && <span className='text-danger'>{errors.confirm_password}</span>}
 								</div>
 								<div className='form-group'>
 									<button type='submit' className='btn btnLogin'>

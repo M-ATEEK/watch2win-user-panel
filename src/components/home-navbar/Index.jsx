@@ -6,6 +6,7 @@ import MobileLogo from "../../assets/images/mobLogo.png";
 import SearchIcon from "../../assets/images/searchIcon.png";
 import MobileUser from "../../assets/images/mobUser.png";
 import BackBtn from "../../assets/images/backArrow.png";
+import Auth from "../Services/Auth";
 
 class HomeNavbar extends Component {
 	state = {
@@ -54,6 +55,7 @@ class HomeNavbar extends Component {
 			});
 		}
 	};
+
 
 	render() {
 		const { isVisible, searchVisible } = this.state;
@@ -111,7 +113,7 @@ class HomeNavbar extends Component {
 											<Link to='/activites'>Profile</Link>
 										</li>
 										<li>
-											<a href='#'>Logout</a>
+											<Link to='/logout'>Logout</Link>
 										</li>
 									</ul>
 								</li>
@@ -129,15 +131,22 @@ class HomeNavbar extends Component {
 						</Link>
 					</div>
 					<div className={"mobSearch col-xs-6"} style={{ display: searchVisible ? "block" : "none" }}>
-						<form className='navbar-form navbar-left' role='search'>
+
+
+						<form className='navbar-form navbar-left' role='search' onSubmit={this.handleSubmit.bind(this)}>
 							<div className='form-group'>
-								<input type='text' className='form-control' onChange={this.handleChange} placeholder='SEARCH BY CATEGORY, ATHLETE NAME' />
+								<input
+									type='text'
+									className='form-control'
+									name="search"
+									onChange={this.handleChange}
+									placeholder='SEARCH BY CATEGORY, ATHLETE NAME' />
 							</div>
 						</form>
 					</div>
 					<div className='col-xs-3 mobMenuItems'>
 						<ul className='list-unstyled list-inline'>
-							<li>
+							<li style={{ display: searchVisible ? "none" : "block" }}>
 								<a onClick={this.handleSearchToggle} id='mobSearchBtn'>
 									<img src={SearchIcon} alt='' />
 								</a>
@@ -152,7 +161,8 @@ class HomeNavbar extends Component {
 										<Link to='/activites'>Profile</Link>
 									</li>
 									<li>
-										<a href='#'>Logout</a>
+										<Link to='/logout'>Logout</Link>
+
 									</li>
 								</ul>
 							</li>

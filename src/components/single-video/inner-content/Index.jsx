@@ -30,7 +30,6 @@ class InnerContent extends Component {
 		earnedPoint: false,
 		favChecked: false,
 		userDetail: [],
-
 		favouriteDrillVideos: [],
 	};
 
@@ -53,8 +52,7 @@ class InnerContent extends Component {
 						data: [...response.data.data.drills],
 					},
 					function () {
-						console.log(JSON.stringify(this.state.data));
-
+				
 						this.setVideosdata();
 						this.playerVideo();
 					}
@@ -75,7 +73,7 @@ class InnerContent extends Component {
 				if (data.favouriteDrillVideos.length > 0) {
 					this.setState(
 						{
-							favouriteDrillVideos: [...data.favouriteDrillVideo],
+							favouriteDrillVideos: [...data.favouriteDrillVideos],
 						},
 						function () {
 							this.favouriteToogle();
@@ -220,7 +218,7 @@ class InnerContent extends Component {
 	}
 
 	startVideo(startVideo) {
-		console.log(this.state.videosData[this.state.index].video);
+		
 		this.setState({
 			isplay: false,
 			src: this.state.videosData[this.state.index].playVideo.video,
@@ -292,7 +290,7 @@ class InnerContent extends Component {
 		const data = this.state.data;
 
 		if (currentVideo != null && data.length > 0) {
-			console.log(currentVideo);
+	
 
 			return (
 				<div className='mainInnerContent'>

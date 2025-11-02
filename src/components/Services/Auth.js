@@ -6,6 +6,10 @@ const getToken = () => {
 	return localStorage.getItem("token");
 };
 
+const clearToken = () => {
+	return localStorage.clear("token");
+};
+
 const isAuthenticated = () => {
 	if (getToken()) {
 		return true;
@@ -17,5 +21,6 @@ const isAuthenticated = () => {
 export default {
 	setToken: setToken,
 	getToken: getToken,
+	clearToken: clearToken,
 	isAuthenticated: isAuthenticated,
 };

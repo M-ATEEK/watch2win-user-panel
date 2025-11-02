@@ -22,8 +22,11 @@ class InnerContent extends Component {
 		activityTab: false,
 		favouriteTab: false,
 		workoutTab: true,
+		atheletes: []
 	};
 	componentDidMount() {
+
+		this.getAtheltes();
 		Axios.get(`${config.API_URL}/user/detail`, {
 			headers: {
 				Authorization: Auth.getToken(),
@@ -98,8 +101,32 @@ class InnerContent extends Component {
 		}
 	};
 
+	getAtheltes() {
+		let athelte = [];
+
+		Axios.get(`${config.API_URL}/admin/athlete`, {
+			headers: {
+				Authorization: Auth.getToken(),
+			},
+		}).then((response) => {
+			if (response.status === 200 && response.data.data.athlete.length > 0) {
+				this.setState({
+					atheletes: [...response.data.data.athlete]
+				})
+
+
+			}
+		}).catch((error) => console.log(error));
+
+
+
+	}
+
+
+
 	render() {
 		const { activityTab, favouriteTab, workoutTab, myActivity, myFavoutires, myWorksOut } = this.state;
+
 		return (
 			<div className='mainInnerContent innerMainProfileContent'>
 				<div className='container'>
@@ -130,7 +157,24 @@ class InnerContent extends Component {
 							<div className='row'>
 								{myWorksOut.length > 0 ? (
 									myWorksOut.map((drills, index) => {
+										let atheleteName = '';
+										let atheleteImage = '';
+										let athelte = {};
+										if (drills.drill_id) {
+											athelte = this.state.atheletes.filter((athelete, ith) => athelete._id === drills.drill_id[0].athlete)
+											atheleteName = athelte[0].name;
+											atheleteImage = `${config.IMG_URL}/image/${athelte[0].image}`
+										} else {
+											atheleteName = 'Name Not Found';
+											atheleteImage = userIcon;
+										}
+
+
+
+
+
 										return (
+
 											<div key={index} className='col-md-6 col-sm-6 col-xs-12'>
 												<div className='drillsArea drillsMain2'>
 													<div className='drillsMain'>
@@ -140,40 +184,52 @@ class InnerContent extends Component {
 																	<div className='col-md-1 col-sm-2 col-xs-2'>
 																		<img
 																			style={{ width: "55px" }}
-																			src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon}
+																			src={atheleteImage}
 																			alt=''
 																		/>
 																	</div>
 																	<div className='col-md-11 col-sm-10 col-xs-9'>
-																		<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
+																		<h4>{atheleteName}</h4>
+
 																	</div>
 																</div>
 															</div>
 															<div className='videoMainArea'>
 																<img src={videoThumbnail} alt='' />
 																<div className='videoPlay'>
-																	<Link to={`/single/video/${drills._id}`}>
-																		<img src={playIcon} alt='' />
-																	</Link>
+																	{
+																		drills.drill_id ? (
+																			<Link to={`/single/video/${drills.drill_id[0]._id}/${drills.video_id}`}>
+																				<img src={playIcon} alt='' />
+																			</Link>
+																		) : (
+																				<Link to='#'>
+																					<img src={playIcon} alt='' />
+																				</Link>
+
+																			)
+																	}
+
 																</div>
-																<div className='videoName'>
+																{/* <div className='videoName'>
 																	<img src={videoNameIcon} alt='' />
 																	<span>Video name will show here </span>
-																</div>
+																</div> */}
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
 																			<li>
 																				<span className='easy'>
-																					{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
+																					{drills.diffculty_id ? drills.diffculty_id[0].name : "Name Not Found"}
 																				</span>
 																			</li>
 																		</ul>
 																	</div>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoRightSettings list-unstyled'>
-																			{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
-																			{this.isPremimum(drills.isPremium)}
+
+																			{drills.drill_id ? this.dateDifferenceInDays(new Date(), new Date(drills.drill_id[0].createdAt)) : ''}
+																			{drills.drill_id ? this.isPremimum(drills.drill_id[0].isPremium) : ''}
 																		</ul>
 																	</div>
 																</div>
@@ -185,8 +241,8 @@ class InnerContent extends Component {
 										);
 									})
 								) : (
-									<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
-								)}
+										<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
+									)}
 							</div>
 						</div>
 						<div
@@ -231,14 +287,14 @@ class InnerContent extends Component {
 																/>
 
 																<div className='videoPlay'>
-																	<Link to={`/single/video/${favourties._id}`}>
+																	<Link to={`/single/video/${favourties._id}/${favourties._id}}`}>
 																		<img src={playIcon} alt='' />
 																	</Link>
 																</div>
-																<div className='videoName'>
+																{/* <div className='videoName'>
 																	<img src={videoNameIcon} alt='' />
 																	<span>Video name will show here </span>
-																</div>
+																</div> */}
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
@@ -269,8 +325,8 @@ class InnerContent extends Component {
 										);
 									})
 								) : (
-									<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
-								)}
+										<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
+									)}
 							</div>
 						</div>
 						<div id='act' style={{ display: activityTab ? "block" : "none" }} className={activityTab ? "tab-pane fade in active" : "tab-pane fade"}>
@@ -297,8 +353,8 @@ class InnerContent extends Component {
 											);
 										})
 									) : (
-										<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
-									)}
+											<h2 style={{ color: "#fee6cc", textAlign: "center" }}>No Record Found</h2>
+										)}
 								</div>
 							</div>
 						</div>
