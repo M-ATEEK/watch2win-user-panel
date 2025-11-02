@@ -29,7 +29,7 @@ class InnerBanner extends Component {
 	}
 
 	render() {
-		const { data } = this.state;
+		const { data } = this.state.data;
 		if (data != null && data.length > 0) {
 			{
 				return (
@@ -90,9 +90,9 @@ class InnerBanner extends Component {
 			return (
 				<div className='innerBanner innerPagesBanner innerBannerOptions'>
 					<div className='container'>
-						<div className='row'>
-							<h2 style={{ color: "#fee6cc", textAlign: "center" }}>Drill Not Found</h2>
-						</div>
+					<div className='row'>
+								<h2 style={{ color: "#fee6cc", textAlign: "center" }}>Drill Not Found</h2>
+							</div>
 					</div>
 				</div>
 			);
