@@ -33,7 +33,7 @@ body {
 .loginBg {
 	width: 100%;
 	background: url("../images/loginBg.png") no-repeat;
-	background-size: cover;
+	background-size: 100% 100%;
 	background-position: top center;
 	padding: 70px 0;
 }
@@ -216,7 +216,8 @@ body {
 	box-sizing: border-box;
 }
 .bannerContent img {
-	width: 100%;
+	width: 95%;
+	min-height: 185px;
 }
 .bannerContent {
 	position: relative;
@@ -234,6 +235,7 @@ body {
 .mainInnerContent {
 	background: #1b1d32;
 	padding: 20px 0;
+	/* min-height: 473px; */
 }
 .innerDropdown {
 	padding: 0 !important;
@@ -333,15 +335,15 @@ body {
 }
 .videoRightSettings li .new {
 	background: #389f31;
-	color: #000;
-    padding: 5px 10px;
-    border-radius: 5px;
+	color:white;
+	padding: 5px 10px;
+	border-radius: 5px;
 }
 .videoRightSettings li .premium {
 	background: #fee6cc;
-    color: #000;
-    padding: 5px 10px;
-    border-radius: 5px;
+	color: #000;
+	padding: 5px 10px;
+	border-radius: 5px;
 }
 .drillsArea {
 	background: #181a1f;
@@ -601,6 +603,7 @@ body {
 }
 .innerMainProfileContent {
 	padding-top: 0;
+	min-height: 473px;
 }
 .nav-tabs {
 	border-bottom: none;
@@ -964,9 +967,7 @@ body {
 .innerBannerContent .slick-track {
 	top: 0px !important;
 }
-.bannerContent img {
-	width: 95%;
-}
+
 .bannerContent h3 {
 	position: absolute;
 	color: #fff;
@@ -977,6 +978,27 @@ body {
 	font-weight: 500;
 	text-align: left;
 }
-.disbaledBtn{
+.disbaledBtn {
 	pointer-events: none;
+}
+body {
+	background: #1b1d32;
+}
+.drill-images {
+	min-height: 390px;
+}
+.vidFavWishOptions li a {
+	cursor: pointer;
+}
+
+.slick-prev, .slick-next {
+	z-index: 1;
+}
+
+.slick-list {
+	min-height: 403px !important;
+}
+
+.slick-dotted {
+	max-height: 150px;
 }
