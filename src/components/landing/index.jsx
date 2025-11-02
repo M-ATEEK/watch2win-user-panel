@@ -29,27 +29,12 @@ import instaRed from "../../assets/imageslanding/instaRed.png"
 import twRed from "../../assets/imageslanding/twRed.png"
 import fbRed from "../../assets/imageslanding/fbRed.png"
 
-function appendScript (scriptToAppend) {
-    const script = document.createElement("script");
-    script.src = scriptToAppend;
-    script.async = false;
-    document.body.appendChild(script);
-  }
-
 class LandingPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
 
         };
-    }
-
-    componentDidMount() {
-        appendScript("js/jquery-1.11.3.min.js");
-        appendScript("js/bootstrap.js");
-        appendScript("js/slick.min.js");
-        appendScript("js/swiper-bundle.min.js");
-        appendScript("js/custom.js");
     }
 
     render() {
@@ -223,14 +208,14 @@ class LandingPage extends Component {
                                 </div>
                                 <div className="swiper-container">
                                     <div className="swiper-wrapper">
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
+                                        <div className="swiper-slide" style={{ backgroundImage: {slider1} }} />
                                     </div>
                                     {/* Add Pagination */}
                                     <div className="swiper-button-next" />
