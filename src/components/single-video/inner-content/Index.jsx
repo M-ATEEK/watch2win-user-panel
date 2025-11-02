@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import config from "../../../config";
 import axios from "axios";
@@ -11,14 +10,10 @@ import ArrowDown from "../../../assets/images/arrowDown.png";
 import PlaySmall from "../../../assets/images/playSm.png";
 import AddToFav from "../../../assets/images/addToFav.png";
 import WatchList from "../../../assets/images/watchList.png";
-import unWatch from "../../../assets/images/unwatch.png";
 import RepeatSm from "../../../assets/images/repeatSm.png";
 import RepeatLg from "../../../assets/images/repeatLg.png";
 import FavChecked from "../../../assets/images/favChecked.png";
 import "../../../assets/css/responsive-player.css";
-import { func } from "joi";
-
-
 
 class InnerContent extends Component {
 	state = {
@@ -36,22 +31,13 @@ class InnerContent extends Component {
 		favChecked: false,
 		userDetail: [],
 		favouriteDrillVideos: [],
-		watchLaterDrillVideos: [],
-		watchedVideos: [],
-		videoId: '',
-		drillId: '',
-		videoFav: []
+		videoId: this.props.videoId,
+		drillId: this.props.id
 	};
 
 	componentDidMount() {
-		this.setState({
-			videoId: this.props.videoId,
-			drillId: this.props.id
-		}, function () {
-			this.getDrillsData();
-			this.getUserDetail();
-		});
-
+		this.getDrillsData();
+		this.getUserDetail();
 	}
 
 	getDrillsData = () => {
@@ -90,37 +76,82 @@ class InnerContent extends Component {
 					this.setState(
 						{
 							favouriteDrillVideos: [...data.favouriteDrillVideos],
-						});
-				}else{
-					this.setState(
-						{
-							favouriteDrillVideos: [],
-						});
-				}
-				if (data.watchLaterDrillVideos.length > 0) {
-					this.setState(
-						{
-							watchLaterDrillVideos: [...data.watchLaterDrillVideos],
-						});
-				}else{
-					this.setState(
-						{
-							watchLaterDrillVideos: [],
-						});
-				}
-				if (data.watchedVideos.length > 0) {
-					this.setState(
-						{
-							watchedVideos: [...data.watchedVideos],
-						});
-				}else{
-					this.setState(
-						{
-							watchedVideos: [],
-						});
+						},
+						function () {
+							this.favouriteToogle();
+						}
+					);
+				} else {
+					this.favouriteToogle();
 				}
 			})
 			.catch((error) => console.log(error));
+	};
+
+	favouriteToogle = () => {
+		if (this.state.favouriteDrillVideos.length > 0 && this.state.videosData.length > 0) {
+			const data = this.state.videosData;
+			const favData = this.state.favouriteDrillVideos;
+			const newVideoArray = [];
+
+			data.forEach((item, index) => {
+				let found = false;
+				favData.forEach((favObj, ith) => {
+					if (favObj._id === item._id) {
+						newVideoArray.push({
+							status: true,
+							playVideo: item,
+						});
+						found = true;
+					} else {
+						found = false;
+					}
+				});
+				if (found === false) {
+					newVideoArray.push({
+						status: false,
+						playVideo: item,
+					});
+				}
+			});
+			const newArray = [];
+
+			newVideoArray.forEach((obj) => {
+				if (!newArray.some((o) => o.playVideo._id === obj.playVideo._id)) {
+					newArray.push(obj);
+				}
+			});
+			this.setState(
+				{
+					videosData: [...newArray],
+				},
+				function () {
+					this.setState({
+						vidoePlay: this.state.videosData[this.state.index],
+					});
+				}
+			);
+		} else {
+			const data = this.state.videosData;
+			const newVideoArray = [];
+			data.forEach((item, index) => {
+				newVideoArray.push({
+					status: false,
+					playVideo: item,
+				});
+			});
+
+			this.setState(
+				{
+					videosData: [...newVideoArray],
+				},
+				function () {
+					this.setState({
+						vidoePlay: this.state.videosData[this.state.index],
+					});
+				}
+			);
+		}
 	};
 
 	setVideosdata() {
@@ -147,22 +178,22 @@ class InnerContent extends Component {
 	}
 
 	onChangeDecreasePlayerVideo(Decrease) {
-
-		const checkIndex = this.state.index;
+		
+		const checkIndex = this.state.index;	
 
 		if (checkIndex <= this.state.videoCount - 1 && checkIndex > 0) {
-
+		
 			this.setState({
 				index: checkIndex - 1,
 				increaseArrow: true,
 				decreaseArrow: true,
-
+				
 			});
 		} else {
 			this.setState({
 				increaseArrow: true,
 				decreaseArrow: false,
-
+			
 			});
 		}
 	}
@@ -172,27 +203,15 @@ class InnerContent extends Component {
 				vidoePlay: this.state.videosData[this.state.index],
 			},
 			function () {
-				// if (this.state.favouriteDrillVideos.length > 0) {
-				// 	this.favouriteToogle();
-				// }
+				if (this.state.favouriteDrillVideos.length > 0) {
+					this.favouriteToogle();
+				}
 
 				this.state.videosData.filter((video, index) => {
 
 					if (video._id == this.state.videoId) {
 						this.setState({
 							index: index
-						}, function () {
-
-							if (this.state.index > 1) {
-								this.setState({
-									decreaseArrow: true
-								})
-							}
-							if (this.setState.index === this.state.videosData.length - 1) {
-								this.setState({
-									increaseArrow: false
-								})
-							}
 						});
 					}
 				});
@@ -206,9 +225,9 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<Link to='#' className='premium'>
+					<a href='#' className='premium'>
 						Premium
-					</Link>
+					</a>
 				</li>
 			);
 		}
@@ -218,8 +237,8 @@ class InnerContent extends Component {
 
 		this.setState({
 			isplay: false,
-			src: this.state.videosData[this.state.index].video,
-			videoId: this.state.videosData[this.state.index]._id,
+			src: this.state.videosData[this.state.index].playVideo.video,
+			videoId: this.state.videosData[this.state.index].playVideo._id,
 		});
 	}
 
@@ -230,7 +249,7 @@ class InnerContent extends Component {
 					video_id: this.state.videoId,
 					drill_id: this.state.data[0]._id,
 					diffculty_id: this.state.data[0].difficultyLevel._id,
-					speed_level_id: this.state.videosData[this.state.index].speedLevel._id,
+					speed_level_id: this.state.videosData[this.state.index].playVideo.speedLevel._id,
 				},
 			],
 		};
@@ -244,17 +263,13 @@ class InnerContent extends Component {
 				this.setState({
 					earnedPoint: true,
 					isplay: true,
-				}, function () {
-					this.getUserDetail();
-					this.watchVideosCount(this.state.videoId)
 				});
 			});
 	};
 
 	addToFavourite = (videoId, status) => {
 		const response = {
-			video_id: videoId,
-			drill_id: this.state.drillId,
+			favouriteDrillVideos: videoId,
 			isAdded: status,
 		};
 		axios
@@ -264,21 +279,15 @@ class InnerContent extends Component {
 				},
 			})
 			.then((response) => {
-				this.setState({
-					videoId: this.props.videoId,
-					drillId: this.props.id
-				}, function () {
-					// this.getDrillsData();
-					this.getUserDetail();
-					this.checkFavourites(videoId);
-				});
+				this.getDrillsData();
+
+				this.getUserDetail();
 			});
 	};
 
 	watchLater = (videoId, status) => {
 		const response = {
-			video_id: videoId,
-			drill_id: this.state.drillId,
+			watchLaterDrillVideos: [videoId],
 			isAdded: status,
 		};
 		axios
@@ -288,113 +297,18 @@ class InnerContent extends Component {
 				},
 			})
 			.then((response) => {
-				this.setState({
-					videoId: this.props.videoId,
-					drillId: this.props.id,
-					favouriteDrillVideos: [],
-					videosData: []
-				}, function () {
-					this.getDrillsData();
-					this.getUserDetail();
-				});
-
+				// this.getDrillsData();
+				// this.getUserDetail();
 			});
 	};
-	checkFavourites = (videoId) => {
-		const length = this.state.favouriteDrillVideos.length;
-		const favVideo = this.state.favouriteDrillVideos;
-		let videoFav = [];
-		if (length > 0) {
-
-			videoFav = favVideo.filter((fav, ith) => fav.video_id === videoId)
-			console.log(":added video " + JSON.stringify(videoFav));
-			if (videoFav.length > 0) {
-				return (
-					<span onClick={() => this.addToFavourite(videoId, false)}>
-						<img style={{ width: "100%" }} src={FavChecked} alt='' />
-					</span>
-				);
-			} else {
-				return (
-					<span  onClick={() => this.addToFavourite(videoId, true)}>
-						<img src={AddToFav} alt='' />
-					</span>
-				);
-			}
-
-
-		} else {
-			return (
-				<span onClick={() => this.addToFavourite(videoId, true)}>
-					<img src={AddToFav} alt='' />
-				</span>
-			);
-
-		}
-		// 
-
-	}
-
-	checkWatchList = (videoId) => {
-		const length = this.state.watchLaterDrillVideos.length;
-		const watchVideo = this.state.watchLaterDrillVideos;
-		let videoWatch = [];
-		if (length > 0) {
-
-			videoWatch = watchVideo.filter((watch, ith) => watch.video_id === videoId)
-			console.log(":added video " + JSON.stringify(videoWatch));
-			if (videoWatch.length > 0) {
-				return (
-					<span onClick={() => this.watchLater(videoId, false)}>
-						<img src={unWatch} alt='' style={{ width: "50px" }} />
-					</span>
-				);
-			} else {
-				return (
-					<span  onClick={() => this.watchLater(videoId, true)}>
-						<img src={WatchList} alt='' />
-					</span>
-				);
-			}
-
-
-		} else {
-			return (
-				<span  onClick={() => this.watchLater(videoId, true)}>
-					<img src={WatchList} alt='' />
-				</span>
-			);
-
-		}
-		
-
-	}
-
-	watchVideosCount = (videoId) => {
-		const length = this.state.watchedVideos.length;
-		const watchVideos = this.state.watchedVideos;
-		let videoWatch = [];
-
-		if (length > 0) {
-			videoWatch = watchVideos.filter((watch, ith) => watch.video_id === videoId)
-			if (videoWatch.length > 0) {
-				console.log(' videoWatch[0].watch_count ' + videoWatch[0].watch_count);
-				return videoWatch[0].watch_count;
-
-			} else {
-				return 0;
-			}
-
-		} else {
-			return 0;
-		}
-
-	}
 	render() {
 
 		const currentVideo = this.state.videosData[this.state.index];
+
 		const data = this.state.data;
+
 		if (currentVideo != null && data.length > 0) {
+
 
 			return (
 				<div className='mainInnerContent'>
@@ -402,7 +316,7 @@ class InnerContent extends Component {
 						return (
 							<div key={i} className='container'>
 								<div className='searchResultsParent'>
-									{/* <h3 className='hidden-xs'>Video Thumbnail will shown here </h3> */}
+									<h3 className='hidden-xs'>Video Thumbnail will shown here </h3>
 
 									<div className='videoLg'>
 										<div className='videoMain form-group'>
@@ -411,8 +325,8 @@ class InnerContent extends Component {
 													<div className='videoMainArea'>
 														<img
 															src={
-																currentVideo != null && currentVideo
-																	? `${config.IMG_URL}/image/drills/${currentVideo.thumbnail}`
+																currentVideo != null && currentVideo.playVideo
+																	? `${config.IMG_URL}/image/drills/${currentVideo.playVideo.thumbnail}`
 																	: VideoLarge
 															}
 															alt=''
@@ -422,9 +336,9 @@ class InnerContent extends Component {
 															onClick={() => this.startVideo("startVideo")}
 															style={{ display: this.state.earnedPoint ? "block" : "none" }}
 														>
-															<Link to='#'>
+															<a href='#'>
 																<img src={RepeatLg} alt='' />
-															</Link>
+															</a>
 														</div>
 														<div
 															className='videoInfoOverlay hidden-xs'
@@ -433,9 +347,9 @@ class InnerContent extends Component {
 															<h5>
 																<strong>
 																	{currentVideo != null &&
-																		currentVideo != null &&
-																		currentVideo.speedLevel != null
-																		? currentVideo.speedLevel.points / currentVideo.speedLevel.condition
+																		currentVideo.playVideo != null &&
+																		currentVideo.playVideo.speedLevel != null
+																		? currentVideo.playVideo.speedLevel.points / currentVideo.playVideo.speedLevel.condition
 																		: 0}
 																</strong>{" "}
 																Points Earned
@@ -443,16 +357,16 @@ class InnerContent extends Component {
 															<h6>
 																Watch Video{" "}
 																{currentVideo != null &&
-																	currentVideo != null &&
-																	currentVideo.speedLevel != null
-																	? currentVideo.speedLevel.condition - (this.watchVideosCount(currentVideo._id))
+																	currentVideo.playVideo != null &&
+																	currentVideo.playVideo.speedLevel != null
+																	? currentVideo.playVideo.speedLevel.condition - 2
 																	: 0}
 																x (times) again to earn{" "}
 																{currentVideo != null &&
-																	currentVideo != null &&
-																	currentVideo.speedLevel != null
-																	? (currentVideo.speedLevel.condition - (this.watchVideosCount(currentVideo._id))) *
-																	currentVideo.speedLevel.points
+																	currentVideo.playVideo != null &&
+																	currentVideo.playVideo.speedLevel != null
+																	? (currentVideo.playVideo.speedLevel.condition - 2) *
+																	currentVideo.playVideo.speedLevel.points
 																	: 0}{" "}
 																points
 															</h6>
@@ -462,9 +376,9 @@ class InnerContent extends Component {
 															style={{ display: this.state.earnedPoint ? "none" : "block" }}
 															onClick={() => this.startVideo("startVideo")}
 														>
-															<Link to='#'>
+															<a href='#'>
 																<img src={Play} alt='' />
-															</Link>
+															</a>
 														</div>
 														<div className='videoSettings'>
 															<div className='col-md-12 col-sm-12 col-xs-12'>
@@ -479,20 +393,20 @@ class InnerContent extends Component {
 																<div className='col-md-2 col-sm-2 speedLevelControl'>
 																	<div className='row'>
 																		<div className='col-md-12 form-group'>
-																			<Link to="#"
+																			<a
 																				className={this.state.decreaseArrow == false ? "disbaledBtn" : ""}
 																				onClick={() => this.onChangeDecreasePlayerVideo("decrease")}
 																			>
 																				<img src={ArrowUp} alt='' />
-																			</Link>
+																			</a>
 																		</div>
 																		<div className='col-md-12 form-group '>
-																			<Link to="#"
+																			<a
 																				className={this.state.increaseArrow == false ? "disbaledBtn" : ""}
 																				onClick={() => this.onChangeIncreasePlayerVideo("increase")}
 																			>
 																				<img src={ArrowDown} alt='' />
-																			</Link>
+																			</a>
 																		</div>
 																	</div>
 																</div>
@@ -503,9 +417,9 @@ class InnerContent extends Component {
 																style={{ display: this.state.earnedPoint ? "none" : "block" }}
 																onClick={() => this.startVideo("startVideo")}
 															>
-																<Link to="#">
+																<a>
 																	<img src={PlaySmall} alt='' /> &nbsp; Start
-																</Link>
+																</a>
 															</div>
 
 															<div
@@ -513,34 +427,33 @@ class InnerContent extends Component {
 																style={{ display: this.state.earnedPoint ? "block" : "none" }}
 																onClick={() => this.startVideo("startVideo")}
 															>
-																<Link to='#'>
+																<a href='#'>
 																	<img src={RepeatSm} alt='' /> &nbsp; Repeat
-																</Link>
+																</a>
 															</div>
 															<div className='col-md-4 col-sm-4 vidFavWishOptions'>
 																<ul className='list-unstyled list-inline'>
 																	<li>
-
-
-																		{currentVideo != null ? (
-																			this.checkFavourites(currentVideo._id)
-
+																		{currentVideo != null && currentVideo.status == false ? (
+																			<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, true)}>
+																				<img src={AddToFav} alt='' />
+																			</a>
 																		) : (
-
-																				""
+																				<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, false)}>
+																					<img style={{ width: "100%" }} src={FavChecked} alt='' />
+																				</a>
 																			)}
 																	</li>
 																	<li>
-
-
-																		{currentVideo != null ? (
-																			this.checkWatchList(currentVideo._id)
-
+																		{currentVideo != null && currentVideo.playVideo != null ? (
+																			<a onClick={() => this.watchLater(currentVideo.playVideo._id, true)}>
+																				<img src={WatchList} alt='' />
+																			</a>
 																		) : (
-
-																				""
+																				<a onClick={() => this.watchLater(currentVideo.playVideo._id, false)}>
+																					<img src={WatchList} alt='' />
+																				</a>
 																			)}
-
 																	</li>
 																</ul>
 															</div>
@@ -565,7 +478,7 @@ class InnerContent extends Component {
 												<h3>DRILL SUMMARY</h3>
 												<p>Category : {drills.category ? drills.category.name : "Categroy Not Found"}</p>
 												<p>Difficulty level : {drills.difficultyLevel ? drills.difficultyLevel.name : "Difficulty Level Not Found"}</p>
-												{/* <p>Speed level : {currentVideo.id}</p> */}
+												{/* <p>Speed level : {currentVideo.playVideo.id}</p> */}
 											</div>
 
 											<div className='videoPageBtmSettings hidden-lg hidden-md hidden-sm'>
@@ -581,24 +494,20 @@ class InnerContent extends Component {
 													<div className='col-xs-3 vidFavWishOptions'>
 														<ul className='list-unstyled list-inline'>
 															<li>
-
-																{currentVideo != null ? (
-																	this.checkFavourites(currentVideo._id)
-
+																{currentVideo != null && currentVideo.status == false ? (
+																	<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, true)}>
+																		<img src={AddToFav} alt='' />
+																	</a>
 																) : (
-
-																		""
+																		<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, false)}>
+																			<img style={{ width: "100%" }} src={FavChecked} alt='' />
+																		</a>
 																	)}
 															</li>
 															<li>
-																{currentVideo != null ? (
-																	this.checkWatchList(currentVideo._id)
-
-																) : (
-
-																		""
-																	)}
-
+																<a href='#'>
+																	<img src={WatchList} alt='' />
+																</a>
 															</li>
 														</ul>
 													</div>
@@ -614,22 +523,22 @@ class InnerContent extends Component {
 														</div>
 														<div className='col-xs-3'>
 															<div className='speedLevelControl'>
-																<Link to="#"
+																<a
 																	className={this.state.decreaseArrow == false ? "disbaledBtn" : ""}
 																	onClick={() => this.onChangeDecreasePlayerVideo("decrease")}
 																>
 																	<img src={ArrowUp} alt='' />
-																</Link>
+																</a>
 															</div>
 														</div>
 														<div className='col-xs-3'>
 															<div className='speedLevelControl'>
-																<Link to="#"
+																<a
 																	className={this.state.increaseArrow == false ? "disbaledBtn" : ""}
 																	onClick={() => this.onChangeIncreasePlayerVideo("increase")}
 																>
 																	<img src={ArrowDown} alt='' />
-																</Link>
+																</a>
 															</div>
 														</div>
 														<div className='clearfix'></div>

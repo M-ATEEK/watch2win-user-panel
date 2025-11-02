@@ -7,9 +7,12 @@ class SingleVideo extends Component {
 	render() {
 
 		const drillId = this.props.match.params.id;
+		const videoId = this.props.match.params.videoId;
+		
+
 		return (
 			<>
-				<InnerContent  id={drillId} />
+				<InnerContent  id={drillId} videoId={videoId} />
 				<MobileNavbar />
 			</>
 		);
