@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router";
 import userIcon from "../../../assets/images/user.png";
 import userSmallIcon from "../../../assets/images/userSm.png";
 import playIcon from "../../../assets/images/play.png";
@@ -11,7 +9,7 @@ import heartIcon from "../../../assets/images/heart.png";
 import durationIcon from "../../../assets/images/durationIcon.png";
 import config from "../../../config";
 import axios from "axios";
-
+import { Redirect } from "react-router";
 import Auth from "../../Services/Auth";
 
 class InnerContent extends Component {
@@ -121,7 +119,6 @@ class InnerContent extends Component {
 															</li>
 														</ul>
 													</div>
-													
 													<div className='col-md-6 col-sm-6 col-xs-6'>
 														<ul className='videoRightSettings list-unstyled'>
 															{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
@@ -134,15 +131,13 @@ class InnerContent extends Component {
 									);
 								})}
 								<hr />
-								{this.state.totalItems < data.length && (
-									<div className='col-md-12 col-sm-12 col-xs-12 hidden-xs text-center'>
-
+								<div className='col-md-12 col-sm-12 col-xs-12 hidden-xs text-center'>
+									{this.state.totalItems < data.length && (
 										<button type='button' onClick={this.loadMore} className={"btn btn-sm btn-primary"}>
 											Load More
 										</button>
-
-									</div>
-								)}
+									)}
+								</div>
 							</div>
 							<div className='col-md-5 col-sm-4 col-xs-12'>
 								<div className='drillsArea'>
@@ -157,48 +152,44 @@ class InnerContent extends Component {
 									<div className='drillsMain'>
 										{data.slice(0, this.state.visible).map((drills, index) => {
 											return (
-
 												<div key={index} className='videoMain form-group'>
-													<Link to={`/drills/detail/${drills._id}`}>
-														<div className='videoMainArea'>
-															<img src={drillImage} alt='' />
-															<div className='videoName'>
-																<img src={videoNameIcon} alt='' />
-																<span>{drills.name} </span>
-															</div>
-															<div className='videoSettings'>
-																<div className='col-md-6 col-sm-6 col-xs-6'>
-																	<ul className='videoLeftSettings uploader list-unstyled'>
-																		<li>
-																			<a href='#'>
-																				<img src={userSmallIcon} alt='' /> &nbsp;{" "}
-																				{drills.athlete ? drills.athlete.name : "Name Not Found"}
-																			</a>
-																		</li>
-																	</ul>
-																</div>
-																<div className='col-md-6 col-sm-6 col-xs-6'>
-																	<ul className='videoRightSettings favourite list-unstyled'>
-																		<li>
-																			<a href='#'>
-																				<img src={heartIcon} alt='' /> <span>222</span>
-																			</a>
-																		</li>
-																	</ul>
-																</div>
-															</div>
-															<div className='durationSettings'>
-																<ul className='list-unstyled'>
-																	<li>{drills.videos ? drills.videos.length : 0} Drills</li>
+													<div className='videoMainArea'>
+														<img src={drillImage} alt='' />
+														<div className='videoName'>
+															<img src={videoNameIcon} alt='' />
+															<span>{drills.name} </span>
+														</div>
+														<div className='videoSettings'>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
+																<ul className='videoLeftSettings uploader list-unstyled'>
 																	<li>
-																		<img src={durationIcon} alt='' /> 12:41
-																</li>
+																		<a href='#'>
+																			<img src={userSmallIcon} alt='' /> &nbsp;{" "}
+																			{drills.athlete ? drills.athlete.name : "Name Not Found"}
+																		</a>
+																	</li>
+																</ul>
+															</div>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
+																<ul className='videoRightSettings favourite list-unstyled'>
+																	<li>
+																		<a href='#'>
+																			<img src={heartIcon} alt='' /> <span>222</span>
+																		</a>
+																	</li>
 																</ul>
 															</div>
 														</div>
-													</Link>
+														<div className='durationSettings'>
+															<ul className='list-unstyled'>
+																<li>{drills.videos ? drills.videos.length : 0} Drills</li>
+																<li>
+																	<img src={durationIcon} alt='' /> 12:41
+																</li>
+															</ul>
+														</div>
+													</div>
 												</div>
-
 											);
 										})}
 									</div>
