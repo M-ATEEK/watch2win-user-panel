@@ -7,6 +7,8 @@ import SearchIcon from "../../assets/images/searchIcon.png";
 import MobileUser from "../../assets/images/mobUser.png";
 import BackBtn from "../../assets/images/backArrow.png";
 import Auth from "../Services/Auth";
+import config from "../../config";
+import axios from "axios";
 
 class HomeNavbar extends Component {
 	state = {
@@ -32,6 +34,7 @@ class HomeNavbar extends Component {
 		history.push(`/search/${search}`);
 	};
 	handleToggle = () => {
+
 		const { isVisible } = this.state;
 		this.setState({
 			isVisible: !isVisible,
@@ -51,10 +54,16 @@ class HomeNavbar extends Component {
 	handleClickOutside = (event) => {
 		if (this.container.current && !this.container.current.contains(event.target)) {
 			this.setState({
-				isVisible: false,
+				// isVisible: false,
 			});
 		}
 	};
+
+	logout(e) {
+		e.preventDefault();
+		Auth.clearToken();
+		this.props.history.push("/login");
+	}
 
 
 	render() {
@@ -96,24 +105,21 @@ class HomeNavbar extends Component {
 								<li>
 									<Link to='/activites'>Activity</Link>
 								</li>
-								<li className={"dropdown " + show} ref={this.container}>
-									<Link
-										to='#'
-										className='dropdown-toggle innerDropdown'
-										data-toggle='dropdown'
-										onClick={this.handleToggle}
-										role='button'
-										aria-expanded='false'
-									>
+								<li className='dropdown' ref={this.container}>
+									<Link to='#' className='dropdown-toggle innerDropdown' data-toggle='dropdown' onClick={this.handleToggle} role='button' aria-expanded='false'>
+
 										<img src={UserImage} alt='' />
 										<span className='caret'></span>
 									</Link>
 									<ul className={"dropdown-menu " + show} role='menu'>
 										<li>
-											<Link to='/activites'>Profile</Link>
+											<Link to='/profile'>Profile</Link>
 										</li>
 										<li>
-											<Link to='/logout'>Logout</Link>
+											<Link to='/subscription'>Subscription</Link>
+										</li>
+										<li>
+											<a onClick={(e) => this.logout}>Logout</a>
 										</li>
 									</ul>
 								</li>
@@ -146,7 +152,7 @@ class HomeNavbar extends Component {
 					</div>
 					<div className='col-xs-3 mobMenuItems'>
 						<ul className='list-unstyled list-inline'>
-							<li style={{ display: searchVisible ? "none" : "block" }}>
+							<li style={{ display: searchVisible ? "none" : "" }}>
 								<Link onClick={this.handleSearchToggle} id='mobSearchBtn'>
 									<img src={SearchIcon} alt='' />
 								</Link>
@@ -158,10 +164,13 @@ class HomeNavbar extends Component {
 								</Link>
 								<ul className={"dropdown-menu " + show} role='menu'>
 									<li>
-										<Link to='/activites'>Profile</Link>
+										<Link to='/profile'>Profile</Link>
 									</li>
 									<li>
-										<Link to='/logout'>Logout</Link>
+										<Link to='/subscription'>Subscription</Link>
+									</li>
+									<li>
+										<a onClick={(e) => this.logout}>Logout</a>
 
 									</li>
 								</ul>
