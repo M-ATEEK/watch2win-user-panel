@@ -1,25 +1,56 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ProElite",
+  "name": "ProElite",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "sizes": "48x48",
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "/16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/24x24.png",
+      "type": "image/png",
+      "sizes": "24x24"
+    },
+    {
+      "src": "/32X32.png",
+      "type": "image/png",
+      "sizes": "32X32"
+    },
+    {
+      "src": "/48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/64x64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/180x180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "/512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/login",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#00c9ff",
+  "prefer_related_applications": true
 }
