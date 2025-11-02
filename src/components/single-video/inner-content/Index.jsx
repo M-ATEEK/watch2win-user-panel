@@ -31,6 +31,8 @@ class InnerContent extends Component {
 		favChecked: false,
 		userDetail: [],
 		favouriteDrillVideos: [],
+		videoId: this.props.videoId,
+		drillId: this.props.id
 	};
 
 	componentDidMount() {
@@ -39,9 +41,9 @@ class InnerContent extends Component {
 	}
 
 	getDrillsData = () => {
-		const drillId = this.props.id;
+
 		axios
-			.get(`${config.API_URL}/admin/drills/${drillId}`, {
+			.get(`${config.API_URL}/admin/drills/${this.state.drillId}`, {
 				headers: {
 					Authorization: Auth.getToken(),
 				},
@@ -52,7 +54,7 @@ class InnerContent extends Component {
 						data: [...response.data.data.drills],
 					},
 					function () {
-				
+
 						this.setVideosdata();
 						this.playerVideo();
 					}
@@ -176,17 +178,22 @@ class InnerContent extends Component {
 	}
 
 	onChangeDecreasePlayerVideo(Decrease) {
-		const checkIndex = this.state.index;
-		if (checkIndex < this.state.videoCount - 1 && checkIndex >= 0) {
+		
+		const checkIndex = this.state.index;	
+
+		if (checkIndex <= this.state.videoCount - 1 && checkIndex > 0) {
+		
 			this.setState({
 				index: checkIndex - 1,
-				decreaseArrow: true,
 				increaseArrow: true,
+				decreaseArrow: true,
+				
 			});
 		} else {
 			this.setState({
-				decreaseArrow: false,
 				increaseArrow: true,
+				decreaseArrow: false,
+			
 			});
 		}
 	}
@@ -199,6 +206,15 @@ class InnerContent extends Component {
 				if (this.state.favouriteDrillVideos.length > 0) {
 					this.favouriteToogle();
 				}
+
+				this.state.videosData.filter((video, index) => {
+
+					if (video._id == this.state.videoId) {
+						this.setState({
+							index: index
+						});
+					}
+				});
 			}
 		);
 	}
@@ -218,7 +234,7 @@ class InnerContent extends Component {
 	}
 
 	startVideo(startVideo) {
-		
+
 		this.setState({
 			isplay: false,
 			src: this.state.videosData[this.state.index].playVideo.video,
@@ -286,11 +302,13 @@ class InnerContent extends Component {
 			});
 	};
 	render() {
+
 		const currentVideo = this.state.videosData[this.state.index];
+
 		const data = this.state.data;
 
 		if (currentVideo != null && data.length > 0) {
-	
+
 
 			return (
 				<div className='mainInnerContent'>
@@ -329,8 +347,8 @@ class InnerContent extends Component {
 															<h5>
 																<strong>
 																	{currentVideo != null &&
-																	currentVideo.playVideo != null &&
-																	currentVideo.playVideo.speedLevel != null
+																		currentVideo.playVideo != null &&
+																		currentVideo.playVideo.speedLevel != null
 																		? currentVideo.playVideo.speedLevel.points / currentVideo.playVideo.speedLevel.condition
 																		: 0}
 																</strong>{" "}
@@ -339,16 +357,16 @@ class InnerContent extends Component {
 															<h6>
 																Watch Video{" "}
 																{currentVideo != null &&
-																currentVideo.playVideo != null &&
-																currentVideo.playVideo.speedLevel != null
+																	currentVideo.playVideo != null &&
+																	currentVideo.playVideo.speedLevel != null
 																	? currentVideo.playVideo.speedLevel.condition - 2
 																	: 0}
 																x (times) again to earn{" "}
 																{currentVideo != null &&
-																currentVideo.playVideo != null &&
-																currentVideo.playVideo.speedLevel != null
+																	currentVideo.playVideo != null &&
+																	currentVideo.playVideo.speedLevel != null
 																	? (currentVideo.playVideo.speedLevel.condition - 2) *
-																	  currentVideo.playVideo.speedLevel.points
+																	currentVideo.playVideo.speedLevel.points
 																	: 0}{" "}
 																points
 															</h6>
@@ -421,10 +439,10 @@ class InnerContent extends Component {
 																				<img src={AddToFav} alt='' />
 																			</a>
 																		) : (
-																			<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, false)}>
-																				<img style={{ width: "100%" }} src={FavChecked} alt='' />
-																			</a>
-																		)}
+																				<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, false)}>
+																					<img style={{ width: "100%" }} src={FavChecked} alt='' />
+																				</a>
+																			)}
 																	</li>
 																	<li>
 																		{currentVideo != null && currentVideo.playVideo != null ? (
@@ -432,10 +450,10 @@ class InnerContent extends Component {
 																				<img src={WatchList} alt='' />
 																			</a>
 																		) : (
-																			<a onClick={() => this.watchLater(currentVideo.playVideo._id, false)}>
-																				<img src={WatchList} alt='' />
-																			</a>
-																		)}
+																				<a onClick={() => this.watchLater(currentVideo.playVideo._id, false)}>
+																					<img src={WatchList} alt='' />
+																				</a>
+																			)}
 																	</li>
 																</ul>
 															</div>
@@ -443,18 +461,18 @@ class InnerContent extends Component {
 													</div>
 												</div>
 											) : (
-												<div className='player-wrapper'>
-													<ReactPlayer
-														className='react-player'
-														width='100%'
-														height='100%'
-														controls={true}
-														playing={true}
-														url={`${config.IMG_URL}/image/drills/${this.state.src}`}
-														onEnded={this.earnedPoints.bind(this)}
-													/>
-												</div>
-											)}
+													<div className='player-wrapper'>
+														<ReactPlayer
+															className='react-player'
+															width='100%'
+															height='100%'
+															controls={true}
+															playing={true}
+															url={`${config.IMG_URL}/image/drills/${this.state.src}`}
+															onEnded={this.earnedPoints.bind(this)}
+														/>
+													</div>
+												)}
 
 											<div className='videoDrillTexts hidden-xs'>
 												<h3>DRILL SUMMARY</h3>
@@ -481,10 +499,10 @@ class InnerContent extends Component {
 																		<img src={AddToFav} alt='' />
 																	</a>
 																) : (
-																	<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, false)}>
-																		<img style={{ width: "100%" }} src={FavChecked} alt='' />
-																	</a>
-																)}
+																		<a onClick={() => this.addToFavourite(currentVideo.playVideo._id, false)}>
+																			<img style={{ width: "100%" }} src={FavChecked} alt='' />
+																		</a>
+																	)}
 															</li>
 															<li>
 																<a href='#'>
