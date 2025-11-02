@@ -7,8 +7,6 @@ import SearchIcon from "../../assets/images/searchIcon.png";
 import MobileUser from "../../assets/images/mobUser.png";
 import BackBtn from "../../assets/images/backArrow.png";
 import Auth from "../Services/Auth";
-import config from "../../config";
-import axios from "axios";
 
 class HomeNavbar extends Component {
 	state = {
@@ -98,8 +96,8 @@ class HomeNavbar extends Component {
 									/>
 								</div>
 							</form>
-						</div>						
-						<div className='collapse navbar-collapse' id='defaultNavbar1'>
+						</div>
+						<div className='collapse navbar-collapse' id='defaultNavbar1' ref={this.container} >
 							<ul className='nav navbar-nav navbar-right'>
 								<li>
 									<Link to='/activites'>Activity</Link>
