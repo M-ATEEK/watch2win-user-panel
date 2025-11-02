@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "../home/Index";
 import Drill from "../drills/Index";
+import DrillsCategory from "../drills-category/Index";
 import HomeNavbar from "../home-navbar/Index";
 
 class HomeLayout extends Component {
@@ -13,7 +14,8 @@ class HomeLayout extends Component {
                 <HomeNavbar />
                 <Switch>
                     <Route path="/home" component={Home} />
-                    <Route path="/drills" component={Drill} />
+                    <Route path="/drills" exact component={Drill} />
+                    <Route path='/drills/category/:id' exact component={DrillsCategory} />
                 </Switch>
             </>
         )
