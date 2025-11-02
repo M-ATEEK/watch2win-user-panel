@@ -209,7 +209,7 @@ class InnerContent extends Component {
 
 
 
-													<div className="videoPlay" style={{ display: this.state.earnedPoint ? "none" : "block" }}  onClick={() => this.startVideo('startVideo')}>
+													<div className="videoPlay" style={{ display: this.state.earnedPoint ? "none" : "block" }}>
 														<a href="#"><img src={Play} alt="" /></a>
 													</div>
 													<div className="videoSettings">
@@ -241,7 +241,7 @@ class InnerContent extends Component {
 															<a  ><img src={PlaySmall} alt="" /> &nbsp; Start</a>
 														</div>
 
-														<div className="col-md-4 col-sm-4 startVideo repeatVid" style={{ display: this.state.earnedPoint ? "block" : "none" }}  onClick={() => this.startVideo('startVideo')}>
+														<div className="col-md-4 col-sm-4 startVideo repeatVid" style={{ display: this.state.earnedPoint ? "block" : "none" }}>
 															<a href="#"><img src={RepeatSm} alt="" /> &nbsp; Repeat</a>
 														</div>
 														<div className="col-md-4 col-sm-4 vidFavWishOptions">
