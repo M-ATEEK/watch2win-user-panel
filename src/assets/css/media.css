@@ -121,6 +121,12 @@
 	.followBtn {
 		width: 25%;
 	}
+	.customLeftResponsive{
+		width: 100%;
+	}
+	.customRightResponsive{
+		width: 100%;
+	}
 }
 @media screen and (max-width: 767px) {
 	.mobileFixedBottomMenu {
@@ -650,6 +656,10 @@
 		width: 47%;
 		padding: 0 5px;
 	}
+	.vidFavWishOptions img
+	{
+		width: 100%;
+	}
 }
 @media screen and (max-width: 415px) {
 	.innerBannerContent .slick-slider {
@@ -774,3 +784,13 @@
 		padding: 25vh 0 !important;
 	}
 }
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	.logoClass{
+		margin: 48px;
+		padding-top: 125px;
+		width: 255px;
+	}
+}
+  

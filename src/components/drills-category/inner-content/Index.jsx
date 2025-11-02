@@ -106,7 +106,7 @@ class InnerContent extends Component {
 						<div className='row'>
 							{data.length > 0 ? (
 								<>
-									<div className='col-md-7 col-sm-8 col-xs-12 hidden-xs'>
+									<div className='col-md-7 col-sm-8 col-xs-12 customLeftResponsive hidden-xs'>
 										{data.map((drills, index) => {
 											return (
 												<>
@@ -129,14 +129,14 @@ class InnerContent extends Component {
 															<div className='videoMainArea'>
 																<img src={videoThumbnail} alt='' />
 																<div className='videoPlay'>
-																	<Link to={`/single/video/${data[0]._id}`}>
+																	<Link to='#'>
 																		<img src={playIcon} alt='' />
 																	</Link>
 																</div>
-																<div className='videoName'>
+																{/* <div className='videoName'>
 																	<img src={videoNameIcon} alt='' />
 																	<span>Video name will show here </span>
-																</div>
+																</div> */}
 																<div className='videoSettings'>
 																	<div className='col-md-6 col-sm-6 col-xs-6'>
 																		<ul className='videoLeftSettings list-unstyled'>
@@ -170,14 +170,14 @@ class InnerContent extends Component {
 											);
 										})}
 									</div>
-									<div className='col-md-5 col-sm-4 col-xs-12'>
+									<div className='col-md-5 col-sm-4 col-xs-12 customRightResponsive'>
 										<div className='drillsArea'>
 											<div className='row'>
 												<div className='col-md-6 col-sm-6 col-xs-6'>
 													<h3>Drills</h3>
 												</div>
 												<div className='col-md-6 col-sm-6 col-xs-6 text-right'>
-													<Link to='/drills'>See All </Link>
+													<Link to={`/drill/category/${this.props.id}`}>See All </Link>
 												</div>
 											</div>
 											<div className='drillsMain'>

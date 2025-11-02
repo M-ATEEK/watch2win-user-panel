@@ -7,6 +7,10 @@ import videoNameIcon from "../../../assets/images/videoNameIcon.png";
 import config from "../../../config";
 import axios from "axios";
 import Auth from "../../Services/Auth";
+import durationIcon from "../../../assets/images/durationIcon.png";
+import heartIcon from "../../../assets/images/heart.png";
+import ReactFacebookLogin from "react-facebook-login";
+
 
 class InnerContent extends Component {
 	state = {
@@ -14,6 +18,7 @@ class InnerContent extends Component {
 		page: 1,
 		totalItems: 0,
 		visible: 3,
+
 	};
 
 	loadMore = this.loadMore.bind(this);
@@ -46,7 +51,7 @@ class InnerContent extends Component {
 		} else {
 			return (
 				<li>
-					<span className='new'>New</span>
+					<span className='new' style={{ color: 'white' }}>New</span>
 				</li>
 			);
 		}
@@ -75,8 +80,51 @@ class InnerContent extends Component {
 					Authorization: Auth.getToken(),
 				},
 			})
-			.then((response) => {});
+			.then((response) => { });
 	};
+
+	totalLikes = (videos) => {
+		const length = videos.length;
+		var sum = 0;
+		if (length > 0) {
+			videos.map((video, index) => {
+
+				sum = sum + video.totalLikes;
+
+			})
+
+		}
+		if (sum >= 0) {
+			return (
+				<div>
+					<img src={heartIcon} alt='' /> <span>{sum}</span>
+				</div>
+
+			);
+		}
+	}
+	durations = (videos) => {
+		const length = videos.length;
+		var sum = 0;
+		if (length > 0) {
+			videos.map((video, index) => {
+
+				sum = sum + video.duration;
+
+			})
+
+		}
+		if (sum >= 0) {
+			return (
+
+				<li style={{ color: "white" }}>
+					<img src={durationIcon} alt='' /> {sum}
+				</li>
+
+
+			);
+		}
+	}
 	render() {
 		const data = this.state.data;
 		if (data.length > 0) {
@@ -84,7 +132,7 @@ class InnerContent extends Component {
 				<div className='mainInnerContent'>
 					<div className='container'>
 						<div className='row'>
-							<div className='col-md-7 col-sm-8 col-xs-12'>
+							<div className='col-md-7 col-sm-8 col-xs-12 customLeftResponsive'>
 								{data.map((drills, index) => {
 									return (
 										<div key={index} className='videoMain form-group'>
@@ -93,7 +141,7 @@ class InnerContent extends Component {
 													<div className='row'>
 														<div className='col-md-1 col-sm-2 col-xs-2'>
 															<img
-																style={{ width: "55px" }}
+																style={{ width: "55px", borderRadius: "50%", height: "55px" }}
 																src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon}
 																alt=''
 															/>
@@ -106,14 +154,29 @@ class InnerContent extends Component {
 												<div className='videoMainArea'>
 													<img src={videoThumbnail} alt='' />
 													<div className='videoPlay'>
-														<Link to={`/single/video/${data[0]._id}`}>
+														<Link to='#'>
 															<img src={playIcon} alt='' />
 														</Link>
 													</div>
-													<div className='videoName'>
+													<div className='durationSettings'>
+														<ul className='list-unstyled'>
+															{
+																drills.videos.length > 0
+																	?
+																	(
+																		this.durations(drills.videos)
+																	)
+																	: (
+																		""
+																	)
+															}
+
+														</ul>
+													</div>
+													{/* <div className='videoName'>
 														<img src={videoNameIcon} alt='' />
 														<span>Video name will show here </span>
-													</div>
+													</div> */}
 													<div className='videoSettings'>
 														<div className='col-md-6 col-sm-6 col-xs-6'>
 															<ul className='videoLeftSettings list-unstyled'>
@@ -124,7 +187,6 @@ class InnerContent extends Component {
 																</li>
 															</ul>
 														</div>
-
 														<div className='col-md-6 col-sm-6 col-xs-6'>
 															<ul className='videoRightSettings list-unstyled'>
 																{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
@@ -146,7 +208,7 @@ class InnerContent extends Component {
 									</div>
 								)}
 							</div>
-							<div className='col-md-5 col-sm-4 col-xs-12 hidden-xs'>
+							<div className='col-md-5 col-sm-4 col-xs-12 customRightResponsive hidden-xs'>
 								<div className='drillsArea'>
 									<div className='row'>
 										<div className='col-md-6 col-sm-6 col-xs-6'>
@@ -161,7 +223,7 @@ class InnerContent extends Component {
 											return (
 												<div key={index} className='videoMain form-group'>
 													<div className='videoMainArea'>
-														<img src={drills ? `${config.IMG_URL}/image/drills/${drills.thumbnail}` : userIcon} alt='' />
+														<img src={drills && drills.thumbnail ? `${config.IMG_URL}/image/drills/${drills.thumbnail}` : videoThumbnail} alt='' />
 
 														<div className='videoName'>
 															<img src={videoNameIcon} alt='' />
@@ -189,23 +251,39 @@ class InnerContent extends Component {
 																	</ul>
 																</div>
 															</Link>
-															{/* <div className='col-md-6 col-sm-6 col-xs-6'>
+															<div className='col-md-6 col-sm-6 col-xs-6'>
 																<ul className='videoRightSettings favourite list-unstyled'>
+
+																	{
+
+																	}
 																	<li>
-																		<a href='#' onClick={() => this.addToFavourite(drills._id)}>
-																			<img src={heartIcon} alt='' /> <span>222</span>
-																		</a>
+
+																		{
+																			(drills.videos)
+																				? (
+																					this.totalLikes(drills.videos)
+																				)
+																				:
+
+																				(
+																					""
+																				)
+																		}
+																		{/* <a href='#' onClick={() => this.addToFavourite(drills._id)}> */}
+
+																		{/* </a> */}
 																	</li>
 																</ul>
-															</div> */}
+															</div>
 														</div>
 
 														<div className='durationSettings'>
 															<ul className='list-unstyled'>
 																<li>{drills.videos ? drills.videos.length : 0} Drills</li>
-																{/* <li>
+																<li>
 																	<img src={durationIcon} alt='' /> 12:41
-																</li> */}
+																</li>
 															</ul>
 														</div>
 													</div>
@@ -216,7 +294,7 @@ class InnerContent extends Component {
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> 
 				</div>
 			);
 		} else {
