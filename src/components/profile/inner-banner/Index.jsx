@@ -38,7 +38,14 @@ class InnerBanner extends Component {
 								{
 									(user != null) ? (
 										<div className="innerProfileTop">
-											<img src={userIcon} alt="" />
+											{
+
+												user.image ? (
+													<img src={`${config.IMG_URL}/image/${user.image}`} alt='' className="imageClass2" />
+												) : (
+														<img src={userIcon} alt='' />
+													)
+											}
 											<h5>{user.firstName} {user.lastName} &nbsp; | &nbsp;  {user.userName}</h5>
 											<h6><strong>{user.following ? user.following.length : 0}</strong> Following &nbsp;&nbsp; <strong>{user.points} </strong>Points Earned</h6>
 										</div>
