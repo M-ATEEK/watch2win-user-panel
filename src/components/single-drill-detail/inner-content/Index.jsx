@@ -6,6 +6,7 @@ import videoNameIcon from "../../../assets/images/videoNameIcon.png";
 import config from "../../../config";
 import axios from "axios";
 import Auth from "../../Services/Auth";
+import { Link } from "react-router-dom";
 
 class InnerContent extends Component {
 	state = {
@@ -78,44 +79,47 @@ class InnerContent extends Component {
 							{data.map((drills, index) => {
 								return (
 									<div key={index} className="col-md-6 col-sm-12 col-xs-12">
-										<div className="videoMain form-group">
-											<div className="videoHeader">
-												<div className="row">
-													<div className="col-md-1 col-sm-2 col-xs-2">
-														<img src={userIcon} alt="" />
-													</div>
-													<div className="col-md-11 col-sm-10 col-xs-9">
-														<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
-													</div>
-												</div>
-											</div>
-											<div className="videoMainArea">
-												<img src={videoThumbnail} alt="" />
-												<div className="videoPlay">
-													<a href="#"><img src={playIcon} alt="" /></a>
-												</div>
-												<div className="videoName">
-													<img src={videoNameIcon} alt="" />
-													<span>Video name will show here </span>
-												</div>
-												<div className="videoSettings">
-													<div className="col-md-6 col-sm-6 col-xs-6">
-														<ul className="videoLeftSettings list-unstyled">
-															<li>
-																{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
-															</li>
-														</ul>
-													</div>
-													<div className="col-md-6 col-sm-6 col-xs-6">
-														<ul className="videoRightSettings list-unstyled">
-															{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
-															{this.isPremimum(drills.isPremium)}
-														</ul>
-													</div>
-												</div>
+										<Link to={`/single/video/${drills._id}`}>
+											<div className="videoMain form-group">
+												<div className="videoHeader">
+													<div className="row">
+														<div className="col-md-1 col-sm-2 col-xs-2">
+															<img style={{ width: "55px" }} src={drills.athlete ? `${config.IMG_URL}/image/${drills.athlete.image}` : userIcon} alt='' />
 
+														</div>
+														<div className="col-md-11 col-sm-10 col-xs-9">
+															<h4>{drills.athlete ? drills.athlete.name : "Name Not Found"}</h4>
+														</div>
+													</div>
+												</div>
+												<div className="videoMainArea">
+													<img src={videoThumbnail} alt="" />
+													<div className="videoPlay">
+														<a href="#"><img src={playIcon} alt="" /></a>
+													</div>
+													<div className="videoName">
+														<img src={videoNameIcon} alt="" />
+														<span>Video name will show here </span>
+													</div>
+													<div className="videoSettings">
+														<div className="col-md-6 col-sm-6 col-xs-6">
+															<ul className="videoLeftSettings list-unstyled">
+																<li>
+																	{drills.difficultyLevel ? drills.difficultyLevel.name : "Name Not Found"}
+																</li>
+															</ul>
+														</div>
+														<div className="col-md-6 col-sm-6 col-xs-6">
+															<ul className="videoRightSettings list-unstyled">
+																{this.dateDifferenceInDays(new Date(), new Date(drills.createdAt))}
+																{this.isPremimum(drills.isPremium)}
+															</ul>
+														</div>
+													</div>
+
+												</div>
 											</div>
-										</div>
+										</Link>
 									</div>
 
 								);

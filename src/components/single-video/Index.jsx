@@ -4,12 +4,12 @@ import InnerContent from "./inner-content/Index";
 
 class SingleVideo extends Component {
 	state = {};
-
 	render() {
-		
+
+		const drillId = this.props.match.params.id;
 		return (
 			<>
-				<InnerContent  />
+				<InnerContent  id={drillId} />
 				<MobileNavbar />
 			</>
 		);
