@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import config from "../../config";
 import axios from "axios";
 import Form from "../common/Form";
@@ -22,17 +21,17 @@ class Register extends Form {
 			confirm_password: "",
 			roles: "user",
 			image: null,
+
+
 		},
 	};
 
 	schema = Joi.object({
+		email: Joi.string().email({ tlds: { allow: false } }).required().label("Email"),
+		password: Joi.string().required().min(6).label("Password"),
 		firstName: Joi.string().required().label("First Name"),
 		lastName: Joi.string().required().label("Last Name"),
 		userName: Joi.string().required().label("User Name"),
-		email: Joi.string()
-			.email({ tlds: { allow: false } })
-			.required()
-			.label("Email"),
 		password: Joi.string().required().min(6).label("Password"),
 		confirm_password: Joi.any().valid(Joi.ref("password")).label("Confirm Password"),
 		roles: Joi.string().required(),
@@ -40,6 +39,8 @@ class Register extends Form {
 	});
 
 	doSubmit = () => {
+		
+
 		axios.post(`${config.API_URL}/signup`, this.state.data).then((response) => {
 			if (response.data.success) {
 				if (response.data.data.token !== undefined) {
@@ -52,11 +53,12 @@ class Register extends Form {
 				});
 			}
 		});
+
 	};
 	render() {
-		const { errors } = this.state;
+
 		return (
-			<div className='loginBg signinBg'>
+			<div className='loginBg'>
 				<div className='container'>
 					<div className='loginArea'>
 						<h2>SIGNUP</h2>
@@ -72,7 +74,6 @@ class Register extends Form {
 										value={this.state.data.firstName}
 										onChange={this.handleOnChange}
 									/>
-									{errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -83,7 +84,6 @@ class Register extends Form {
 										value={this.state.data.lastName}
 										onChange={this.handleOnChange}
 									/>
-									{errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -94,7 +94,6 @@ class Register extends Form {
 										value={this.state.data.userName}
 										onChange={this.handleOnChange}
 									/>
-									{errors.userName && <span className='text-danger'>{errors.userName}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -105,7 +104,6 @@ class Register extends Form {
 										value={this.state.data.email}
 										onChange={this.handleOnChange}
 									/>
-									{errors.email && <span className='text-danger'>{errors.email}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -116,7 +114,7 @@ class Register extends Form {
 										onChange={this.handleOnChange}
 										value={this.state.data.password}
 									/>
-									{errors.password && <span className='text-danger'>{errors.password}</span>}
+									{this.state.errors.password && <span className='text-danger'>{this.state.errors.password}</span>}
 								</div>
 								<div className='form-group'>
 									<input
@@ -127,7 +125,6 @@ class Register extends Form {
 										onChange={this.handleOnChange}
 										value={this.state.data.confirm_password}
 									/>
-									{errors.confirm_password && <span className='text-danger'>{errors.confirm_password}</span>}
 								</div>
 								<div className='form-group'>
 									<button type='submit' className='btn btnLogin'>
@@ -140,19 +137,19 @@ class Register extends Form {
 									</p>
 								</div>
 								<div className='form-group'>
-									<Link to='#' className='fbBtn'>
+									<a href='#' className='fbBtn'>
 										<img src='images/fbBtn.png' alt='' /> Register with Facebook <div className='clearfix'></div>
-									</Link>
+									</a>
 								</div>
 								<div className='form-group'>
-									<Link to='#' className='gBtn'>
+									<a href='#' className='gBtn'>
 										<img src='images/gBtn.png' alt='' />
 										Register with Google <div className='clearfix'></div>
-									</Link>
+									</a>
 								</div>
 								<div>
 									<p>
-										Already have an account ? <Link to='/login'>Sign in</Link>
+										Already have an account ? <a href='/login'>Sign in</a>
 									</p>
 								</div>
 							</form>
