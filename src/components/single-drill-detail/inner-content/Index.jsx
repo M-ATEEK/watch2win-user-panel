@@ -7,6 +7,7 @@ import config from "../../../config";
 import axios from "axios";
 import Auth from "../../Services/Auth";
 import { Link } from "react-router-dom";
+import durationIcon from "../../../assets/images/durationIcon.png";
 
 class InnerContent extends Component {
 	state = {
@@ -64,8 +65,8 @@ class InnerContent extends Component {
 		}
 	}
 	render() {
-		const { data } = this.state.data;
-		
+		const { data } = this.state;
+
 
 		if (data != null && data.length > 0) {
 			const videos = data[0] != null ? data[0].videos : null;
@@ -105,6 +106,13 @@ class InnerContent extends Component {
 															<img src={videoNameIcon} alt='' />
 															<span>Video name will show here </span>
 														</div> */}
+														<div className='durationSettings'>
+															<ul className='list-unstyled'>
+																<li style={{ color: "white" }}>
+																	<img src={durationIcon} alt='' /> {video.duration}
+																</li>
+															</ul>
+														</div>
 														<div className='videoSettings'>
 															<div className='col-md-6 col-sm-6 col-xs-6'>
 																<ul className='videoLeftSettings list-unstyled'>
@@ -118,7 +126,7 @@ class InnerContent extends Component {
 															<div className='col-md-6 col-sm-6 col-xs-6'>
 																<ul className='videoRightSettings list-unstyled'>
 																	{this.dateDifferenceInDays(new Date(), new Date(data[0].createdAt))}
-																	{this.isPremimum(data[0].isPremium)}
+																	{this.isPremimum(video.isPremium)}
 																</ul>
 															</div>
 														</div>
