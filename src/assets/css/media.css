@@ -121,12 +121,6 @@
 	.followBtn {
 		width: 25%;
 	}
-	.customLeftResponsive{
-		width: 100%;
-	}
-	.customRightResponsive{
-		width: 100%;
-	}
 }
 @media screen and (max-width: 767px) {
 	.mobileFixedBottomMenu {
