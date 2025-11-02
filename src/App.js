@@ -19,6 +19,13 @@ function App() {
 			<Route path='/drills/category/:id' exact component={HomeLayout} />
 			<Route path='/drills/detail/:id' exact component={HomeLayout} />
 			<Route path='/search/:name' exact component={HomeLayout} />
+			<Route path='/activites' exact component={HomeLayout} />
+
+
+			<Route path='/single/video/:id' exact component={HomeLayout} />
+			<Route path='/single/activity' exact component={HomeLayout} />
+			<Route path='/payment' exact component={HomeLayout} />
+			<Route path='/subscription' exact component={HomeLayout} />
 		</>
 	);
 }
