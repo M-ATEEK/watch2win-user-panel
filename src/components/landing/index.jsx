@@ -344,7 +344,7 @@ class LandingPage extends Component {
                             </div>
                             <div className="col-md-3  footerContent">
                                 <h3>Quick Contacts</h3>
-                                <p>ProElite ,Shekiupura <br /> Road Faisalabad.</p>
+                                <p>watch2win ,Shekiupura <br /> Road Faisalabad.</p>
                                 <p><img src={call} alt="" /> 8080000000</p>
                                 <p><img src={email} alt="" /> 8080000000</p>
                                 <ul className="list-unstyled list-inline">
@@ -387,7 +387,7 @@ class LandingPage extends Component {
                 <div className="copyright">
                     <div className="container">
                         <div className="text-center">
-                            <p>©2020 ProElite. All Rights Reserved</p>
+                            <p>©2020 watch2win. All Rights Reserved</p>
                         </div>
                     </div>
                 </div>
