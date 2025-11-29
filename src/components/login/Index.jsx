@@ -63,7 +63,7 @@ class Login extends Component {
 	responseGoogle = (response) => {
 		axios({
 			method: "post",
-			url: "http://localhost:8000/api/v1/googlelogin",
+			url: "https://watchwin.surfway.online/api/v1/googlelogin",
 			data: { tokenId: response.tokenId, source: "google" },
 		}).then((response) => {
 			console.log("google ligin success", response);
@@ -77,7 +77,7 @@ class Login extends Component {
 		console.log(response);
 		axios({
 			method: "post",
-			url: "http://localhost:8000/api/v1/facebooklogin",
+			url: "https://watchwin.surfway.online/api/v1/facebooklogin",
 			data: { accessToken: response.accessToken, userID: response.userID, source: "facebook" },
 		}).then((response) => {
 			console.log("facebook ligin success", response);
