@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import fbLogo from "../../assets/images/fbBtn.png";
-import googleLogo from "../../assets/images/gBtn.png";
 import config from "../../config";
 import axios from "axios";
 import { Redirect, Link } from "react-router-dom";
 import Joi from "joi";
 import Auth from "../Services/Auth";
-import { GoogleLogin } from "react-google-login";
-import FacebookLogin from "react-facebook-login";
 
 class Login extends Component {
 	state = {
@@ -60,33 +56,6 @@ class Login extends Component {
 		});
 	};
 
-	responseGoogle = (response) => {
-		axios({
-			method: "post",
-			url: "https://watchwin.surfway.online/api/v1/googlelogin",
-			data: { tokenId: response.tokenId, source: "google" },
-		}).then((response) => {
-			console.log("google ligin success", response);
-			if (response.data.data.token !== undefined) {
-				Auth.setToken(response.data.data.token);
-				this.props.history.push("/admin/dashboard");
-			}
-		});
-	};
-	responseFacebook = (response) => {
-		console.log(response);
-		axios({
-			method: "post",
-			url: "https://watchwin.surfway.online/api/v1/facebooklogin",
-			data: { accessToken: response.accessToken, userID: response.userID, source: "facebook" },
-		}).then((response) => {
-			console.log("facebook ligin success", response);
-			if (response.data.data.token !== undefined) {
-				Auth.setToken(response.data.data.token);
-				this.props.history.push("/admin/dashboard");
-			}
-		});
-	};
 	render() {
 		if (localStorage.getItem("token")) {
 			return <Redirect to='/home' />;
@@ -130,37 +99,6 @@ class Login extends Component {
 									<button type='submit' className='btn btnLogin'>
 										Login
 									</button>
-								</div>
-								<div className='form-group orTxtMain'>
-									<p className='orTxt'>
-										<span>Or</span>
-									</p>
-								</div>
-								<div className='form-group'>
-									{/* <a href='#' className='fbBtn'>
-										<img src={fbLogo} alt='' /> Signin with Facebook <div className='clearfix'></div>
-									</a> */}
-									<FacebookLogin
-										cssClass='fbBtn'
-										appId={config.FACEBOOK_APP_ID}
-										autoLoad={false}
-										callback={this.responseFacebook}
-										textButton=' Signin with Facebook'
-										icon='fa-facebook'
-									/>
-
-									<GoogleLogin
-										render={(renderProps) => (
-											<button className='gBtn' onClick={renderProps.onClick} disabled={renderProps.disabled}>
-												<img src={googleLogo} alt='' /> Signin with Google
-											</button>
-										)}
-										clientId={config.GOOGLE_CLIENT_ID}
-										buttonText='Signin with Google'
-										onSuccess={this.responseGoogle}
-										onFailure={this.responseGoogle}
-										cookiePolicy={"single_host_origin"}
-									/>
 								</div>
 								<div>
 									<p>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
 
 class Navbar extends Component {
 	state = {};
@@ -15,27 +14,22 @@ class Navbar extends Component {
 							<span className='icon-bar'></span>
 							<span className='icon-bar'></span>
 						</button>
-						<Link className='navbar-brand' to="/home">
-							<img src={logo} alt='logo' />
+						<Link className='navbar-brand' to="/landing">
+							Watch2Win
 						</Link>
 					</div>
 					<div className='collapse navbar-collapse' id='defaultNavbar1'>
 						<ul className='nav navbar-nav navbar-right'>
 							<li>
-								<Link to='#'>HOMEPAGE</Link>
+								<Link to='/landing'>HOMEPAGE</Link>
 							</li>
 							<li>
 								<Link to='#'>PRICING</Link>
 							</li>
-							<li className='dropdown signinHeader'>
-								<Link to='#' className='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>
-									<span className='signinHeaderTxt'>Hi! Sign In</span>MY FITNESS<span className='caret'></span>
+							<li className='signinHeader'>
+								<Link to='/login'>
+									<span className='signinHeaderTxt'>Hi! Sign In</span>MY FITNESS
 								</Link>
-								<ul className='dropdown-menu' role='menu'>
-									<li>
-										<Link to='#'>Action</Link>
-									</li>
-								</ul>
 							</li>
 						</ul>
 					</div>

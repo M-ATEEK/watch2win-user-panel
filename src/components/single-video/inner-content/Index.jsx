@@ -489,32 +489,32 @@ class InnerContent extends Component {
 															<div className='videoInfoOverlay hidden-xs videoOpacityUpperLayer'
 																style={{ display: this.state.earnedPoint ? "block" : "none" }}
 															>
-																<h5>
-																	<strong>
-																		{currentVideo != null &&
-																			currentVideo != null &&
-																			currentVideo.speedLevel != null
-																			? currentVideo.speedLevel.points / currentVideo.speedLevel.condition
-																			: 0}
-																	</strong>{" "}
-																Points Earned
-															</h5>
-																<h6>
-																	Watch Video{" "}
+															<h5>
+																<strong>
 																	{currentVideo != null &&
 																		currentVideo != null &&
 																		currentVideo.speedLevel != null
-																		? currentVideo.speedLevel.condition - (this.watchVideosCount(currentVideo._id))
+																		? parseFloat((currentVideo.speedLevel.points / currentVideo.speedLevel.condition).toFixed(2))
 																		: 0}
-																x (times) again to earn{" "}
-																	{currentVideo != null &&
-																		currentVideo != null &&
-																		currentVideo.speedLevel != null
-																		? (currentVideo.speedLevel.condition - (this.watchVideosCount(currentVideo._id))) *
-																		currentVideo.speedLevel.points
-																		: 0}{" "}
-																points
-															</h6>
+																</strong>{" "}
+															Points Earned
+														</h5>
+															<h6>
+																Watch Video{" "}
+																{currentVideo != null &&
+																	currentVideo != null &&
+																	currentVideo.speedLevel != null
+																	? currentVideo.speedLevel.condition - (this.watchVideosCount(currentVideo._id))
+																	: 0}
+															x (times) again to earn{" "}
+																{currentVideo != null &&
+																	currentVideo != null &&
+																	currentVideo.speedLevel != null
+																	? parseFloat(((currentVideo.speedLevel.condition - (this.watchVideosCount(currentVideo._id))) *
+																	currentVideo.speedLevel.points).toFixed(2))
+																	: 0}{" "}
+															points
+														</h6>
 															</div>
 															<div className='videoPlay videoOpacityUpperLayer'
 																style={{ display: this.state.earnedPoint ? "none" : "block" }}

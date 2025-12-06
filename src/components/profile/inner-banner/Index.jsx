@@ -47,7 +47,7 @@ class InnerBanner extends Component {
 													)
 											}
 											<h5>{user.firstName} {user.lastName} &nbsp; | &nbsp;  {user.userName}</h5>
-											<h6><strong>{user.following ? user.following.length : 0}</strong> Following &nbsp;&nbsp; <strong>{user.points} </strong>Points Earned</h6>
+											<h6><strong>{user.following ? user.following.length : 0}</strong> Following &nbsp;&nbsp; <strong>{user.points ? parseFloat(user.points).toFixed(2) : '0.00'} </strong>Points Earned</h6>
 										</div>
 									) : (
 											<div className="innerProfileTop">

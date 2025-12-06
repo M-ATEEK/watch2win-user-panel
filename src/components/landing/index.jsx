@@ -60,16 +60,14 @@ class LandingPage extends Component {
                         {/* Brand and toggle get grouped for better mobile display */}
                         <div className="navbar-header">
                             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span className="sr-only">Toggle navigation</span><span className="icon-bar" /><span className="icon-bar" /><span className="icon-bar" /></button>
-                            <a className="navbar-brand" href="index.html"><img src={logo} alt="" /></a></div>
+                            <a className="navbar-brand" >Watch2Win</a></div>
                         {/* Collect the nav links, forms, and other content for toggling */}
                         <div className="collapse navbar-collapse" id="defaultNavbar1">
                             <ul className="nav navbar-nav navbar-right">
-                                <li><a href="https://proeuser.herokuapp.com/home">HOMEPAGE</a></li>
+                                <li><a href="/home">HOMEPAGE</a></li>
                                 {/* <li><a href="#">PRICING</a></li> */}
-                                <li className="dropdown signinHeader"><a href="https://proeuser.herokuapp.com/login" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span className="signinHeaderTxt">Hi! Sign In</span>MY FITNESS<span className="caret" /></a>
-                                    <ul className="dropdown-menu" role="menu">
-                                        <li><a href="#">Action</a></li>
-                                    </ul>
+                                <li className="signinHeader">
+                                <Link to="/login"><span className="signinHeaderTxt">Hi! Sign In</span>MY FITNESS</Link>
                                 </li>
                             </ul>
                         </div>
@@ -221,21 +219,7 @@ class LandingPage extends Component {
                                         <li><a href="#"><img src={social3} alt="" /></a></li>
                                     </ul>
                                 </div>
-                                <div className="swiper-container">
-                                    <div className="swiper-wrapper">
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                        <img className="swiper-slide" src={slider1} /> 
-                                    </div>
-                                    {/* Add Pagination */}
-                                    <div className="swiper-button-next" />
-                                    <div className="swiper-button-prev" />
-                                </div>
+                                
                             </div>
                         </div>
                         <div className="trainerBottomArea">

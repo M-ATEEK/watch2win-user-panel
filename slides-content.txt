@@ -1,0 +1,165 @@
+Slide 1: Title Slide
+Project Title: EnviroSense - Distributed Air Quality Monitoring System
+
+Team Name: EcoTech Solutions
+
+Client: South-Karelian Environmental Institute Ry (SEIry)
+
+Date: [Submission Date]
+
+Team Members: [Your Names]
+
+Contact Information
+
+Slide 2: The Challenge (Need)
+Current Pain Points:
+
+Manual data collection processes are labor-intensive
+
+No real-time air quality monitoring capability
+
+Limited integration with global environmental networks
+
+Inefficient data sharing with stakeholders
+
+Quote from assignment: "This process has been found to be too labour-intensive and for air quality sensing, they need full automation"
+
+Slide 3: Our Solution (Approach)
+Vision: End-to-end automated air quality monitoring ecosystem
+
+Key Components:
+
+IoT Sensor Network with multiple connectivity options
+
+Cloud-native microservices architecture
+
+Real-time dashboard and analytics
+
+Secure API ecosystem
+
+Integration: Seamless connectivity with Sensor.Community
+
+Slide 4: System Architecture Overview
+Visual: Simplified deployment diagram
+
+Three-Tier Architecture:
+
+Edge Layer: Smart sensors with local storage
+
+Platform Layer: Scalable cloud microservices
+
+Presentation Layer: Multi-channel user interfaces
+
+Key Technologies: AWS Cloud, Microservices, React, PostgreSQL, MQTT
+
+Slide 5: Key Features & Benefits
+Feature	Benefit to SEIry
+Automated Data Collection	Reduces manual effort by 80%
+Real-time Dashboard	Immediate insights for decision makers
+Multi-role Access	Tailored interfaces for each user group
+Sensor.Community Integration	Global data sharing and collaboration
+GDPR-compliant Security	Protects sensitive location data
+Slide 6: Technical Innovation
+Microservices Architecture:
+
+Independent scaling of components
+
+Faster feature development
+
+Better fault isolation
+
+Smart Sensor Design:
+
+Battery-powered with solar options
+
+Multiple connectivity (LoRaWAN, WiFi, Bluetooth)
+
+Local storage for network resilience
+
+Data Provenance: Complete audit trail for all measurements
+
+Slide 7: Project Timeline & Milestones
+Visual: Gantt chart or timeline graphic
+
+Alpha Stage (14 weeks):
+
+Weeks 1-4: Core infrastructure & user management
+
+Weeks 5-8: Data pipeline & basic dashboard
+
+Weeks 9-12: Alerting & external integrations
+
+Weeks 13-14: Pilot testing & deployment
+
+Key Milestones: Working prototype, Pilot deployment, User acceptance testing
+
+Slide 8: Risk Management
+Top Risks & Mitigations:
+
+Cloud Outage: Multi-region deployment strategy
+
+Sensor Reliability: Redundant monitoring & maintenance protocols
+
+Data Security: End-to-end encryption & access controls
+
+Budget Control: Agile development with regular client reviews
+
+Slide 9: Pilot Testing Plan
+Scope: 20 sensor nodes, 50 test users
+
+Duration: 4-week alpha testing
+
+Success Metrics:
+
+System uptime > 99%
+
+Data accuracy within 5% of reference measurements
+
+User satisfaction score > 4/5
+
+Successful Sensor.Community data exchange
+
+Slide 10: Value Proposition
+For SEIry:
+
+70% reduction in manual data processing
+
+Real-time environmental monitoring capability
+
+Enhanced credibility with data-driven insights
+
+Foundation for future environmental projects
+
+For the Community:
+
+Transparent air quality information
+
+Early warning system for pollution events
+
+Citizen science engagement opportunities
+
+Slide 11: Investment & Next Steps
+Alpha Stage Investment: [Your estimated effort/hours]
+
+Required from SEIry:
+
+Access to stakeholder groups
+
+Testing locations and volunteers
+
+Domain expertise and feedback
+
+Next Steps:
+
+Client approval to proceed
+
+Detailed requirements workshop
+
+Development sprint planning
+
+Slide 12: Q&A & Thank You
+Contact Information
+
+Team Availability for follow-up questions
+
+Thank You message

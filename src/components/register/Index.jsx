@@ -134,22 +134,6 @@ class Register extends Form {
 										REGISTER
 									</button>
 								</div>
-								<div className='form-group orTxtMain'>
-									<p className='orTxt'>
-										<span>Or</span>
-									</p>
-								</div>
-								<div className='form-group'>
-									<Link to='#' className='fbBtn'>
-										<img src='images/fbBtn.png' alt='' /> Register with Facebook <div className='clearfix'></div>
-									</Link>
-								</div>
-								<div className='form-group'>
-									<Link to='#' className='gBtn'>
-										<img src='images/gBtn.png' alt='' />
-										Register with Google <div className='clearfix'></div>
-									</Link>
-								</div>
 								<div>
 									<p>
 										Already have an account ? <Link to='/login'>Sign in</Link>

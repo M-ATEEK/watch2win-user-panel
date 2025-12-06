@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Route, withRouter, Link, Redirect } from "react-router-dom";
-import Logo from "../../assets/images/logo.png";
 import UserImage from "../../assets/images/user.png";
-import MobileLogo from "../../assets/images/mobLogo.png";
 import SearchIcon from "../../assets/images/searchIcon.png";
 import MobileUser from "../../assets/images/mobUser.png";
 import BackBtn from "../../assets/images/backArrow.png";
@@ -81,10 +79,8 @@ class HomeNavbar extends Component {
 								<span className='icon-bar'></span>
 								<span className='icon-bar'></span>
 							</button>
-							<Link to='/home'>
-								<p className='navbar-brand'>
-									<img src={Logo} alt='' />
-								</p>
+							<Link to='/home' className='navbar-brand'>
+								Watch2Win
 							</Link>
 						</div>
 						<div className='col-md-8 col-sm-7 headerSearch'>
@@ -118,9 +114,9 @@ class HomeNavbar extends Component {
 										<li>
 											<Link to='/subscription'>Subscription</Link>
 										</li>
-										<li>
-											<a onClick={(e) => this.logout}>Logout</a>
-										</li>
+									<li>
+										<a onClick={(e) => this.logout(e)}>Logout</a>
+									</li>
 									</ul>
 								</li>
 							</ul>
@@ -132,8 +128,8 @@ class HomeNavbar extends Component {
 						<p className='backLink' onClick={this.props.history.goBack}>
 							<img src={BackBtn} alt='' /> Back
 						</p>
-						<Link to='/home' style={{ display: searchVisible ? "none" : "block" }}>
-							<img src={MobileLogo} alt='' />
+						<Link to='/home' style={{ display: searchVisible ? "none" : "block", color: '#fff', fontWeight: 'bold' }}>
+							Watch2Win
 						</Link>
 					</div>
 					<div className={"mobSearch col-xs-6"} style={{ display: searchVisible ? "block" : "none" }}>
@@ -170,7 +166,7 @@ class HomeNavbar extends Component {
 										<Link to='/subscription'>Subscription</Link>
 									</li>
 									<li>
-										<a onClick={(e) => this.logout}>Logout</a>
+										<a onClick={(e) => this.logout(e)}>Logout</a>
 
 									</li>
 								</ul>

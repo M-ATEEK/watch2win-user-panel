@@ -69,7 +69,7 @@ class InnerContent extends Component {
 	sliders = () => {
 		return this.state.data.map((data, i) => {
 			return (
-				<div key={i} className='col-md-12'>
+				<div key={i} className='col-md-12 packageDescWrapper'>
 					<div className='packageDesc'>
 						<img src={Dumbel} alt='' />
 						<h3>{data.name}</h3>

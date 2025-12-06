@@ -19,6 +19,8 @@ body {
 .navbar-brand {
 	height: auto;
 	padding: 0;
+	color: #fff !important;
+	font-weight: bold;
 }
 .navbar-default .navbar-nav > li > a {
 	color: #fff;
@@ -924,7 +926,12 @@ body {
 	color: #fff;
 	text-align: center;
 }
+.packageDescWrapper {
+	padding-bottom: 80px;
+	min-height: 500px !important;
+}
 .packageDesc {
+	min-height: 450px !important;
 	padding: 50px 40px;
 	border: #cccccc solid 2px;
 	border-radius: 10px;
